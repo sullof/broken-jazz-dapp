@@ -17,6 +17,30 @@
 /*    padding: 60px 15px 0;*/
 /*}*/
 
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #0B1122;
+    font-family: 'Lato';
+    background: url(../images/background.png) repeat-y;
+}
+
+.imageLogo {
+    display: block;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    position: absolute;
+    height: 56px;
+}
+
+.command, a {
+    color: #17AFD0;
+    pointer: cursor;
+}
+
 .footer {
     border-top: 1px dotted #ddd;
     text-align: center;
@@ -46,4 +70,9 @@
 
 .strength div div {
     height: 4px !important;
+}
+
+.bg-light {
+    background-color: #EAF8FB !important;
+    border-bottom: 1px dotted aquamarine;
 }

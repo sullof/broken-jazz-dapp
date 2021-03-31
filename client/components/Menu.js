@@ -12,12 +12,16 @@ export default class Menu extends Base {
     super(props)
 
     this.state = {
-      count: 0
+      count: 0,
+      expanded: false
     }
 
-    this.updateState = this.updateState.bind(this)
-    this.toggleAdminMode = this.toggleAdminMode.bind(this)
-    this.makeNotVisible = this.makeNotVisible.bind(this)
+    this.bindAll([
+      'updateState',
+      'toggleAdminMode',
+      'makeNotVisible',
+      'expandAddress'
+    ])
   }
 
   updateState() {
@@ -48,39 +52,59 @@ export default class Menu extends Base {
     })
   }
 
+  expandAddress() {
+    this.setState({
+      expanded: !this.state.expanded
+    })
+  }
+
+
   render() {
+
+    let address = 'No wallet is connected'
+    if (this.Store.signedInAddress) {
+      let fullAddress = this.Store.signedInAddress
+      let shortAddress = fullAddress.substring(0, 8)
+      if (this.state.expanded) {
+        address = <span>{this.Store.signedInAddress} <i onClick={this.expandAddress}
+                                                        className="command fa fa-minus-circle"
+        /></span>
+      } else {
+        address = <span>{shortAddress} <i onClick={this.expandAddress}
+                                          className="command fa fa-plus-circle"
+        /></span>
+      }
+    }
+
+    let connectedTo = <span style={{color: '#ff2050', marginLeft: 120}}>{
+      this.Store.signedInAddress
+        ? 'Connected to unsupported network'
+        : 'Not connected'
+    }</span>
+    let {connectedNetwork} = this.Store
+
+    if (connectedNetwork) {
+      connectedTo =
+        <span style={{marginLeft: 120, marginRight: 10}}><i className="fa fa-plug" style={{color: '#40cc90'}}></i> Connected to {connectedNetwork}</span>
+    } else {
+      // connectedTo = '
+    }
+
+
+    // if (this.Store.
+    // <span><i class="fa fa-plug" style="color: rgb(136, 255, 102);"></i> You are connected to the Ropsten Testnet</span>
+
     return <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="#home">SignAuth Boilerplate</Navbar.Brand>
+      <Navbar.Brand></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav"/>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Navbar.Text>
-          <Link to="/">Home</Link>
-
+            {connectedTo}
           </Navbar.Text>
         </Nav>
-        {
-          this.Store.accessToken
-            ? <Navbar.Text>
-              Signed in as: <Link to="/info">{this.Store.email}</Link>
-            </Navbar.Text>
-            : null
-        }
-        {
-          this.Store.accessToken
-            ? <Link to="/signout">Signout</Link>
-            : <span><Link to="/signin">Signin</Link> <Link to="/signup">Signup</Link></span>
-        }
-        <span> &nbsp; | &nbsp; </span>
-        <a className="item" target="_blank" href="https://github.com/signauth">
-          <i className="fab fa-github"></i>
-        </a>
-        <a className="item" target="_blank" href="https://twitter.com/signauth">
-          <i className="fab fa-twitter"></i>
-        </a>
-        <a className="item" href="mailto:signauth@sullo.co">
-          <i className="fas fa-envelope-square"></i>
-        </a>
+
+        <span><i className="fas fa-user-astronaut" style={{marginRight: 10}}></i> {address}</span>
       </Navbar.Collapse>
     </Navbar>
   }

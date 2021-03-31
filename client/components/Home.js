@@ -5,9 +5,10 @@ import Base from './Base'
 export default class Home extends Base {
 
   render() {
+
     return (
       <div>
-        <h2 className="centered">SignAuth Boilerplate</h2>
+        <h2 className="centered">Welcome {this.Store.signedInAddress}</h2>
         <p>&nbsp;</p>
         <p>
           <b>SignAuth React/Express Boilerplate</b><br/>

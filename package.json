@@ -1,16 +1,18 @@
 {
-  "name": "signauth-react-express-boilerplate",
+  "name": "broken-jazz-app",
   "version": "0.1.0",
   "private": true,
-  "description": "A boilerplate for SignAuth using React & Express",
+  "description": "A dApp for the Broken Jazz NFT Project",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/signauth/signauth-react-express-boilerplate.git"
+    "url": "git+https://github.com/sullf/broken-jazz-dapp.git"
   },
   "author": "Francesco Sullo <francesco@sullo.co>",
   "license": "MIT",
   "dependencies": {
+    "@ethersproject/contracts": "^5.1.0",
+    "@ethersproject/providers": "^5.1.0",
     "body-parser": "^1.19.0",
     "chalk": "^2.4.2",
     "cookie-parser": "^1.4.5",
@@ -19,12 +21,14 @@
     "fs-extra": "^8.1.0",
     "knex": "^0.21.12",
     "local-storage": "^1.4.2",
+    "lodash": "^4.17.21",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-password-strength-bar": "^0.3.2",
     "signauth": "^0.0.5",
     "sqlite3": "^5.0.0",
-    "superagent": "^4.1.0"
+    "superagent": "^4.1.0",
+    "web3modal": "^1.9.3"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
