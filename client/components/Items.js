@@ -173,7 +173,7 @@ class Items extends Base {
           intro = <p className={'paglia'}>Clalmed NFTs are new tokens ready to be minted.</p>
           break
         case 'unclaimed':
-          intro = <p className={'paglia'}>Unclaimed NFTs are tokens looking for an owner. If you own a Broken Jazz CD, use the 6-chars serial to claim yours. If you do not know own any CD, you can try to buy some on <a href="https://amazon.com/dp/B08YCV1QL7" target="_blank">Amazon</a>.</p>
+          intro = <p className={'paglia'}>Unclaimed NFTs are tokens looking for an owner. If you own a Broken Jazz CD, use the 6-chars serial to claim yours. If not, you can buy a CD on <a href="https://amazon.com/dp/B08YCV1QL7" target="_blank">Amazon</a>.</p>
           break
         default:
           intro = null
@@ -187,7 +187,9 @@ class Items extends Base {
 
       return <Container style={{marginTop: 100}}>
         <div className={'noTokens m0Auto'}>
-          Please connect to Goerli Testnet
+          You look connected to an unsupported network.<br/>
+          Please connect Metamask to Goerli Testnet.<br/>
+          If you don't have any Goerli ETH, get some <a href="https://goerli-faucet.slock.it/" target={'_blanket'}>here</a> for free.
         </div>
       </Container>
 
