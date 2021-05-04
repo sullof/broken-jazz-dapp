@@ -121,7 +121,7 @@ export default class Menu extends Base {
               <i className="fas fa-user-astronaut" style={{marginRight: 10}}></i>
               {address}
             </Navbar.Text>
-            : <Button onClick={this.props.connect} variant="primary">Connect your wallet</Button>
+            : <Button onClick={this.props.connect} variant="primary">Connect your Metamask</Button>
         }
 
       </Navbar.Collapse>
