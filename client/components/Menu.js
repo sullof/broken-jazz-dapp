@@ -100,7 +100,8 @@ export default class Menu extends Base {
       {
         this.Store.signedInAddress
           ? <Navbar.Collapse id="responsive-navbar-nav">
-            &nbsp; &nbsp;
+            <Link to="/"><i className="fas fa-home"></i> Home</Link>
+
             <Link to="/items/claimed"><i className="fas fa-chart-pie"></i> {getTitle('claimed')}</Link>
 
             <Link to="/items/minted"><i className="fas fa-bowling-ball"></i> {getTitle('minted')}</Link>
