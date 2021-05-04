@@ -124,13 +124,13 @@ class App extends Common {
 
     } else {
 
-      if (!dontShowError) {
-        this.showModal(
-          'No wallet extention found',
-          'Please, activate your wallet and reload the page',
-          'Ok'
-        )
-      }
+      // if (!dontShowError) {
+      //   this.showModal(
+      //     'No wallet extention found',
+      //     'Please, activate your wallet and reload the page',
+      //     'Ok'
+      //   )
+      // }
     }
 
   }
@@ -213,6 +213,7 @@ class App extends Common {
       <Menu
         Store={Store}
         setStore={this.setStore}
+        connect={this.connect}
       />
       <main>
         <Route exact path="/" component={home}/>

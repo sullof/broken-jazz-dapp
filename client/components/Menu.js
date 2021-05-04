@@ -2,7 +2,7 @@
 const {Link} = ReactRouterDOM
 
 // eslint-disable-next-line no-undef
-const {Navbar} = ReactBootstrap
+const {Navbar, Button} = ReactBootstrap
 
 import Base from './Base'
 
@@ -66,9 +66,8 @@ export default class Menu extends Base {
     let connectedTo = <span style={{color: '#ff2050'}}>{
       this.Store.signedInAddress
         ? 'Connected to an unsupported network'
-        : 'Not connected'
+        : null
     }
-      <i style={{marginLeft: 5}} className="command fas fa-question-circle"></i>
     </span>
     let {connectedNetwork} = this.Store
 
@@ -120,7 +119,7 @@ export default class Menu extends Base {
               <i className="fas fa-user-astronaut" style={{marginRight: 10}}></i>
               {address}
             </Navbar.Text>
-            : null
+            : <Button onClick={this.props.connect} variant="primary">Connect your wallet</Button>
         }
 
       </Navbar.Collapse>
