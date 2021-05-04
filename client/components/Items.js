@@ -146,12 +146,11 @@ class Items extends Base {
         </div>
           : <div className={'noTokens m0Auto'}>{
             filter === 'unclaimed' ? 'All the tokens have been claimed :-)'
-              : filter === 'claimed' ? 'All the tokens have been minted :-)'
+              : filter === 'claimed' ? 'All the claimed tokens have been minted :-)'
               : filter === 'minted' ? 'No token has been minted, yet :-/'
                 : filter === 'yours' ? 'You do not own any token, yet :-('
                   : 'Uhm, what are you looking for?'
           }
-            {this.intros()}
           </div>
       }
 
