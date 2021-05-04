@@ -7,19 +7,15 @@ class Base extends Common {
 
   constructor(props) {
     super(props)
-    this.bindAll([
+    this.bindMany([
       'store',
       'request'
     ])
     this.Store = this.props.Store
   }
 
-  request(api, method, data = {}, query = {}) {
-    let accessToken
-    if (this.Store && this.Store.accessToken) {
-      accessToken = this.Store.accessToken
-    }
-    return clientApi.request(api, method, accessToken, data, query)
+  request(api, method, params = {}, query = {}) {
+    return clientApi.request(api, method, params, query)
   }
 
   store(...params) {

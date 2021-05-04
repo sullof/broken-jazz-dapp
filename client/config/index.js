@@ -2,17 +2,16 @@ import BrokenJazz from './BrokenJazz.json'
 
 const config = {
   supported: {
-    'Görli Testnet': 5,
-    'Binance Smart Chain Testnet': 97
+    'Ganache': 1337,
+    'Goerli Testnet': 5,
+    // 'Ethereum': 1
   },
   address: {
-    5: '0x4f0341015736F5B757447bDf479402D69BB2283d',
-    97: '0x6D87c5460A6E3BB660A32EABB0A983E920b2EEd4',
-    1337: '0x5FbDB2315678afecb367f032d93F642f64180aa3'
+    1337: '0x32EEce76C2C2e8758584A83Ee2F522D4788feA0f',
+    5: '0xEEB9931Fad89cDa0d40289da0CA13a92ef54D31A',
+    // 1: '0xEEB9931Fad89cDa0d40289da0CA13a92ef54D31A'
   },
-  abi: BrokenJazz.abi,
-  bytecode: BrokenJazz.bytecode
-
+  abi: BrokenJazz.abi
 }
 
 config.supportedId = {}

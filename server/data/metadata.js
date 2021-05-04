@@ -8,7 +8,7 @@ class Metadata {
       throw new Error('Serial not found')
     }
     return {
-      description: `Broken Jazz NFT Limited Edition`,
+      description: 'Broken Jazz NFT Limited Edition',
       external_url: `https://brokenjazz.cc/items/${id}`,
       name: `Broken Jazz ${id < 51
         ? 'NE ' + id + '/50'

@@ -2,7 +2,7 @@
 const {Link} = ReactRouterDOM
 
 // eslint-disable-next-line no-undef
-const {Navbar, Nav} = ReactBootstrap
+const {Navbar} = ReactBootstrap
 
 import Base from './Base'
 
@@ -12,44 +12,19 @@ export default class Menu extends Base {
     super(props)
 
     this.state = {
-      count: 0,
-      expanded: false
+      expanded: false,
+      which: window.location.pathname.split('/')[2]
     }
 
-    this.bindAll([
-      'updateState',
-      'toggleAdminMode',
-      'makeNotVisible',
-      'expandAddress'
+    this.bindMany([
+      'expandAddress',
+      'checkPathname'
     ])
+
   }
 
-  updateState() {
-    this.setState({
-      count: this.state.count + 1
-    })
-  }
-
-  isMe(me) {
-    if (!window.location.pathname && me === '/') {
-      return 'selected'
-    }
-    if (window.location.pathname === me) {
-      return 'selected'
-    }
-    return ''
-  }
-
-  toggleAdminMode() {
-    this.store({
-      isAdminMode: !(this.Store.isAdminMode || false)
-    })
-  }
-
-  makeNotVisible() {
-    this.store({
-      menuVisibility: false
-    })
+  componentDidMount() {
+    this.checkPathname()
   }
 
   expandAddress() {
@@ -58,34 +33,48 @@ export default class Menu extends Base {
     })
   }
 
+  checkPathname() {
+    let which = window.location.pathname.split('/')[2]
+    if (which !== this.state) {
+      this.setState({
+        which
+      })
+    }
+    setTimeout(this.checkPathname, 500)
+  }
+
 
   render() {
 
-    let address = 'No wallet is connected'
+    let address = null
+    let shortAddress
     if (this.Store.signedInAddress) {
       let fullAddress = this.Store.signedInAddress
-      let shortAddress = fullAddress.substring(0, 8)
+      shortAddress = fullAddress.substring(0, 8)
       if (this.state.expanded) {
         address = <span>{this.Store.signedInAddress} <i onClick={this.expandAddress}
                                                         className="command fa fa-minus-circle"
         /></span>
       } else {
-        address = <span>{shortAddress} <i onClick={this.expandAddress}
-                                          className="command fa fa-plus-circle"
-        /></span>
+        address = <span>{shortAddress}
+          <i style={{marginLeft: 5}} onClick={this.expandAddress}
+             className="command fa fa-plus-circle"
+          /></span>
       }
     }
 
-    let connectedTo = <span style={{color: '#ff2050', marginLeft: 120}}>{
+    let connectedTo = <span style={{color: '#ff2050'}}>{
       this.Store.signedInAddress
-        ? 'Connected to unsupported network'
+        ? 'Connected to an unsupported network'
         : 'Not connected'
-    }</span>
+    }
+      <i style={{marginLeft: 5}} className="command fas fa-question-circle"></i>
+    </span>
     let {connectedNetwork} = this.Store
 
     if (connectedNetwork) {
       connectedTo =
-        <span style={{marginLeft: 120, marginRight: 10}}><i className="fa fa-plug" style={{color: '#40cc90'}}></i> Connected to {connectedNetwork}</span>
+        <span><i className="fa fa-plug" style={{color: '#40cc90', marginRight: 10}}></i> Connected to {connectedNetwork}</span>
     } else {
       // connectedTo = '
     }
@@ -94,17 +83,46 @@ export default class Menu extends Base {
     // if (this.Store.
     // <span><i class="fa fa-plug" style="color: rgb(136, 255, 102);"></i> You are connected to the Ropsten Testnet</span>
 
-    return <Navbar bg="light" expand="lg">
-      <Navbar.Brand></Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Navbar.Text>
-            {connectedTo}
-          </Navbar.Text>
-        </Nav>
+    const  getTitle = what => {
+      let {which} = this.state
+      let title = what.substring(0,1).toUpperCase() + what.substring(1) + ' NFTs'
+      if (which === what) {
+        return <b>{title}</b>
+      } else {
+        return title
+      }
+    }
 
-        <span><i className="fas fa-user-astronaut" style={{marginRight: 10}}></i> {address}</span>
+    return <Navbar fixed="top" bg="light" expand="lg">
+      <Navbar.Brand href="/">Broken Jazz</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+      {
+        this.Store.signedInAddress
+          ? <Navbar.Collapse id="responsive-navbar-nav">
+            &nbsp; &nbsp;
+            <Link to="/items/claimed"><i className="fas fa-chart-pie"></i> {getTitle('claimed')}</Link>
+
+            <Link to="/items/minted"><i className="fas fa-bowling-ball"></i> {getTitle('minted')}</Link>
+
+            <Link to="/items/unclaimed"><i className="fas fa-baby-carriage"></i> {getTitle('unclaimed')}</Link>
+
+            <Link to="/items/yours"><i className="fas fa-cannabis"></i> {getTitle('yours')}</Link>
+          </Navbar.Collapse>
+          : null
+      }
+      <Navbar.Collapse className="justify-content-end">
+        <Navbar.Text>
+          {connectedTo}
+        </Navbar.Text>
+        {
+          this.Store.signedInAddress
+            ? <Navbar.Text>
+              <i className="fas fa-user-astronaut" style={{marginRight: 10}}></i>
+              {address}
+            </Navbar.Text>
+            : null
+        }
+
       </Navbar.Collapse>
     </Navbar>
   }

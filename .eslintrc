@@ -21,7 +21,7 @@
         "no-console": ["error", { "allow": ["debug", "info", "warn", "error"] }],
         "no-empty": ["error", { "allowEmptyCatch": true }],
         "react/react-in-jsx-scope": "off"
-//        "object-curly-spacing": [ 2, "always" ]
+        //        "object-curly-spacing": [ 2, "always" ]
     },
     "parserOptions": {
         "sourceType": "module",

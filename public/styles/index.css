@@ -23,7 +23,8 @@ body {
     padding: 0;
     background-color: #fff;
     color: #0B1122;
-    font-family: 'Lato';
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
     background: url(../images/background.png) repeat-y;
 }
 
@@ -38,7 +39,7 @@ body {
 
 .command, a {
     color: #17AFD0;
-    pointer: cursor;
+    cursor: pointer;
 }
 
 .footer {
@@ -61,11 +62,20 @@ body {
 }
 
 .navbar-collapse a {
-    margin: 0 4px;
+    font-weight: 400;
+    padding: .5rem 1rem !important;
+}
+
+.navbar-light .navbar-brand {
+    margin-top: -4px;
+}
+
+.navbar-text {
+    padding: .5rem 1rem !important;
 }
 
 .centered {
-    text-align:center;
+    text-align: center;
 }
 
 .strength div div {
@@ -75,4 +85,63 @@ body {
 .bg-light {
     background-color: #EAF8FB !important;
     border-bottom: 1px dotted aquamarine;
+}
+
+@media (min-width: 1200px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl {
+        max-width: 1400px !important;
+    }
+}
+
+div.cardContainer {
+    display: flex;
+    justify-content: center;
+}
+
+div.cardDiv {
+    float: left;
+    border: 1px solid #eeeeee;
+    display: inline;
+    padding: 19px;
+    margin: 16px;
+}
+
+div.cardDiv div.title {
+    padding-top: 9px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.video-react .video-react-big-play-button {
+    border: 0.06666em solid #326 !important;
+    width: 2em !important;
+}
+
+.noTokens {
+    font-size: 2rem;
+    width: 500px;
+    padding-top: 100px;
+}
+
+div.cardDiv.single {
+    border: none;
+    /*float: none;*/
+    /*display: block;*/
+    /*margin: 0 auto;*/
+}
+
+.tworem {
+    font-size: 1.3rem;
+}
+
+small.error {
+    color: crimson !important;
+}
+
+.m0Auto {
+    margin: 0 auto;
+}
+
+.paglia {
+    color: blueviolet;
 }

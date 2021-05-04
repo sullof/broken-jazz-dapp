@@ -1,53 +1,26 @@
-// Next line is to avoid that npm-check-unused reports it
-require('sqlite3')
-//
+const JSONdb = require('simple-json-db')
 const path = require('path')
 const fs = require('fs-extra')
-
-const dbDir = path.resolve(__dirname, '../../db')
-fs.ensureDirSync(dbDir)
-const filename = path.join(dbDir, 'auth.sqlite3')
 
 class Db {
 
   constructor() {
-
-    this.knex = require('knex')({
-      client: 'sqlite3',
-      connection: {
-        filename
-      },
-      useNullAsDefault: true
-    })
+    const dbDir = path.resolve(__dirname, '../../db')
+    fs.ensureDirSync(dbDir)
+    this.db = new JSONdb(path.resolve(dbDir, 'data.json'))
   }
 
-  async init() {
-
-    // await this.knex.schema.dropTable('users')
-    // await this.knex.schema.dropTable('tokens')
-
-    if (!(await this.knex.schema.hasTable('users'))) {
-      await this.knex.schema.createTable('users', function (table) {
-        table.integer('created_at').unsigned()
-        table.integer('last_signin_at')
-        table.text('email').unique()
-        table.text('public_key')
-        table.integer('nonce')
-      })
-    }
-    if (!(await this.knex.schema.hasTable('tokens'))) {
-      await this.knex.schema.createTable('tokens', function (table) {
-        table.string('email')
-        table.string('token')
-        table.integer('expiration')
-      })
-    }
+  get(key) {
+    return this.db.get(key)
   }
 
+  set(key, value) {
+    return this.db.set(key, value)
+  }
 }
-
-const instance = new Db()
-instance.init()
-
+let instance
+if (!instance) {
+  instance = new Db()
+}
 module.exports = instance
 

@@ -6,11 +6,11 @@ export default class Common extends React.Component {
   constructor(props) {
     super(props)
 
-    this.bindAll = this.bindAll.bind(this)
+    this.bindMany = this.bindMany.bind(this)
     this.ls = ls
   }
 
-  bindAll(methods) {
+  bindMany(methods) {
     for (let m of methods) {
       this[m] = this[m].bind(this)
     }

@@ -1,13 +1,19 @@
 // eslint-disable-next-line no-undef
+// const {BrowserRouter, Route //, Link
+// } = ReactRouterDOM
+
+// eslint-disable-next-line no-undef
 const {BrowserRouter, Route} = ReactRouterDOM
 
 // eslint-disable-next-line no-undef
-const {Container, Row, Col} = ReactBootstrap
+const {Modal, Button} = ReactBootstrap
 
-import { Web3Provider } from '@ethersproject/providers'
-import Web3Modal from 'web3modal'
+const ethers = require('ethers')
 
-import { Contract } from '@ethersproject/contracts'
+// import {Web3Provider} from '@ethersproject/providers'
+// import Web3Modal from 'web3modal'
+
+import {Contract} from '@ethersproject/contracts'
 
 import config from '../config'
 
@@ -16,9 +22,9 @@ import ls from 'local-storage'
 import Common from './Common'
 import Menu from './Menu'
 import Home from './Home'
-import Info from './Info'
+import Items from './Items'
 
-export default class App extends Common {
+class App extends Common {
 
   constructor(props) {
     super(props)
@@ -28,82 +34,119 @@ export default class App extends Common {
         content: {},
         editing: {},
         temp: {},
-        menuVisibility: false
+        menuVisibility: false,
+        config,
+        width: this.getWidth()
       }
     }
-    this.setStore = this.setStore.bind(this)
-    this.getContract = this.getContract.bind(this)
-    let accessToken = ls('accessToken')
-    if (accessToken) {
-      if (Array.isArray(accessToken)) {
-        accessToken = accessToken[0]
-      }
-      const deadline = parseInt(accessToken.split(';')[2])
-      if (Date.now() > deadline) {
-        ls.remove('accessToken')
-      } else {
-        this.setStore({accessToken})
-      }
-    }
-    let email = ls('email')
-    if (email) {
-      this.setStore({email})
-    }
+
+    this.bindMany([
+      'handleClose',
+      'handleShow',
+      'setStore',
+      'getContract',
+      'updateDimensions',
+      'showModal'
+    ])
+  }
+
+  getWidth() {
+    // let width = 2 * (window.innerWidth - 100) / 6
+    // if (window.innerWidth < 800) {
+    //   width = window.innerWidth - 50
+    // }
+    return window.innerWidth
+  }
+
+  updateDimensions() {
+    this.setStore({
+      width: this.getWidth()
+    })
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimensions.bind(this))
+  }
+
+
+  handleClose() {
+    this.setState({show: false})
+  }
+
+  handleShow() {
+    this.setState({show: true})
   }
 
   async componentDidMount() {
+    window.addEventListener('resize', this.updateDimensions.bind(this))
+    await this.connect(true)
+  }
 
-    const web3Modal = new Web3Modal({
-      cacheProvider: true,
-      providerOptions: {
+  async setWallet() {
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const signer = provider.getSigner()
+      const chainId = (await provider.getNetwork()).chainId
+      const signedInAddress = await signer.getAddress()
+
+      const {
+        contract,
+        connectedNetwork,
+        networkNotSupported
+      } = this.getContract(config, chainId, provider)
+
+      this.setStore({
+        provider,
+        signer,
+        signedInAddress,
+        chainId,
+        contract,
+        connectedNetwork,
+        networkNotSupported
+      })
+    } catch(e) {
+      window.location.reload()
+    }
+  }
+
+  async connect(dontShowError) {
+
+    if (typeof window.ethereum !== 'undefined') {
+
+      if (await window.ethereum.request({method: 'eth_requestAccounts'})) {
+
+        window.ethereum.on('accountsChanged', () => this.setWallet())
+        window.ethereum.on('chainChanged', () => window.location.reload())
+        window.ethereum.on('disconnect', () => window.location.reload())
+
+        this.setWallet()
       }
-    })
 
-    const provider = await web3Modal.connect()
+    } else {
 
-    provider.on('accountsChanged', accounts => {
-      this.setStore({
-        accounts
-      })
-    })
+      if (!dontShowError) {
+        this.showModal(
+          'No wallet extention found',
+          'Please, activate your wallet and reload the page',
+          'Ok'
+        )
+      }
+    }
 
-    provider.on('chainChanged', chainId => {
+  }
 
-      chainId = parseInt(chainId)
-      this.setStore({
-        chainId
-      })
-      this.getContract(config, chainId, this.state.Store.web3Provider)
-
-    })
-
-    provider.on('connect', info => {
-      this.setStore({
-        chainId: parseInt(info.chainId)
-      })
-    })
-
-    provider.on('disconnect', error => {
-      this.setStore({
-        disconnectError: {
-          code: error.code,
-          message: error.message
-        }
-      })
-    })
-
-    const web3Provider = new Web3Provider(provider)
-    const signedInAddress = provider.selectedAddress
-    const chainId = parseInt(web3Provider.provider.chainId)
-
-    this.getContract(config, chainId, web3Provider)
+  showModal(modalTitle, modalBody, modalClose, secondButton, modalAction) {
     this.setStore({
-      provider,
-      web3Provider,
-      signedInAddress,
-      chainId
+      modalTitle,
+      modalBody,
+      modalClose,
+      secondButton,
+      modalAction,
+      showModal: true
     })
   }
+
+
 
   getContract(config, chainId, web3Provider) {
     let contract
@@ -116,11 +159,11 @@ export default class App extends Common {
     } else {
       networkNotSupported = true
     }
-    this.setStore({
+    return {
       contract,
       connectedNetwork,
       networkNotSupported
-    })
+    }
   }
 
   setStore(newProps, localStorage) {
@@ -145,51 +188,61 @@ export default class App extends Common {
 
   render() {
 
+    const Store = this.state.Store
+
     const home = () => {
       return (
         <Home
-          Store={this.state.Store}
+          Store={Store}
           setStore={this.setStore}
         />
       )
     }
 
-    // const signout = () => {
-    //   return (
-    //     <Signout
-    //       Store={this.state.Store}
-    //       setStore={this.setStore}
-    //     />
-    //   )
-    // }
-
-    const info = () => {
+    const items = (params) => {
       return (
-        <Info
-          Store={this.state.Store}
+        <Items
+          Store={Store}
           setStore={this.setStore}
+          pathname={params.match.url}
         />
       )
     }
 
     return <BrowserRouter>
       <Menu
-        Store={this.state.Store}
+        Store={Store}
         setStore={this.setStore}
       />
       <main>
-        <img src="/images/BrokenJazz-logo-small.png" className="imageLogo"/>
-        <Container>
-          <Row>
-            <Col style={{margin: 16}}>
-              <Route exact path="/" component={home}/>
-              {/*<Route exact path="/signout" component={signout}/>*/}
-              <Route exact path="/info" component={info}/>
-            </Col>
-          </Row>
-        </Container>
+        <Route exact path="/" component={home}/>
+        <Route exact path="/items/:param" component={items}/>
       </main>
+      {Store.showModal
+        ? <Modal.Dialog>
+          <Modal.Header>
+            <Modal.Title>{Store.modalTitle}</Modal.Title>
+          </Modal.Header>
 
+          <Modal.Body>{Store.modalBody}</Modal.Body>
+
+          <Modal.Footer>
+            <Button onClick={() => {
+              this.setStore({showModal: false})
+            }}>{Store.modalClose || 'Close'}</Button>
+            {
+              this.state.secondButton
+                ? <Button onClick={() => {
+                  Store.modalAction()
+                  this.setStore({showModal: false})
+                }} bsStyle="primary">{Store.secondButton}</Button>
+                : null
+            }
+          </Modal.Footer>
+        </Modal.Dialog>
+        : null}
     </BrowserRouter>
   }
 }
+
+module.exports = App
