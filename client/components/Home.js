@@ -78,7 +78,7 @@ export default class Home extends Base {
           2.34 ETH each, i.e., more than seven thousands dollar each. So I think that fifty-four manually edited
           BKJZ tokens should have a significant value. Maybe not soon, but they will have some value sooner or
           later. If I were you, I would jump on <Ab
-            link="https://amazon.com/dp/B08YCV1QL7" label="Amazon"/> and buy one before it is too late.</p>
+            link="https://amazon.com/dp/B08YCV1QL7" label="Amazon"/> and buy one CD before it is too late. It is only around $15.</p>
       </div>
     </Col>
 
