@@ -3,7 +3,6 @@ const {Button, Form, ProgressBar} = ReactBootstrap
 const ls = require('local-storage')
 
 import Base from './Base'
-import tracks from '../../common/tracks'
 
 async function sleep(millis) {
   // eslint-disable-next-line no-undef
@@ -93,7 +92,9 @@ class Details extends Base {
     return null
   }
 
-  claimToken() {
+  async claimToken() {
+    const res = await this.request('tracks', 'get')
+    this.tracks = res.tracks
     this.setState({
       claimNow: true
     })
@@ -162,8 +163,9 @@ class Details extends Base {
 
     let chosenTrack = this.state.track || 'Broken Jazz'
     let trackNumber
-    for (let track in tracks) {
-      if (tracks[track] === chosenTrack) {
+
+    for (let track in this.tracks) {
+      if (this.tracks[track] === chosenTrack) {
         trackNumber = track
         break
       }
@@ -197,9 +199,9 @@ class Details extends Base {
 
   getForm() {
     const options = []
-    for (let track in tracks) {
+    for (let track in this.tracks) {
       options.push(
-        <option key={track}>{tracks[track]}</option>
+        <option key={track}>{this.tracks[track]}</option>
       )
     }
 

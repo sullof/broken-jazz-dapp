@@ -1,4 +1,4 @@
-const tracks = require('../../common/tracks')
+const tracks = require('../../common/tracks.json')
 const serials = require('../../db/serials')
 
 class Metadata {

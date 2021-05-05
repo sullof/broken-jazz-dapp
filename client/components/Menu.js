@@ -84,7 +84,6 @@ export default class Menu extends Base {
 
     const  getTitle = what => {
       let {which} = this.state
-      console.log(what)
       let title = what === 'yours' ? 'Your NFTs' :
         what.substring(0,1).toUpperCase() + what.substring(1) + ' NFTs'
       if (which === what) {
