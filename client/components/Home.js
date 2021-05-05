@@ -126,7 +126,7 @@ export default class Home extends Base {
                 <i className="fab fa-github"></i> <span className="roboto300">Github</span>
               </a>
               <a className="item" href="mailto:francesco@sullo.co">
-                <i className="fab fa-envelope"></i> <span className="roboto300">Email</span>
+                <i className="fas fa-envelope-open-text"></i> <span className="roboto300">Email</span>
               </a>
             </small>
 
