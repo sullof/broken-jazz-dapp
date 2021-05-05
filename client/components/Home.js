@@ -11,29 +11,22 @@ export default class Home extends Base {
       <Container style={{marginTop: 100}}>
         <Row>
           <Col>
-            {/*<iframe*/}
-            {/*  src="https://open.spotify.com/embed/album/4My9KYEGqtyx5wpgjDOdqi"*/}
-            {/*  width="100%"*/}
-            {/*  height="820"*/}
-            {/*  frameBorder="0"*/}
-            {/*  allowTransparency="true"*/}
-            {/*  allow="encrypted-media" />*/}
-            <img src={'https://francesco-sullo-co.s3.amazonaws.com/BrokenJazz-nuova.jpg'} />
+            <img src={'/images/BrokenJazzCover.jpeg'} width="100%" />
             <iframe
               width="100%"
-              height="400"
+              height="500"
               scrolling="no"
               frameBorder="no"
               allow="autoplay"
               src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1174446544&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"/>
           </Col>
           <Col>
-            <h2>Broken Jazz</h2>
-            <h5>Nocturnal Fragments and Other Mistakes<br/>Vol. 1, December 2020</h5>
-            <h5><i>A collection of short tunes written late at night</i></h5>
+            <h1>Broken Jazz</h1>
+            <h3>Nocturnal Fragments and Other Mistakes<br/>Vol. 1, December 2020</h3>
+            <h4><i>A collection of short tunes written late at night</i></h4>
             <p></p>
 
-
+            <div className={'largerp'}>
             <p>As a musician, I focused on songs with vocals and lyrics all my life.</p>
             <p>When I sit down to the piano and improvise something instrumental, I don't usually record it. Since
               I have a terrible memory, I end up composing thousands of fragments that got lost.</p>
@@ -63,11 +56,12 @@ export default class Home extends Base {
               BKJZ tokens should have a significant value. Maybe not soon, but they will have some value sooner or
               later. If I were you, I would jump on <Ab
                 link="https://amazon.com/dp/B08YCV1QL7" label="Amazon"/> and buy one before it is too late.</p>
+            </div>
           </Col>
         </Row>
         <Row>
           <Col className={'credits'}>
-            <h4 style={{marginTop: 24}}>Credits</h4>
+            <h4 style={{marginTop: 34}}>Credits</h4>
             <p>I am not a pianist, but I got help and I want to thank a few amazing people:</p>
             <ul>
               <li><Ab link="https://gaelkanievsky.com" label="Gael Kanievsky"/> gave me great everyday feedback</li>
@@ -98,7 +92,7 @@ export default class Home extends Base {
             </p>
           </Col>
           <Col className={'bio'}>
-            <h4 style={{marginTop: 24}}>About</h4>
+            <h4 style={{marginTop: 34}}>About</h4>
             <p>
               <Ab link={'https://francesco-sullo-co.s3.amazonaws.com/StudioN2-2020.jpg'} label={<img src="/images/studio2.jpg" className={'oil'}/>}/>
               <Ab link={'https://francesco-sullo-co.s3.amazonaws.com/StudioN3_GirlWithBraid.jpg'} label={<img src="/images/studio3.jpg" className={'oil'}/>}/>
