@@ -14,7 +14,7 @@ export default class Home extends Base {
             <img src={'/images/BrokenJazzCover.jpeg'} width="100%" />
             <iframe
               width="100%"
-              height="500"
+              height="560"
               scrolling="no"
               frameBorder="no"
               allow="autoplay"
@@ -24,7 +24,9 @@ export default class Home extends Base {
             <h1>Broken Jazz</h1>
             <h3>Nocturnal Fragments and Other Mistakes<br/>Vol. 1, December 2020</h3>
             <h4><i>A collection of short tunes written late at night</i></h4>
-            <p></p>
+            <div className={'centered big'}>
+              * * *
+            </div>
 
             <div className={'largerp'}>
             <p>As a musician, I focused on songs with vocals and lyrics all my life.</p>

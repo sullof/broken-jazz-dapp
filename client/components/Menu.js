@@ -94,7 +94,7 @@ export default class Menu extends Base {
     }
 
     return <Navbar fixed="top" bg="light" expand="lg" className={'roboto'}>
-      <Navbar.Brand href="/">Broken Jazz</Navbar.Brand>
+      <Navbar.Brand href="/"><span className={'alice'}>Broken Jazz</span></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav"/>
       {
         this.Store.signedInAddress
