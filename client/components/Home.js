@@ -18,9 +18,10 @@ export default class Home extends Base {
             {/*  frameBorder="0"*/}
             {/*  allowTransparency="true"*/}
             {/*  allow="encrypted-media" />*/}
+            <img src={'https://francesco-sullo-co.s3.amazonaws.com/BrokenJazz-nuova.jpg'} />
             <iframe
               width="100%"
-              height="820"
+              height="400"
               scrolling="no"
               frameBorder="no"
               allow="autoplay"
