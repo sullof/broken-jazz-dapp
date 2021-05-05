@@ -33,8 +33,8 @@ export default class Home extends Base {
             <p></p>
 
 
-            <p>As a musician, I focused on songs with vocals and lyrics all my life and wrote hundreds of never-recorded songs.</p>
-            <p>When I sit down to the piano and improvise something instrumental, I don't usually record it. But, since
+            <p>As a musician, I focused on songs with vocals and lyrics all my life.</p>
+            <p>When I sit down to the piano and improvise something instrumental, I don't usually record it. Since
               I have a terrible memory, I end up composing thousands of fragments that got lost.</p>
             <p>In December 2020, I was trying to remember something I composed a few years ago, without success. I was
               distraught. So, I set up a minimalistic home studio to record musical notes I could use somewhere in the
