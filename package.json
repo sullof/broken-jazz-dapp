@@ -28,6 +28,7 @@
     "lodash": "^4.17.21",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "react-markdown": "^6.0.1",
     "react-password-strength-bar": "^0.3.2",
     "react-player": "^2.9.0",
     "simple-json-db": "^1.2.3",

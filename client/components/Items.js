@@ -8,6 +8,7 @@ async function sleep(millis) {
   return new Promise(resolve => setTimeout(resolve, millis))
 }
 
+import Ab from './Ab'
 import Base from './Base'
 
 import allTokens from '../../db/index.json'
@@ -166,13 +167,14 @@ class Items extends Base {
       let intro
       switch(filter) {
         case 'minted':
-          intro = <p className={'paglia'}>Mined NFTs are token on the blockchain. They can be transferred, sold, etc. on any NFT marketplace.</p>
+          intro = <p className={'paglia'}>Mined NFTs are standard ERC-721 tokens on the blockchain. They can be transferred, farmed on DeFi apps, or sold on NFT marketplaces.<br/>
+            You can take a look at the smart contract <Ab link={`https://${this.Store.chainId === 5 ? 'goerli.' : ''}etherscan.io/address/${this.Store.contract.address}#code`} label="look at the smart contract" /> on Etherscan.</p>
           break
         case 'claimed':
           intro = <p className={'paglia'}>Clalmed NFTs are new tokens ready to be minted.</p>
           break
         case 'unclaimed':
-          intro = <p className={'paglia'}>Unclaimed NFTs are tokens looking for an owner. If you own a Broken Jazz CD, use the 6-chars serial to claim yours. If not, you can buy a CD on <a href="https://amazon.com/dp/B08YCV1QL7" target="_blank">Amazon</a>.</p>
+          intro = <p className={'paglia'}>Unclaimed NFTs are tokens looking for an owner. If you own a Broken Jazz CD, use the 6-chars serial to claim yours. If not, you can buy a CD on <Ab link="https://amazon.com/dp/B08YCV1QL7" label="Amazon" />.</p>
           break
         default:
           intro = null
@@ -186,9 +188,9 @@ class Items extends Base {
 
       return <Container style={{marginTop: 100}}>
         <div className={'noTokens m0Auto'}>
-          You look connected to an unsupported network.<br/>
-          Please connect Metamask to Goerli Testnet.<br/>
-          If you don't have any Goerli ETH, get some <a href="https://goerli-faucet.slock.it/" target={'_blanket'}>here</a> for free.
+          <p>You look connected to an unsupported network.</p>
+          <p>Please connect Metamask to Goerli Testnet.</p>
+          <p>If you don't have any Goerli ETH, get some <Ab link="https://goerli-faucet.slock.it/" label="here" /> for free.</p>
         </div>
       </Container>
 

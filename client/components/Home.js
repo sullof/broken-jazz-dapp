@@ -1,8 +1,8 @@
 // eslint-disable-next-line no-undef
 const {Container, Row, Col} = ReactBootstrap
 
-// eslint-disable-next-line no-undef
 import Base from './Base'
+import Ab from './Ab'
 
 export default class Home extends Base {
 
@@ -10,7 +10,7 @@ export default class Home extends Base {
     return (
       <Container style={{marginTop: 100}}>
         <Row>
-          <Col >
+          <Col>
             {/*<iframe*/}
             {/*  src="https://open.spotify.com/embed/album/4My9KYEGqtyx5wpgjDOdqi"*/}
             {/*  width="100%"*/}
@@ -24,59 +24,116 @@ export default class Home extends Base {
               scrolling="no"
               frameBorder="no"
               allow="autoplay"
-              src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1174446544&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" />
+              src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1174446544&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"/>
           </Col>
-          <Col >
+          <Col>
             <h2>Broken Jazz</h2>
             <h5>Nocturnal Fragments and Other Mistakes<br/>Vol. 1, December 2020</h5>
             <h5><i>A collection of short tunes written late at night</i></h5>
             <p></p>
 
-            <p>As an experiment, I started on December 3rd to compose and record a new tune every day, with a few
-              exceptions, completing 31 songs by December 29th. During the first two weeks of January, I fixed the many
-              errors and improved the sound.</p>
 
+            <p>As a musician, I focused on songs with vocals and lyrics all my life and wrote hundreds of never-recorded songs.</p>
+            <p>When I sit down to the piano and improvise something instrumental, I don't usually record it. But, since
+              I have a terrible memory, I end up composing thousands of fragments that got lost.</p>
+            <p>In December 2020, I was trying to remember something I composed a few years ago, without success. I was
+              distraught. So, I set up a minimalistic home studio to record musical notes I could use somewhere in the
+              future.</p>
+            <p>After the first few days, I realized that some of the tunes were not bad and got excited. To keep me
+              focused, I challenged myself to compose and record a new song every night till the end of the month. It
+              was a marvelous experience, and on December 29th, I had 31 tunes.</p>
+            <p>Then I found myself at a crossroads. Was it better to continue recording new songs every day in January
+              or taking some time to improve the sound, fix technical mistakes, and produce a publishable record? The
+              second option was way more attractive. I also thought that I could print a limited edition of a physical
+              CD, and, maybe, I could deploy some smart contract and create an NFT. So when I designed the cover, I left
+              a space inside to manually write a serial code to claim the NFT associated with that copy. I jumped
+              online, found the great <Ab label="Atomic Disc" link="https://www.atomicdisc.com/products/wallet-lite"/>,
+              and I printed 50 Numbered Editions, 3 Artist's Proofs, and 1 Artist's Personal Copy.</p>
+            <p>When the record was on <Ab link="https://open.spotify.com/album/4My9KYEGqtyx5wpgjDOdqi"
+                                          label="Spotify"/>, <Ab
+              link="https://www.pandora.com/artist/francesco-sullo/broken-jazz/AL25fq3ZmbgdPc4" label="Pandora"/>, <Ab
+              link="https://music.amazon.com/albums/B08WZ2DB2N" label="Amazon Music"/>, and other online services, I
+              added the physical CD distribution on <Ab link="https://cdbaby.com" label="CDBaby"/>.</p>
+            <p>When Amazon sold the first CDs, I started working on the smart contracts and this dapp.</p>
+            <p>Only 54 BKJZ tokens will exist on the Ethereum main network when all the tokens are minted. A little
+              while ago, thousands of people minted 20,000 procedurally generated <Ab label="Meebits"
+                                                                                      link="https://meebits.larvalabs.com/meebits/list"/> for
+              2.34 ETH each, i.e., more than seven thousands dollar each. So I think that fifty-four manually edited
+              BKJZ tokens should have a significant value. Maybe not soon, but they will have some value sooner or
+              later. If I were you, I would jump on <Ab
+                link="https://amazon.com/dp/B08YCV1QL7" label="Amazon"/> and buy one before it is too late.</p>
+          </Col>
+        </Row>
+        <Row>
+          <Col className={'credits'}>
+            <h4 style={{marginTop: 24}}>Credits</h4>
             <p>I am not a pianist, but I got help and I want to thank a few amazing people:</p>
             <ul>
-              <li><a
-                href="https://gaelkanievsky.com" target="_blank">Gael Kanievsky</a> gave me great everyday feedback</li>
+              <li><Ab link="https://gaelkanievsky.com" label="Gael Kanievsky"/> gave me great everyday feedback</li>
 
-              <li><a
-                href="http://ostinelli.net" target="_blank">Roberto Ostinelli</a> helped me figure out how to improve my performances and the pianos'
+              <li><Ab link="http://ostinelli.net" label="Roberto Ostinelli"/> helped me figure out how to improve my
+                performances and the pianos'
                 sound
               </li>
 
-              <li><a
-                href="http://www.danzemelman.com" target="_blank">Dan Zemelman</a> helped me reach this album's final shape, suggesting corrections and
+              <li><Ab link="http://www.danzemelman.com" label="Dan Zemelman"/> helped me reach this album's final shape,
+                suggesting corrections and
                 improvements
               </li>
 
-              <li><a
-                href="http://allisonlovejoy.com" target="_blank">Allison Lovejoy</a> gave me great advice about how to overcome my limits and make
+              <li><Ab link="http://allisonlovejoy.com" label="Allison Lovejoy"/> gave me great advice about how to
+                overcome my limits and make
                 the piano sound more natural
               </li>
 
-              <li><a
-                href="http://davidedicillo.com" target="_blank">Davide Di Cillo</a> helped me with the cover</li>
+              <li><Ab link="http://davidedicillo.com" label="Davide Di Cillo"/> helped me with the cover</li>
             </ul>
             <p>A special thank to the unknown photographer who took the shot I used for the cover.</p>
-            <p>A warm thank to <a href="https://cloudacademy.com/instructors/francesco-mosconi/" target="_blank">Francesco Mosconi</a>, <a href="https://www.msk.fm/" target="_blank">Antonino Musco</a>, Annalisa Sullo, and the many others who liked my songs during the recording.</p>
-            <p>I produced the tunes with Apple Logic Pro X, using the excellent <a
-              href="http://www.modartt.com/pianoteq" target="_blank">Modartt's Pianoteq Stage</a>.
-              </p>
-
-            <hr />
-            <h4>The BKJZ Non-fungible Token</h4>
-
-            <p>When the record was on <a
-              href="https://open.spotify.com/album/4My9KYEGqtyx5wpgjDOdqi" target="_blank">Spotify</a>, <a
-              href="https://www.pandora.com/artist/francesco-sullo/broken-jazz/AL25fq3ZmbgdPc4" target="_blank">Pandora</a>, <a
-              href="https://music.amazon.com/albums/B08WZ2DB2N" target="_blank">Amazon Music</a>, and others online services, I started the physical CD distribution.</p>
-              <p>I printed 50 Numbered Editions, 3 Artist's Proofs, and 1 Artist's Personal Copy. Any CD has internally a
-              serial code than allows to claim the relative NFT. You can buy a CD on <a
-                href="https://amazon.com/dp/B08YCV1QL7" target="_blank">Amazon</a>, if still there is an available copy.
+            <p>A warm thank to <Ab link="https://cloudacademy.com/instructors/francesco-mosconi/"
+                                   label="Francesco Mosconi"/>, <Ab link="https://www.msk.fm/" label="Antonino Musco"/>,
+              Annalisa Sullo, and the many others who liked my songs during the recording.</p>
+            <p>I produced the tunes with Apple Logic Pro X, using the excellent <Ab
+              link="http://www.modartt.com/pianoteq" label="Modartt's Pianoteq Stage"/>.
             </p>
           </Col>
+          <Col className={'bio'}>
+            <h4 style={{marginTop: 24}}>About</h4>
+            <p>
+              <Ab link={'https://francesco-sullo-co.s3.amazonaws.com/StudioN2-2020.jpg'} label={<img src="/images/studio2.jpg" className={'oil'}/>}/>
+              <Ab link={'https://francesco-sullo-co.s3.amazonaws.com/StudioN3_GirlWithBraid.jpg'} label={<img src="/images/studio3.jpg" className={'oil'}/>}/>
+              <Ab link={'https://francesco-sullo-co.s3.amazonaws.com/StudioN5_SweetMelancholy.jpg'} label={<img src="/images/studio5.jpg" className={'oil'}/>}/>
+              <Ab link={'https://francesco-sullo-co.s3.amazonaws.com/StudioN9Untitled.jpg'} label={<img src="/images/studio9.jpg" className={'oil'}/>}/>
+            </p>
+
+
+            <p>Francesco Sullo is a serial entrepreneur and software engineer living in San Francisco, California. Francesco studied Physics and has a solid background and a remarkable experience with cryptography, being the creator of Passpack, one of the first Host-proof Hosting web apps in the world. He also has a parallel life where he is mostly a painter, a writer, and a musician. You can see some of his works at <Ab link={'https://francesco.sullo.co'} label={'his website'} />.</p>
+
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <p>&nbsp;</p>
+            <hr/>
+            <div className={'centered'}>
+            <small >
+
+              <b>This website does not use any cookie.</b> &nbsp; &nbsp;
+              (c) 2021 Francesco Sullo &nbsp; &nbsp;
+                            <a className="item" target="_blank" href="https://twitter.com/sullof" rel="noreferrer">
+                <i className="fab fa-twitter"></i> <span className="roboto300">Twitter</span>
+              </a>
+              <a className="item" target="_blank" href="https://github.com/sullof" rel="noreferrer">
+                <i className="fab fa-github"></i> <span className="roboto300">Github</span>
+              </a>
+              <a className="item" href="mailto:francesco@sullo.co">
+                <i className="fab fa-envelope"></i> <span className="roboto300">Email</span>
+              </a>
+            </small>
+
+            <p>&nbsp;</p>
+            </div>
+          </Col>
+
         </Row>
       </Container>
     )

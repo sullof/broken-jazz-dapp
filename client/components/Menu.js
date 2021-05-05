@@ -93,7 +93,7 @@ export default class Menu extends Base {
       }
     }
 
-    return <Navbar fixed="top" bg="light" expand="lg">
+    return <Navbar fixed="top" bg="light" expand="lg" className={'roboto'}>
       <Navbar.Brand href="/">Broken Jazz</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav"/>
       {

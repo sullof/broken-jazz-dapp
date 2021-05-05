@@ -24,7 +24,7 @@ body {
     padding: 0;
     background-color: #fff;
     color: #0B1122;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Alice', 'Roboto', sans-serif;
     font-weight: 300;
     background: url(../images/background.png) repeat-y;
 }
@@ -145,4 +145,26 @@ small.error {
 
 .paglia {
     color: blueviolet;
+    padding-left: 37px;
+}
+
+img.oil {
+    width: 150px;
+    margin: 4px;
+}
+
+.item {
+    margin: 0 8px;
+}
+
+.credits {
+    /*color: indigo;*/
+}
+
+.bio {
+    /*color: indigo;*/
+}
+
+.roboto {
+    font-family: 'Roboto', sans-serif !important;
 }

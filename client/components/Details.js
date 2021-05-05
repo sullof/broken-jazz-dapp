@@ -2,6 +2,7 @@
 const {Button, Form, ProgressBar} = ReactBootstrap
 const ls = require('local-storage')
 
+import ReactMarkdown from 'react-markdown'
 import Base from './Base'
 
 async function sleep(millis) {
@@ -284,11 +285,11 @@ class Details extends Base {
   render() {
 
     const {token} = this.props
-    let rows = null
-    if (token.comments) {
-      let i = 1
-      rows = token.comments.split('\n').map(e => <p key={i++}><b>{e}</b></p>)
-    }
+    // let rows = null
+    // if (token.comments) {
+    //   let i = 1
+    //   rows = token.comments.split('\n').map(e => <p key={i++}><b>{e}</b></p>)
+    // }
 
     return (
       <div className={'cardDiv single'} style={{width: this.props.cw, height: this.props.cw + 26}}>
@@ -305,10 +306,11 @@ class Details extends Base {
                     ?
                     <div>
                       <p>&nbsp;</p>
-                      <p>Track #{parseInt(token.metadata.attributes[0].value)}:</p>
+                      <p>Track #{parseInt(token.metadata.attributes[0].value)}</p>
                       <p><b style={{fontSize: '1.1rem'}}>{token.metadata.attributes[1].value}</b></p>
+                      <p>&nbsp;</p>
                       <p>Original comments about the track:</p>
-                      {rows}
+                      <i><ReactMarkdown children={token.comments}/></i>
                     </div>
                     : null
                 }
