@@ -88,10 +88,25 @@ body {
     border-bottom: 1px dotted aquamarine;
 }
 
+.big {
+    font-size: 5rem;
+    color: #84a;
+    margin: 0 0 -28px;
+}
+
+
 @media (min-width: 1200px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl {
         max-width: 1400px !important;
     }
+
+    .big {
+        font-size: 5rem;
+        padding-right: 20%;
+        color: #84a;
+        margin: 0 0 -28px;
+    }
+
 }
 
 div.cardContainer {
@@ -175,11 +190,4 @@ img.oil {
 
 .alice {
     font-family: 'Alice' !important;
-}
-
-.big {
-    font-size: 5rem;
-    padding-right: 20%;
-    color: #84a;
-    margin: 0 0 -28px;
 }

@@ -46,6 +46,8 @@ export default class Menu extends Base {
 
   render() {
 
+    let isPhone = this.Store.width < 900
+
     let address = null
     let shortAddress
     if (this.Store.signedInAddress) {
@@ -57,9 +59,11 @@ export default class Menu extends Base {
         /></span>
       } else {
         address = <span>{shortAddress}
-          <i style={{marginLeft: 5}} onClick={this.expandAddress}
-             className="command fa fa-plus-circle"
-          /></span>
+          {isPhone ? null :
+            <i style={{marginLeft: 5}} onClick={this.expandAddress}
+               className="command fa fa-plus-circle"
+            />
+          }</span>
       }
     }
 
@@ -78,14 +82,10 @@ export default class Menu extends Base {
       // connectedTo = '
     }
 
-
-    // if (this.Store.
-    // <span><i class="fa fa-plug" style="color: rgb(136, 255, 102);"></i> You are connected to the Ropsten Testnet</span>
-
     const  getTitle = what => {
       let {which} = this.state
-      let title = what === 'yours' ? 'Your NFTs' :
-        what.substring(0,1).toUpperCase() + what.substring(1) + ' NFTs'
+      let title = what === 'yours' ? (isPhone ? 'Yours' : 'Your NFTs') :
+        what.substring(0,1).toUpperCase() + what.substring(1) + (isPhone ? '' : ' NFTs')
       if (which === what) {
         return <b>{title}</b>
       } else {
@@ -99,7 +99,11 @@ export default class Menu extends Base {
       {
         this.Store.signedInAddress
           ? <Navbar.Collapse id="responsive-navbar-nav">
-            <Link to="/"><i className="fas fa-home"></i> Home</Link>
+            {
+              isPhone
+                ? null :
+              <Link to="/"><i className="fas fa-home"></i> Home</Link>
+            }
 
             <Link to="/items/claimed"><i className="fas fa-chart-pie"></i> {getTitle('claimed')}</Link>
 
@@ -111,6 +115,7 @@ export default class Menu extends Base {
           </Navbar.Collapse>
           : null
       }
+
       <Navbar.Collapse className="justify-content-end">
         <Navbar.Text>
           {connectedTo}
