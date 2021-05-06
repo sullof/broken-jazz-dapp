@@ -9,7 +9,7 @@ export default class Home extends Base {
   render() {
 
     const col3 = <Col className={'credits textBlock'}>
-      <h4 style={{marginTop: 34}}>Credits</h4>
+      <h4 style={{marginTop: 12}}>Credits</h4>
       <div className={'license'}>
         <p><span className={'istok'}>Broken Jazz</span> is licensed under a <Ab link={'https://creativecommons.org/licenses/by-nc-sa/3.0/'} label={'Creative Commons License.'}/>
           <span className="cc-license-icons">
@@ -54,7 +54,7 @@ export default class Home extends Base {
 
 
     const col4 = <Col className={'bio textBlock'}>
-      <h4 style={{marginTop: 34}}>About</h4>
+      <h4 style={{marginTop: 12}}>About</h4>
       <p>
         <Ab link={'https://francesco-sullo-co.s3.amazonaws.com/StudioN2-2020.jpg'}
             label={<img src="/images/studio2.jpg" className={'oil'}/>}/>

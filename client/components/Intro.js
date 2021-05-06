@@ -15,6 +15,7 @@ export default class Home extends Base {
     </div>
 
     const text = <div className={'textBlock'}>
+      <h4 style={{marginTop: 12}}>Intro</h4>
       <p>As a musician, I have focused on songs with vocals and lyrics all my life. So, when I sit down to the piano and
         improvise something instrumental, I don't usually record it. Since
         I have a terrible memory, I ended up composing thousands of fragments that get lost.</p>
