@@ -17,7 +17,7 @@ import Item from './Item'
 import Details from './Details'
 
 import comments from '../config/comments.json'
-import Address from '../../common/Address'
+import Address from '../utils/Address'
 
 let loadingTokens = false
 

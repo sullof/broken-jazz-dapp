@@ -4,7 +4,7 @@ const {Link} = ReactRouterDOM
 // eslint-disable-next-line no-undef
 const {Navbar, Button} = ReactBootstrap
 
-import Address from '../../common/Address'
+import Address from '../utils/Address'
 import Base from './Base'
 
 export default class Menu extends Base {
