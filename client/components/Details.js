@@ -66,7 +66,10 @@ class Details extends Base {
         if (ls('claimed' + this.props.token.id) === this.Store.signedInAddress) {
           return null
         }
-        return <Button onClick={this.claimToken}>Claim this token</Button>
+        return <div >
+          <Button onClick={this.claimToken}>Claim this token</Button>
+          <div className={'claiming'}>To claim a token you need to take a picture of yourself with the inside of the CD cover, showing the serial code. So, please, allow this website to use your camera when requested.</div>
+        </div>
       } else if (token.claimer.toLowerCase() === this.Store.signedInAddress.toLowerCase()) {
         return <Button onClick={this.mintToken}>Mint your token</Button>
       }

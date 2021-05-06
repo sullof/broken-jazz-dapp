@@ -46,11 +46,6 @@ body {
     cursor: pointer;
 }
 
-.navbar-collapse a {
-    font-weight: 400;
-    padding: .5rem 1rem !important;
-}
-
 .navbar-light .navbar-brand {
     margin-top: -4px;
 }
@@ -82,8 +77,48 @@ body {
     margin: 0 0 -28px;
 }
 
+.navbar-light .navbar-text {
+    color: #dedeeb;
+    padding: .5rem 0.4rem !important;
+    font-size: 0.8rem;
+}
 
-@media (min-width: 1200px) {
+.navbar-collapse a,
+.navbar-collapse .span2 {
+    font-weight: 400;
+    padding: .5rem 0.7rem !important;
+    font-size: 0.85rem;
+}
+
+/*.navbar-light .navbar-text i,*/
+.navbar-light .navbar-text .extra,
+/*.navbar-collapse a i,*/
+.navbar-collapse a .extra,
+.navbar-collapse .span2 {
+    display: none !important;
+}
+
+@media (min-width: 1400px) {
+
+    .navbar-collapse a,
+    .navbar-collapse .span2 {
+        padding: .5rem 1rem !important;
+        font-size: 0.9rem;
+    }
+
+    .navbar-light .navbar-text {
+        padding: .5rem 1rem !important;
+        font-size: 0.9rem;
+    }
+
+    /*.navbar-light .navbar-text i,*/
+    .navbar-light .navbar-text .extra,
+    /*.navbar-collapse a i,*/
+    .navbar-collapse a .extra,
+    .navbar-collapse .span2 {
+        display: inline !important;
+    }
+
     .container, .container-lg, .container-md, .container-sm, .container-xl {
         max-width: 1400px !important;
     }
@@ -293,4 +328,10 @@ a.cyan {
 .cc-license-icons img {
     width: 21px;
     margin: 0 2px;
+}
+
+.claiming {
+    font-size: 0.9rem;
+    margin: 50px 0 12px;
+    color: rgb(168, 71, 178);
 }
