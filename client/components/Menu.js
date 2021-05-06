@@ -68,7 +68,7 @@ export default class Menu extends Base {
       }
     }
 
-    let connectedTo = <span style={{color: '#ff2050'}}>{
+    let connectedTo = <span className={'connected'}>{
       this.Store.signedInAddress
         ? 'Connected to an unsupported network'
         : null
@@ -78,7 +78,7 @@ export default class Menu extends Base {
 
     if (connectedNetwork) {
       connectedTo =
-        <span><i className="fa fa-plug" style={{color: '#40cc90', marginRight: 10}}></i> Connected to {connectedNetwork}</span>
+        <span><i className="fa fa-plug" style={{color: '#40cc90', marginRight: 10}} /> Connected to {connectedNetwork}</span>
     } else {
       // connectedTo = '
     }
@@ -94,24 +94,22 @@ export default class Menu extends Base {
       }
     }
 
-    return <Navbar fixed="top" bg="light" expand="lg" className={'roboto'}>
-      <Navbar.Brand href="/"><span className={'alice'}>Broken Jazz</span></Navbar.Brand>
+    return <Navbar fixed="top" bg="dark" expand="lg" className={'roboto'}>
+      <Navbar.Brand href="/"><b className={'istok white'}>Broken Jazz</b></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav"/>
 
       <Navbar.Collapse id="responsive-navbar-nav">
-        {
-          isPhone
-            ? null :
-            <Link to="/"><i className="fas fa-home"></i> Home</Link>
-        }
+        <Link to="/" className={'cyan'}><i className="fab fa-itunes-note"/> Tracks</Link>
+        <Link to="/intro" className={'cyan'}><i className="fas fa-book-open"/> Intro</Link>
+        <Link to="/credits" className={'cyan'}><i className="fas fa-copyright"/> Credits</Link>
 
-        <Link to="/items/claimed"><i className="fas fa-chart-pie"></i> {getTitle('claimed')}</Link>
+        <Link to="/items/claimed"><i className="fas fa-chart-pie"/> {getTitle('claimed')}</Link>
 
-        <Link to="/items/minted"><i className="fas fa-bowling-ball"></i> {getTitle('minted')}</Link>
+        <Link to="/items/minted"><i className="fas fa-bowling-ball"/> {getTitle('minted')}</Link>
 
-        <Link to="/items/unclaimed"><i className="fas fa-baby-carriage"></i> {getTitle('unclaimed')}</Link>
+        <Link to="/items/unclaimed"><i className="fas fa-baby-carriage"/> {getTitle('unclaimed')}</Link>
 
-        <Link to="/items/yours"><i className="fas fa-cannabis"></i> {getTitle('yours')}</Link>
+        <Link to="/items/yours"><i className="fas fa-cannabis"/> {getTitle('yours')}</Link>
       </Navbar.Collapse>
 
       <Navbar.Collapse className="justify-content-end">
@@ -121,7 +119,7 @@ export default class Menu extends Base {
         {
           this.Store.signedInAddress
             ? <Navbar.Text>
-              <i className="fas fa-user-astronaut" style={{marginRight: 10}}></i>
+              <i className="fas fa-user-astronaut" style={{marginRight: 10}}/>
               {address}
             </Navbar.Text>
             : <Button onClick={this.props.connect} variant="primary">Connect your Metamask</Button>

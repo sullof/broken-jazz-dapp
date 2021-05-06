@@ -97,7 +97,7 @@ class Admin extends Base {
             </p>
             : null
         }
-        {this.state.preClaims ? <div><code><pre>{JSON.stringify(this.state.preClaims, null, 2)}</pre></code></div> : null}
+        {this.state.preClaims ? <div><code><pre className={'white'}>{JSON.stringify(this.state.preClaims, null, 2)}</pre></code></div> : null}
         <div><Button variant="primary" onClick={this.getPreClaims}>Load preclaims</Button></div>
         <p>&nbsp;</p>
         <Form>

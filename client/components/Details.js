@@ -52,7 +52,7 @@ class Details extends Base {
   showActions(token) {
     if (this.state.minting === token.id) {
       return <div>
-        <img src="/images/spinner.svg"/>
+        <img src="/images/white-spinner.svg"/>
         {
           this.state.steps ? <div style={{marginTop: 12}}><ProgressBar animated now={this.state.steps}/></div> : null
         }
@@ -81,13 +81,13 @@ class Details extends Base {
         if (token.owner.toLowerCase() === this.Store.signedInAddress.toLowerCase()) {
           return 'Owned by you'
         } else {
-          return <span>Owned by <pre>{token.owner}</pre></span>
+          return <span>Owned by <pre className={'white'}>{token.owner}</pre></span>
         }
       } else if (token.claimer) {
         if (token.claimer.toLowerCase() === this.Store.signedInAddress.toLowerCase()) {
           return 'Claimed by you'
         } else {
-          return <span>Claimed by <pre>{token.claimer}</pre></span>
+          return <span>Claimed by <pre className={'white'}>{token.claimer}</pre></span>
         }
       } else if (ls('claimed' + this.props.token.id) === this.Store.signedInAddress) {
         return <span>
@@ -197,7 +197,7 @@ class Details extends Base {
           <Form.Control type="text" value={this.Store.signedInAddress} disabled={true}/>
         </Form.Group>
         <div>&nbsp;</div>
-        <img src={this.state.picture} width={480}/>
+        <img src={this.state.picture} width="100%"/>
         <div><span className={'command'} onClick={() => {
           this.setState({
             picture: null
@@ -280,7 +280,7 @@ class Details extends Base {
     // }
 
     return (
-      <div className={'cardDiv single'} style={{width: this.props.cw, height: this.props.cw + 26}}>
+      <div className={'cardDiv single'} style={{width: this.props.cw}}>
         <div className="cardBody">
           <p className={'tworem'}><b>{token.label}</b></p>
           <p style={{fontSize: '0.9rem'}}>{this.ownedBy(token)}</p>

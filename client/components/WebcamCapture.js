@@ -34,10 +34,10 @@ class WebcamCapture extends Base {
       <div className={'webcam-capture'}>
         <Webcam
           audio={false}
-          height={this.props.height || 360}
+          // height={this.props.height || 360}
           ref={this.setRef}
           screenshotFormat="image/jpeg"
-          width={this.props.width || 480}
+          width="100%"
           videoConstraints={videoConstraints}
         />
         <Button onClick={this.capture} variant="primary">Capture photo</Button>

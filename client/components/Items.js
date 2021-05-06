@@ -30,7 +30,8 @@ class Items extends Base {
     this.bindMany([
       'getTokens',
       'renderItems',
-      'intros'
+      'intros',
+      'getFilterIdFromPathname'
     ])
 
   }
@@ -99,7 +100,7 @@ class Items extends Base {
   }
 
 
-  renderItems() {
+  getFilterIdFromPathname() {
     const {pathname} = this.props
     const filter = pathname.split('/')[2]
     let id
@@ -109,6 +110,12 @@ class Items extends Base {
         id = i
       }
     }
+    return {filter, id}
+  }
+
+  renderItems() {
+    const {filter, id} = this.getFilterIdFromPathname()
+
     const w = id ? 520 : 320
     const filteredTokens = _.filter(this.Store.tokens, e => id ? e.id === id : e[filter])
 
@@ -146,11 +153,12 @@ class Items extends Base {
       />)
     }
 
-    return <Container style={{marginTop: 100}}>
+    return <div>
+      {this.intros()}
+      <Container>
       {
         allCols.length
           ? <div>
-            {this.intros()}
             <div //style={{width: w * cols}}
               className={'m0Auto'}>{allCols}</div>
           </div>
@@ -169,41 +177,42 @@ class Items extends Base {
       }
 
     </Container>
+    </div>
   }
 
   intros() {
-    const {pathname} = this.props
-    const filter = pathname.split('/')[2]
+    const {filter} = this.getFilterIdFromPathname()
     if (/^\d+$/.test(filter)) {
-      return null
+      return <div className={'subtitle transparent'}></div>
     } else {
       let intro
       switch (filter) {
         case 'minted':
-          intro = <p className={'paglia'}>Minted NFTs are standard ERC-721 tokens on the blockchain. They can be transferred,
-              farmed on DeFi apps, or sold on NFT marketplaces.<br/>
+          intro = <div><b>Minted NFTs are standard ERC-721 tokens on the blockchain. They can be transferred,
+              farmed on DeFi apps, or sold on NFT marketplaces.
               {
                 this.Store.chainId ?
-                  <span>You can take a look at <Ab
+                  <span>You can take a look at the Broken Jazz smart contract on <Ab
                     link={`https://${this.Store.chainId === 5 ? 'goerli.' : ''}etherscan.io/address/${this.Store.contract.address}#code`}
-                    label="the smart contract on Etherscan"/>.</span>
+                    label="Etherscan"/>.</span>
                   : null
               }
-              </p>
+              </b></div>
           break
         case 'claimed':
-          intro = <p className={'paglia'}>Clalmed NFTs are new tokens ready to be minted.</p>
+          intro = <div><b>Clalmed NFTs are new tokens ready to be minted.</b></div>
           break
         case 'unclaimed':
           intro =
-            <p className={'paglia'}>Unclaimed NFTs are tokens looking for an owner. If you own a Broken Jazz CD, use the
+        <div><b>Unclaimed NFTs are tokens looking for an owner. If you own a Broken Jazz CD, use the
               6-chars serial to claim yours. If not, you can buy a CD on <Ab link="https://amazon.com/dp/B08YCV1QL7"
-                                                                             label="Amazon"/>.</p>
+                                                                             label="Amazon"/>.</b></div>
           break
         default:
-          intro = null
+          intro = <div><b>To get a BKJZ NFTs, first buy a CD on <Ab link="https://amazon.com/dp/B08YCV1QL7"
+                                                                           label="Amazon"/>.</b></div>
       }
-      return intro
+      return <div className={'subtitle'}>{intro}</div>
     }
   }
 

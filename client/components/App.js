@@ -25,6 +25,9 @@ import Home from './Home'
 import Items from './Items'
 import Admin from './Admin'
 import Error404 from './Error404'
+import Footer from './Footer'
+import Credits from './Credits'
+import Intro from './Intro'
 
 class App extends Common {
 
@@ -222,6 +225,18 @@ class App extends Common {
               setStore={this.setStore}
             />
           </Route>
+          <Route exact path="/intro">
+            <Intro
+              Store={Store}
+              setStore={this.setStore}
+            />
+          </Route>
+          <Route exact path="/credits">
+            <Credits
+              Store={Store}
+              setStore={this.setStore}
+            />
+          </Route>
           <Route exact path="*">
             <Error404
               Store={Store}
@@ -229,6 +244,7 @@ class App extends Common {
             />
           </Route>
         </Switch>
+        <Footer/>
       </main>
       {Store.showModal
         ? <Modal.Dialog>

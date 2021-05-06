@@ -44,7 +44,7 @@ class Item extends Base {
     const {token} = this.props
 
     return (
-      <div className={`cardDiv ${this.props.large ? 'single' : ''}`}  style={{width: this.props.cw, height: this.props.cw + 26}}>
+      <div className={`cardDiv ${this.props.large ? 'single' : ''}`}  style={{width: this.props.cw}}>
         <div className="cardBody">{
           token && token.imageURI
           ? this.renderVideo(token)
