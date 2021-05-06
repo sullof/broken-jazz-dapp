@@ -126,7 +126,7 @@ export default class Menu extends Base {
             : <Button onClick={this.props.connect} variant="primary">Connect your Metamask</Button>
         }
         {
-          Address.equal(this.Store.signedInAddress, '0x75543056D9cA56B29FfcCF873d5C2Cfc91f412b4')
+          Address.isAdmin(this.Store.signedInAddress)
             ? <Navbar.Text>
               <Link to="/admin"><i className="fas fa-tools"/> Admin</Link>
             </Navbar.Text>

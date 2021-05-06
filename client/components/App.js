@@ -3,7 +3,10 @@
 // } = ReactRouterDOM
 
 // eslint-disable-next-line no-undef
-const {BrowserRouter, Route, Switch} = ReactRouterDOM
+import Address from '../utils/Address'
+
+// eslint-disable-next-line no-undef
+const {BrowserRouter, Route, Switch, Redirect} = ReactRouterDOM
 
 // eslint-disable-next-line no-undef
 const {Modal, Button} = ReactBootstrap
@@ -220,10 +223,21 @@ class App extends Common {
           </Route>
           <Route exact path="/items/:param" component={items}/>
           <Route exact path="/admin">
-            <Admin
-              Store={Store}
-              setStore={this.setStore}
-            />
+            {
+              Store.signedInAddress
+                ? (
+                  Address.isAdmin(Store.signedInAddress)
+                  ? <Admin
+                    Store={Store}
+                    setStore={this.setStore}
+                  />
+                  : <Redirect><Error404
+                    Store={Store}
+                    setStore={this.setStore}
+                  /></Redirect>
+                )
+                : null
+            }
           </Route>
           <Route exact path="/intro">
             <Intro

@@ -9,7 +9,10 @@ class Address {
     } catch(e) {
       return false
     }
+  }
 
+  static isAdmin(addr) {
+    return Address.equal(addr, '0x75543056D9cA56B29FfcCF873d5C2Cfc91f412b4')
   }
 }
 

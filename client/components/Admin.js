@@ -1,14 +1,10 @@
 // eslint-disable-next-line no-undef
 const {Button, Container, Form} = ReactBootstrap
 
+
 import Base from './Base'
 
 import auth from '../utils/Auth'
-
-async function sleep(millis) {
-  // eslint-disable-next-line no-undef
-  return new Promise(resolve => setTimeout(resolve, millis))
-}
 
 class Admin extends Base {
 
@@ -33,7 +29,6 @@ class Admin extends Base {
       success: null
     })
   }
-
 
   async getPreClaims() {
 

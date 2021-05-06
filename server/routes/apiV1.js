@@ -155,7 +155,7 @@ router.post('/admin', async (req, res) => {
     sig: req.body.signature
   })
 
-  if (Address.equal('0x75543056D9cA56B29FfcCF873d5C2Cfc91f412b4', recovered)) {
+  if (Address.isAdmin(recovered)) {
     const data = JSON.parse(msgParams.message.data)
     if (Date.now() - data.timestamp > 30000) {
       res.json({
