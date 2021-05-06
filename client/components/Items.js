@@ -177,13 +177,14 @@ class Items extends Base {
       }
 
     </Container>
+      <div style={{height: 60, clear: 'both'}}/>
     </div>
   }
 
   intros() {
     const {filter} = this.getFilterIdFromPathname()
     if (/^\d+$/.test(filter)) {
-      return <div className={'subtitle transparent'}></div>
+      return <div className={'subtitle transparent'}/>
     } else {
       let intro
       switch (filter) {
