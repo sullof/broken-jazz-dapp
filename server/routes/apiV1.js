@@ -134,7 +134,7 @@ router.get('/tokens', async (req, res) => {
         cachedOwners[id] = token.owner = owner
         lastCachedAt = Date.now()
       } catch (e) {
-        console.error(e.message)
+        // console.error(e.message)
       }
     }
   }

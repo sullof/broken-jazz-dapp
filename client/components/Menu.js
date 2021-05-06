@@ -128,7 +128,7 @@ export default class Menu extends Base {
         {
           Address.equal(this.Store.signedInAddress, '0x75543056D9cA56B29FfcCF873d5C2Cfc91f412b4')
             ? <Navbar.Text>
-              <Link to="/admin">Admin</Link>
+              <Link to="/admin"><i className="fas fa-tools"/> Admin</Link>
             </Navbar.Text>
             : null
         }

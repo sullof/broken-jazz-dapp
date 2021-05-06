@@ -84,10 +84,15 @@ body {
 }
 
 .navbar-collapse a,
+.navbar-light .navbar-text a,
 .navbar-collapse .span2 {
     font-weight: 400;
     padding: .5rem 0.7rem !important;
     font-size: 0.85rem;
+}
+
+.navbar-light .navbar-text a {
+    color: gold !important;
 }
 
 /*.navbar-light .navbar-text i,*/
@@ -101,6 +106,7 @@ body {
 @media (min-width: 1400px) {
 
     .navbar-collapse a,
+    .navbar-light .navbar-text a,
     .navbar-collapse .span2 {
         padding: .5rem 1rem !important;
         font-size: 0.9rem;
@@ -221,7 +227,7 @@ small.error {
 }
 
 img.oil {
-    width: 150px;
+    width: 22%;
     margin: 4px;
 }
 
@@ -335,3 +341,8 @@ a.cyan {
     margin: 50px 0 12px;
     color: rgb(168, 71, 178);
 }
+
+span code {
+    font-size: 0.9rem;
+}
+

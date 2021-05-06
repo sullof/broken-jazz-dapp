@@ -71,7 +71,13 @@ class Details extends Base {
           <div className={'claiming'}>To claim a token you need to take a picture of yourself with the inside of the CD cover, showing the serial code. So, please, allow this website to use your camera when requested.</div>
         </div>
       } else if (token.claimer.toLowerCase() === this.Store.signedInAddress.toLowerCase()) {
-        return <Button onClick={this.mintToken}>Mint your token</Button>
+        if (this.Store.chainId === 5) {
+          return <Button onClick={this.mintToken}>Mint your token</Button>
+        } else {
+          return <div className={'claiming'}>Connect to Goerli Testnet to mint your token</div>
+        }
+      } else {
+        return <div className={'claiming'}>Connect your Metamask to check if you can mint your token</div>
       }
     } else {
       return null
@@ -84,13 +90,13 @@ class Details extends Base {
         if (token.owner.toLowerCase() === this.Store.signedInAddress.toLowerCase()) {
           return 'Owned by you'
         } else {
-          return <span>Owned by <pre className={'white'}>{token.owner}</pre></span>
+          return <span>Owned by<br/><code className={'white'}>{token.owner}</code></span>
         }
       } else if (token.claimer) {
         if (token.claimer.toLowerCase() === this.Store.signedInAddress.toLowerCase()) {
           return 'Claimed by you'
         } else {
-          return <span>Claimed by <pre className={'white'}>{token.claimer}</pre></span>
+          return <span>Claimed by<br/><code className={'white'}>{token.claimer}</code></span>
         }
       } else if (ls('claimed' + this.props.token.id) === this.Store.signedInAddress) {
         return <span>
