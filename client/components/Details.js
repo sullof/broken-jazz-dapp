@@ -4,6 +4,9 @@ const ls = require('local-storage')
 
 import ReactMarkdown from 'react-markdown'
 import Base from './Base'
+import WebcamCapture from './WebcamCapture'
+
+import auth from '../utils/Auth'
 
 async function sleep(millis) {
   // eslint-disable-next-line no-undef
@@ -27,8 +30,8 @@ class Details extends Base {
       'handleChangeSerial',
       'handleChangeTrack',
       'submitClaim',
-      'getSignedAuthToken',
-      'validateSerial'
+      'validateSerial',
+      'webcamCallback'
     ])
 
   }
@@ -78,17 +81,24 @@ class Details extends Base {
         if (token.owner.toLowerCase() === this.Store.signedInAddress.toLowerCase()) {
           return 'Owned by you'
         } else {
-          return `Owned by ${token.owner}`
+          return <span>Owned by <pre>{token.owner}</pre></span>
         }
       } else if (token.claimer) {
         if (token.claimer.toLowerCase() === this.Store.signedInAddress.toLowerCase()) {
           return 'Claimed by you'
         } else {
-          return `Claimed by ${token.claimer}`
+          return <span>Claimed by <pre>{token.claimer}</pre></span>
         }
       } else if (ls('claimed' + this.props.token.id) === this.Store.signedInAddress) {
-        return 'A claim has been started by you. Francesco will generate a new video for you. It could take a couple of days. Come back later :-)'
+        return <span>
+          <p>You have started a claim, and a new video with your favorite song is coming soon.</p>
+          <p>It usually takes less than 24 hours. However, if it takes too much, there can be an error somewhere, so please send a message to brokenjazz@sullo.co.</p>
+        </span>
       }
+    } else {
+      return <span>
+          <p>To claim this token, please connect your Metamask.</p>
+        </span>
     }
     return null
   }
@@ -99,46 +109,6 @@ class Details extends Base {
     this.setState({
       claimNow: true
     })
-  }
-
-  async getSignedAuthToken(id, trackNumber, chosenTrack, serial) {
-
-    const msgParams = JSON.stringify({
-      domain: {
-        chainId: this.Store.chainId,
-        name: 'Broken Jazz NFT',
-        version: '1',
-      },
-      message: {
-        id,
-        trackNumber,
-        chosenTrack,
-        serial
-      },
-      primaryType: 'Claim',
-      types: {
-        EIP712Domain: [
-          {name: 'name', type: 'string'},
-          {name: 'version', type: 'string'},
-          {name: 'chainId', type: 'uint256'}
-        ],
-        Claim: [
-          {name: 'id', type: 'string'},
-          {name: 'trackNumber', type: 'string'},
-          {name: 'chosenTrack', type: 'string'},
-          {name: 'serial', type: 'string'},
-        ]
-      }
-    })
-    const params = [this.Store.signedInAddress, msgParams]
-    const method = 'eth_signTypedData_v4'
-
-    const signature = await window.ethereum.request({
-      method,
-      params,
-      from: this.Store.signedInAddress,
-    })
-    return {msgParams, signature}
   }
 
   validateSerial(serial) {
@@ -174,28 +144,41 @@ class Details extends Base {
 
     const {id} = this.props.token
 
-    const {msgParams, signature} = await this.getSignedAuthToken(
-      id,
-      trackNumber,
-      chosenTrack,
-      serial)
+    const {msgParams, signature} = await auth.getSignedAuthToken(
+      this.Store.chainId,
+      this.Store.signedInAddress,
+      {
+        id,
+        trackNumber,
+        chosenTrack,
+        serial
+      }
+    )
 
     const res = await this.request(`claim/${id}`, 'post', {
       address: this.Store.signedInAddress,
       msgParams,
-      signature
+      signature,
+      picture: this.state.picture
     })
     if (res.success) {
       ls('claimed' + id, this.Store.signedInAddress)
       this.setState({
         claimed: true,
-        claimNow: false
+        claimNow: false,
+        picture: null
       })
     } else {
       this.setState({
         error: res.error
       })
     }
+  }
+
+  webcamCallback(picture) {
+    this.setState({
+      picture
+    })
   }
 
   getForm() {
@@ -206,39 +189,55 @@ class Details extends Base {
       )
     }
 
-    return <Form>
-      <Form.Group controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="text" value={this.Store.signedInAddress} disabled={true}/>
-      </Form.Group>
-      <div>&nbsp;</div>
-      <Form.Group controlId="formBasicPassword">
-        <Form.Label>Serial code inside CD cover</Form.Label>
-        <Form.Control type="text"
-                      onChange={this.handleChangeSerial}
-                      placeholder="Serial"/>
-      </Form.Group>
-      {
-        this.state.error
-          ? <Form.Text className="text-muted error">
-            {this.state.error}
-          </Form.Text>
-          : null
+    if (this.state.picture) {
 
-      }
-      <div>&nbsp;</div>
-      <Form.Group controlId="exampleForm.ControlSelect1">
-        <Form.Label>Track you like to have on video</Form.Label>
-        <Form.Control as="select"
-                      onChange={this.handleChangeTrack}>
-          {options}
-        </Form.Control>
-      </Form.Group>
-      <div>&nbsp;</div>
-      <Button variant="primary" type="button" onClick={this.submitClaim}>
-        Claim
-      </Button>
-    </Form>
+      return <Form>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Your address</Form.Label>
+          <Form.Control type="text" value={this.Store.signedInAddress} disabled={true}/>
+        </Form.Group>
+        <div>&nbsp;</div>
+        <img src={this.state.picture} width={480}/>
+        <div><span className={'command'} onClick={() => {
+          this.setState({
+            picture: null
+          })
+        }}>Retake the picture</span></div>
+        <div>&nbsp;</div>
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Confirm serial code inside CD cover</Form.Label>
+          <Form.Control type="text"
+                        onChange={this.handleChangeSerial}
+                        placeholder="Serial"/>
+        </Form.Group>
+        {
+          this.state.error
+            ? <Form.Text className="text-muted error">
+              {this.state.error}
+            </Form.Text>
+            : null
+        }
+        <div>&nbsp;</div>
+        <Form.Group controlId="exampleForm.ControlSelect1">
+          <Form.Label>Track you like to have on video</Form.Label>
+          <Form.Control as="select"
+                        onChange={this.handleChangeTrack}>
+            {options}
+          </Form.Control>
+        </Form.Group>
+        <div>&nbsp;</div>
+        <Button variant="primary" type="button" onClick={this.submitClaim}>
+          Claim
+        </Button>
+      </Form>
+    } else {
+      return <div>
+        <p>Please, take a picture of yourself with the CD cover, so that the serial code is well visible.</p>
+        <WebcamCapture
+          callback={this.webcamCallback}
+        />
+      </div>
+    }
   }
 
   async mintToken() {
@@ -271,17 +270,6 @@ class Details extends Base {
     this.props.getTokens(true)
   }
 
-  tokenData(token = {id: 0}) {
-    let {id} = token
-    let title = `Broken Jazz ${id < 51
-      ? 'NE ' + id + '/50'
-      : id === 54
-        ? 'AC 1/1'
-        : 'AP ' + (id - 50) + '/3'}`
-
-    return <span>{title}</span>
-  }
-
   render() {
 
     const {token} = this.props
@@ -294,7 +282,7 @@ class Details extends Base {
     return (
       <div className={'cardDiv single'} style={{width: this.props.cw, height: this.props.cw + 26}}>
         <div className="cardBody">
-          <p className={'tworem'}><b>{this.tokenData(token)}</b></p>
+          <p className={'tworem'}><b>{token.label}</b></p>
           <p style={{fontSize: '0.9rem'}}>{this.ownedBy(token)}</p>
           {
             this.state.claimNow
@@ -306,8 +294,8 @@ class Details extends Base {
                     ?
                     <div>
                       <p>&nbsp;</p>
-                      <p>Track #{parseInt(token.metadata.attributes[0].value)}</p>
-                      <p><b style={{fontSize: '1.1rem'}}>{token.metadata.attributes[1].value}</b></p>
+                      <p>Track #{parseInt(token.trackNumber)}</p>
+                      <p><b style={{fontSize: '1.1rem'}}>{token.trackTitle}</b></p>
                       <p>&nbsp;</p>
                       <p>Original comments about the track:</p>
                       <i><ReactMarkdown children={token.comments}/></i>

@@ -1,49 +1,66 @@
 const express = require('express')
 const router = express.Router()
 const sigUtil = require('eth-sig-util')
-const {toChecksumAddress} = require('ethereumjs-util')
 const db = require('../lib/Db')
+const Address = require('../../common/Address')
 const serials = require('../../db/serials')
 const path = require('path')
 const fs = require('fs-extra')
+const {getContract} = require('../lib/utils')
+
+async function savePicture(picture, tokenId, serial, address) {
+  const base64Data = picture.replace(/^[^,]+,/, '')
+  const proofs = path.resolve(__dirname, '../../db/proofs')
+  await fs.ensureDir(proofs)
+  const fn = [address, serial].join('_') + '.png'
+  await fs.writeFile(path.resolve(proofs, fn), base64Data, {encoding: 'base64'})
+}
 
 router.post('/claim/:tokenId', async (req, res) => {
 
   const tokenId = req.params.tokenId
-  const {address, msgParams, signature} = req.body
-  const data = JSON.parse(msgParams)
+  const {address, signature, picture} = req.body
+  const msgParams = JSON.parse(req.body.msgParams)
 
   const recovered = sigUtil.recoverTypedSignature_v4({
-    data,
+    data: msgParams,
     sig: signature
   })
 
-  if (toChecksumAddress(address) !== toChecksumAddress(recovered)) {
-    res.json({
-      success: false,
-      error: 'Invalid signature'
-    })
-  } else {
-    const {message} = data
-    if (message.serial !== serials[tokenId]) {
+  if (Address.equal(address, recovered)) {
+    const data = JSON.parse(msgParams.message.data)
+    if (Date.now() - data.timestamp > 30000) {
+      res.json({
+        success: false,
+        error: 'Expired signature'
+      })
+    } else if (data.serial !== serials[tokenId]) {
       res.json({
         success: false,
         error: 'Wrong serial'
       })
     } else {
-      message.claimer = address
-      db.set(`claimed_${tokenId}`, message)
+      await savePicture(picture, tokenId, data.serial, address)
+      data.claimer = address
+      let preClaimed = db.get('preClaimed') || {}
+      preClaimed[[address, tokenId].join('_')] = data
+      db.set('preClaimed', preClaimed)
       res.json({
         success: true
       })
     }
+  } else {
+    res.json({
+      success: false,
+      error: 'Invalid signature'
+    })
   }
 })
 
 router.get('/tracks', async (req, res) => {
-  const tokens = JSON.parse(await fs.readFile(path.resolve(__dirname, '../../db/index.json'), 'utf-8'))
-  const data = JSON.parse(await fs.readFile(path.resolve(__dirname, '../../db/data.json'), 'utf-8'))
-  const tracks = JSON.parse(await fs.readFile(path.resolve(__dirname, '../../common/tracks.json'), 'utf-8'))
+  const claimed = db.get('claimed') || {}
+  const preClaimed = db.get('preClaimed') || {}
+  const tracks = db.get('tracks')
 
   let allClaimed = 0
   const usedTracks = {}
@@ -55,14 +72,14 @@ router.get('/tracks', async (req, res) => {
     allClaimed++
   }
 
-  for (let id in tokens) {
-    let t = tokens[id].metadata.attributes[0].value
+  for (let id in claimed) {
+    let t = claimed[id].trackNumber
     add(t)
   }
 
-  for (let id in data) {
-    if (!tokens[data[id].id]) {
-      add(data[id].trackNumber)
+  for (let id in preClaimed) {
+    if (!claimed[preClaimed[id].id]) {
+      add(preClaimed[id].trackNumber)
     }
   }
 
@@ -90,6 +107,111 @@ router.get('/tracks', async (req, res) => {
   })
 
 })
+
+let cachedOwners = {}
+let lastCachedAt = 0
+let contract
+
+router.get('/tokens', async (req, res) => {
+  let {forceReload, chainId} = req.query
+  if (forceReload || Date.now() - lastCachedAt > 300000) {
+    cachedOwners = {}
+  }
+  // if (!chainId || chainId === '1337') {
+  //   chainId = 5
+  // }
+  if (!contract) {
+    contract = getContract(5)
+  }
+  let tokens = db.get('claimed') || {}
+  for (let id in tokens) {
+    let token = tokens[id]
+    if (cachedOwners[id]) {
+      token.owner = cachedOwners[id]
+    } else {
+      try {
+        let owner = await contract.ownerOf(id)
+        cachedOwners[id] = token.owner = owner
+        lastCachedAt = Date.now()
+      } catch (e) {
+        console.error(e.message)
+      }
+    }
+  }
+
+  res.json({
+    success: true,
+    tokens
+  })
+
+})
+
+router.post('/admin', async (req, res) => {
+  const msgParams = JSON.parse(req.body.msgParams)
+  const params = JSON.parse(req.body.params || '{}')
+
+  const recovered = sigUtil.recoverTypedSignature_v4({
+    data: msgParams,
+    sig: req.body.signature
+  })
+
+  if (Address.equal('0x75543056D9cA56B29FfcCF873d5C2Cfc91f412b4', recovered)) {
+    const data = JSON.parse(msgParams.message.data)
+    if (Date.now() - data.timestamp > 30000) {
+      res.json({
+        success: false,
+        error: 'Expired signature'
+      })
+    } else {
+      const {api} = data
+      if (api === 'get-preclaims') {
+        res.json({
+          success: true,
+          preClaims: db.get('preClaimed')
+        })
+      } else if (api === 'set-claims') {
+        const preClaimed = db.get('preClaimed') || {}
+        const claimed = db.get('claimed') || {}
+        let ok = false
+        for (let id in params) {
+          let c = params[id]
+          if (claimed[id] || !c.signature) {
+            continue
+          }
+          claimed[id] = {
+            metadataURI: c.metadataURI,
+            name: c.metadata.name,
+            imageURI: c.metadata.image,
+            trackNumber: parseInt(c.metadata.attributes[0].value),
+            trackTitle: c.metadata.attributes[1].value,
+            claimer: c.claimer,
+            signature: c.signature
+          }
+          for (let key in preClaimed) {
+            let kid = key.split('_')[1]
+            if (kid === id) {
+              delete preClaimed[key]
+            }
+          }
+          ok = true
+        }
+        if (ok) {
+          db.set('claimed', claimed)
+          db.set('preClaimed', preClaimed)
+        }
+        res.json({
+          success: true
+        })
+      }
+    }
+  } else {
+    res.json({
+      success: false,
+      error: 'Forbidden'
+    })
+  }
+})
+
 
 module.exports = router
 

@@ -17,27 +17,19 @@ class Item extends Base {
   }
 
   tokenData(token = {id: 0}) {
-    let {id} = token
-    let title = `Broken Jazz ${id < 51
-      ? 'NE ' + id + '/50'
-      : id === 54
-        ? 'AC 1/1'
-        : 'AP ' + (id - 50) + '/3'}`
-
-    return <div className={'title'}><Link to={`/items/${id}`}>{title}</Link></div>
+    let {id, label} = token
+    return <div className={'title'}><Link to={`/items/${id}`}>{label}</Link></div>
   }
 
   renderVideo(token) {
     return <div style={{height: this.props.wh, width: this.props.wh}}>
-      <VideoPlayer src={token.metadata.image.replace(/ipfs:\/\//, 'https://ipfs.io/ipfs/')}/>
-      {this.props.large ? null : this.tokenData(token)}
+      <VideoPlayer src={token.imageURI.replace(/ipfs:\/\//, 'https://ipfs.io/ipfs/')}/>
     </div>
   }
 
   renderUnminted(token) {
     return <div>
       <img src="/images/cover480.jpg" style={{height: this.props.wh, width: this.props.wh}}/>
-      {this.props.large ? null : this.tokenData(token)}
     </div>
   }
 
@@ -54,10 +46,12 @@ class Item extends Base {
     return (
       <div className={`cardDiv ${this.props.large ? 'single' : ''}`}  style={{width: this.props.cw, height: this.props.cw + 26}}>
         <div className="cardBody">{
-          token && token.metadata
+          token && token.imageURI
           ? this.renderVideo(token)
           : this.renderUnminted(token)
-        }</div>
+        }
+        <div>{this.tokenData(token)}</div>
+        </div>
       </div>
     )
 

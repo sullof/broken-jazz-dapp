@@ -50,8 +50,7 @@ export default class Home extends Base {
 
 
       <div className={'largerp'}>
-        <p>As a musician, I focused on songs with vocals and lyrics all my life.</p>
-        <p>When I sit down to the piano and improvise something instrumental, I don't usually record it. Since
+        <p>As a musician, I focused on songs with vocals and lyrics all my life. So, when I sit down to the piano and improvise something instrumental, I don't usually record it. Since
           I have a terrible memory, I end up composing thousands of fragments that got lost.</p>
         <p>In December 2020, I was trying to remember something I composed a few years ago, without success. I was
           distraught. So, I set up a minimalistic home studio to record musical notes I could use somewhere in the
@@ -75,8 +74,8 @@ export default class Home extends Base {
         <p>Only 54 BKJZ tokens will exist on the Ethereum main network when all the tokens are minted. A little
           while ago, thousands of people minted 20,000 procedurally generated <Ab label="Meebits"
                                                                                   link="https://meebits.larvalabs.com/meebits/list"/> for
-          2.34 ETH each, i.e., more than seven thousands dollar each. So I think that fifty-four manually edited
-          BKJZ tokens should have a significant value. Maybe not soon, but they will have some value sooner or
+          2.34 ETH each, i.e., more than seven thousands dollar each. I am not LarvaLabs, but I think that fifty-four manually edited
+          BKJZ tokens should have a significant value. Maybe not soon, but they will have a value sooner or
           later. If I were you, I would jump on <Ab
             link="https://amazon.com/dp/B08YCV1QL7" label="Amazon"/> and buy one CD before it is too late. It is only around $15.</p>
       </div>

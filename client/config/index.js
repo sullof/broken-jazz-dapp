@@ -1,4 +1,4 @@
-import BrokenJazz from './BrokenJazz.json'
+const BrokenJazz = require('./BrokenJazz.json')
 
 const config = {
   supported: {

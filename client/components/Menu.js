@@ -4,6 +4,7 @@ const {Link} = ReactRouterDOM
 // eslint-disable-next-line no-undef
 const {Navbar, Button} = ReactBootstrap
 
+import Address from '../../common/Address'
 import Base from './Base'
 
 export default class Menu extends Base {
@@ -82,10 +83,10 @@ export default class Menu extends Base {
       // connectedTo = '
     }
 
-    const  getTitle = what => {
+    const getTitle = what => {
       let {which} = this.state
       let title = what === 'yours' ? (isPhone ? 'Yours' : 'Your NFTs') :
-        what.substring(0,1).toUpperCase() + what.substring(1) + (isPhone ? '' : ' NFTs')
+        what.substring(0, 1).toUpperCase() + what.substring(1) + (isPhone ? '' : ' NFTs')
       if (which === what) {
         return <b>{title}</b>
       } else {
@@ -96,25 +97,22 @@ export default class Menu extends Base {
     return <Navbar fixed="top" bg="light" expand="lg" className={'roboto'}>
       <Navbar.Brand href="/"><span className={'alice'}>Broken Jazz</span></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-      {
-        this.Store.signedInAddress
-          ? <Navbar.Collapse id="responsive-navbar-nav">
-            {
-              isPhone
-                ? null :
-              <Link to="/"><i className="fas fa-home"></i> Home</Link>
-            }
 
-            <Link to="/items/claimed"><i className="fas fa-chart-pie"></i> {getTitle('claimed')}</Link>
+      <Navbar.Collapse id="responsive-navbar-nav">
+        {
+          isPhone
+            ? null :
+            <Link to="/"><i className="fas fa-home"></i> Home</Link>
+        }
 
-            <Link to="/items/minted"><i className="fas fa-bowling-ball"></i> {getTitle('minted')}</Link>
+        <Link to="/items/claimed"><i className="fas fa-chart-pie"></i> {getTitle('claimed')}</Link>
 
-            <Link to="/items/unclaimed"><i className="fas fa-baby-carriage"></i> {getTitle('unclaimed')}</Link>
+        <Link to="/items/minted"><i className="fas fa-bowling-ball"></i> {getTitle('minted')}</Link>
 
-            <Link to="/items/yours"><i className="fas fa-cannabis"></i> {getTitle('yours')}</Link>
-          </Navbar.Collapse>
-          : null
-      }
+        <Link to="/items/unclaimed"><i className="fas fa-baby-carriage"></i> {getTitle('unclaimed')}</Link>
+
+        <Link to="/items/yours"><i className="fas fa-cannabis"></i> {getTitle('yours')}</Link>
+      </Navbar.Collapse>
 
       <Navbar.Collapse className="justify-content-end">
         <Navbar.Text>
@@ -127,6 +125,13 @@ export default class Menu extends Base {
               {address}
             </Navbar.Text>
             : <Button onClick={this.props.connect} variant="primary">Connect your Metamask</Button>
+        }
+        {
+          Address.equal(this.Store.signedInAddress, '0x75543056D9cA56B29FfcCF873d5C2Cfc91f412b4')
+            ? <Navbar.Text>
+              <Link to="/admin">Admin</Link>
+            </Navbar.Text>
+            : null
         }
 
       </Navbar.Collapse>

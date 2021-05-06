@@ -31,8 +31,8 @@
     "react-markdown": "^6.0.1",
     "react-password-strength-bar": "^0.3.2",
     "react-player": "^2.9.0",
+    "react-webcam": "^5.2.3",
     "simple-json-db": "^1.2.3",
-    "sqlite3": "^5.0.2",
     "superagent": "^4.1.0",
     "video-react": "^0.14.1",
     "web3modal": "^1.9.3"

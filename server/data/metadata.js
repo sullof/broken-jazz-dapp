@@ -1,5 +1,6 @@
 const tracks = require('../../common/tracks.json')
-const serials = require('../../db/serials')
+const db = require('../lib/Db')
+const serials = db.get('serials')
 
 class Metadata {
 

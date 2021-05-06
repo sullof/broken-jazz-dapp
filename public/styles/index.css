@@ -125,7 +125,8 @@ div.cardDiv {
 div.cardDiv div.title {
     padding-top: 9px;
     text-align: center;
-    font-size: 1.1rem;
+    font-family: Roboto, sans-serif;
+    /*font-size: 0.9rem;*/
 }
 
 .video-react .video-react-big-play-button {
@@ -190,4 +191,12 @@ img.oil {
 
 .alice {
     font-family: 'Alice' !important;
+}
+
+.webcam-capture video {
+    border: 2px solid black;
+}
+
+button {
+    font-family: Roboto, sans-serif;
 }

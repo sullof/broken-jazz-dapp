@@ -3,7 +3,7 @@
 // } = ReactRouterDOM
 
 // eslint-disable-next-line no-undef
-const {BrowserRouter, Route} = ReactRouterDOM
+const {BrowserRouter, Route, Switch} = ReactRouterDOM
 
 // eslint-disable-next-line no-undef
 const {Modal, Button} = ReactBootstrap
@@ -23,6 +23,8 @@ import Common from './Common'
 import Menu from './Menu'
 import Home from './Home'
 import Items from './Items'
+import Admin from './Admin'
+import Error404 from './Error404'
 
 class App extends Common {
 
@@ -104,7 +106,7 @@ class App extends Common {
         connectedNetwork,
         networkNotSupported
       })
-    } catch(e) {
+    } catch (e) {
       window.location.reload()
     }
   }
@@ -145,7 +147,6 @@ class App extends Common {
       showModal: true
     })
   }
-
 
 
   getContract(config, chainId, web3Provider) {
@@ -190,15 +191,6 @@ class App extends Common {
 
     const Store = this.state.Store
 
-    const home = () => {
-      return (
-        <Home
-          Store={Store}
-          setStore={this.setStore}
-        />
-      )
-    }
-
     const items = (params) => {
       return (
         <Items
@@ -216,8 +208,27 @@ class App extends Common {
         connect={this.connect}
       />
       <main>
-        <Route exact path="/" component={home}/>
-        <Route exact path="/items/:param" component={items}/>
+        <Switch>
+          <Route exact path="/">
+            <Home
+              Store={Store}
+              setStore={this.setStore}
+            />
+          </Route>
+          <Route exact path="/items/:param" component={items}/>
+          <Route exact path="/admin">
+            <Admin
+              Store={Store}
+              setStore={this.setStore}
+            />
+          </Route>
+          <Route exact path="*">
+            <Error404
+              Store={Store}
+              setStore={this.setStore}
+            />
+          </Route>
+        </Switch>
       </main>
       {Store.showModal
         ? <Modal.Dialog>
