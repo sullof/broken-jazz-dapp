@@ -76,8 +76,6 @@ class Details extends Base {
         } else {
           return <div className={'claiming'}>Connect to Goerli Testnet to mint your token</div>
         }
-      } else {
-        return <div className={'claiming'}>Connect your Metamask to check if you can mint your token</div>
       }
     } else {
       return null
