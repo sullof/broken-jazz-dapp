@@ -8,12 +8,18 @@ const path = require('path')
 const fs = require('fs-extra')
 const {getContract} = require('../lib/utils')
 
-async function savePicture(picture, tokenId, serial, address) {
+async function savePicture(picture, serial, address) {
   const base64Data = picture.replace(/^[^,]+,/, '')
   const proofs = path.resolve(__dirname, '../../db/proofs')
   await fs.ensureDir(proofs)
   const fn = [address, serial].join('_') + '.png'
   await fs.writeFile(path.resolve(proofs, fn), base64Data, {encoding: 'base64'})
+}
+
+async function getPictureAsBase64(serial, address) {
+  const proofs = path.resolve(__dirname, '../../db/proofs')
+  const fn = [address, serial].join('_') + '.png'
+  return fs.readFile(path.resolve(proofs, fn), 'base64')
 }
 
 router.post('/claim/:tokenId', async (req, res) => {
@@ -40,7 +46,7 @@ router.post('/claim/:tokenId', async (req, res) => {
         error: 'Wrong serial'
       })
     } else {
-      await savePicture(picture, tokenId, data.serial, address)
+      await savePicture(picture, data.serial, address)
       data.claimer = address
       let preClaimed = db.get('preClaimed') || {}
       preClaimed[[address, tokenId].join('_')] = data
@@ -113,7 +119,7 @@ let lastCachedAt = 0
 let contract
 
 router.get('/tokens', async (req, res) => {
-  let {forceReload, chainId} = req.query
+  let {forceReload} = req.query
   if (forceReload || Date.now() - lastCachedAt > 300000) {
     cachedOwners = {}
   }
@@ -146,6 +152,7 @@ router.get('/tokens', async (req, res) => {
 
 })
 
+
 router.post('/admin', async (req, res) => {
   const msgParams = JSON.parse(req.body.msgParams)
   const params = JSON.parse(req.body.params || '{}')
@@ -165,9 +172,14 @@ router.post('/admin', async (req, res) => {
     } else {
       const {api} = data
       if (api === 'get-preclaims') {
+        let preClaimed = db.get('preClaimed')
+        for (let key in preClaimed) {
+          let {serial, claimer} = preClaimed[key]
+          preClaimed[key].base64Image = await getPictureAsBase64(serial, claimer)
+        }
         res.json({
           success: true,
-          preClaims: db.get('preClaimed')
+          preClaims: preClaimed
         })
       } else if (api === 'set-claims') {
         const preClaimed = db.get('preClaimed') || {}
@@ -211,6 +223,7 @@ router.post('/admin', async (req, res) => {
     })
   }
 })
+
 
 
 module.exports = router

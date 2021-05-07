@@ -18,7 +18,8 @@ class Admin extends Base {
     this.bindMany([
       'getPreClaims',
       'addClaims',
-      'handleChanges'
+      'handleChanges',
+      'getClaimAndProofs'
     ])
 
   }
@@ -83,6 +84,26 @@ class Admin extends Base {
     }
   }
 
+  getClaimAndProofs() {
+    if (!this.state.preClaims) {
+      return null
+    }
+    let rows = []
+    let i = 0
+    for (let key in this.state.preClaims) {
+      let c = this.state.preClaims[key]
+      rows.push(
+        <img  style={{margin: '12px 0'}} key={i+1} src={`data:image/jpeg;base64,${c.base64Image}`} />
+      )
+      delete c.base64Image
+      rows.push(
+        <div key={i} style={{marginBottom: 12}}><code><pre className={'white'}>{JSON.stringify(c, null, 2)}</pre></code></div>
+      )
+      i += 2
+    }
+    return <div>{rows}</div>
+  }
+
   render() {
       return <Container style={{marginTop: 100}}>
         {
@@ -92,7 +113,9 @@ class Admin extends Base {
             </p>
             : null
         }
-        {this.state.preClaims ? <div><code><pre className={'white'}>{JSON.stringify(this.state.preClaims, null, 2)}</pre></code></div> : null}
+        {
+          this.getClaimAndProofs()
+        }
         <div><Button variant="primary" onClick={this.getPreClaims}>Load preclaims</Button></div>
         <p>&nbsp;</p>
         <Form>

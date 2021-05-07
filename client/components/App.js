@@ -231,10 +231,7 @@ class App extends Common {
                     Store={Store}
                     setStore={this.setStore}
                   />
-                  : <Redirect><Error404
-                    Store={Store}
-                    setStore={this.setStore}
-                  /></Redirect>
+                  : <Redirect to={'/404'}/>
                 )
                 : null
             }
