@@ -54,7 +54,8 @@
     "webpack": "^2.7.0"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node .",
+    "start:dev": "NODE_ENV=development node .",
     "build": "webpack",
     "lint": "npm run lint:client && npm run lint:server",
     "lint:client": "eslint client/**/*.js",
