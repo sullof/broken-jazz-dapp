@@ -11,8 +11,13 @@ module.exports = {
   },
 
   getContract(chainId) {
-    if (config.address[chainId]) {
-      const provider = new ethers.providers.InfuraProvider(chainId, apiKeys.infuraApiKey)
+    if (config.supportedId[chainId]) {
+      let provider
+      if (chainId === 1337) {
+        provider = new ethers.providers.JsonRpcProvider()
+      } else {
+        provider = new ethers.providers.InfuraProvider(chainId, apiKeys.infuraApiKey)
+      }
       return new Contract(config.address[chainId], config.abi, provider)
     }
   }

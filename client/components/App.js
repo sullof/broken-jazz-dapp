@@ -162,7 +162,11 @@ class App extends Common {
 
     if (config.address[chainId]) {
       contract = new Contract(config.address[chainId], config.abi, web3Provider)
-      connectedNetwork = config.supportedId[chainId]
+      for (let name in config.supported) {
+        if (config.supported[name] === chainId) {
+          connectedNetwork = name
+        }
+      }
     } else {
       networkNotSupported = true
     }
@@ -227,11 +231,11 @@ class App extends Common {
               Store.signedInAddress
                 ? (
                   Address.isAdmin(Store.signedInAddress)
-                  ? <Admin
-                    Store={Store}
-                    setStore={this.setStore}
-                  />
-                  : <Redirect to={'/404'}/>
+                    ? <Admin
+                      Store={Store}
+                      setStore={this.setStore}
+                    />
+                    : <Redirect to={'/404'}/>
                 )
                 : null
             }

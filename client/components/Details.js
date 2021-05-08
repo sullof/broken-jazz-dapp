@@ -7,6 +7,7 @@ import Base from './Base'
 import WebcamCapture from './WebcamCapture'
 
 import auth from '../utils/Auth'
+import config from '../config'
 
 async function sleep(millis) {
   // eslint-disable-next-line no-undef
@@ -71,7 +72,10 @@ class Details extends Base {
           <div className={'claiming'}>To claim a token you need to take a picture of yourself with the inside of the CD cover, showing the serial code. So, please, allow this website to use your camera when requested.</div>
         </div>
       } else if (token.claimer.toLowerCase() === this.Store.signedInAddress.toLowerCase()) {
-        if (this.Store.chainId === 5) {
+
+        console.log(config.supportedId)
+
+        if (config.supportedId[this.Store.chainId]) {
           return <Button onClick={this.mintToken}>Mint your token</Button>
         } else {
           return <div className={'claiming'}>Connect to Goerli Testnet to mint your token</div>
@@ -88,23 +92,23 @@ class Details extends Base {
         if (token.owner.toLowerCase() === this.Store.signedInAddress.toLowerCase()) {
           return 'Owned by you'
         } else {
-          return <span>Owned by<br/><code className={'white'}>{token.owner}</code></span>
+          return <span>Owned by<br/><code className={'white'}><small>{token.owner}</small></code></span>
         }
       } else if (token.claimer) {
         if (token.claimer.toLowerCase() === this.Store.signedInAddress.toLowerCase()) {
           return 'Claimed by you'
         } else {
-          return <span>Claimed by<br/><code className={'white'}>{token.claimer}</code></span>
+          return <span>Claimed by<br/><code className={'white'}><small>{token.claimer}</small></code></span>
         }
       } else if (ls('claimed' + this.props.token.id) === this.Store.signedInAddress) {
         return <span>
-          <p>You have started a claim, and a new video with your favorite song is coming soon.</p>
-          <p>It usually takes less than 24 hours. However, if it takes too much, there can be an error somewhere, so please send a message to brokenjazz@sullo.co.</p>
+          You have started a claim, and a new video with your favorite song is coming soon.<br/>
+          It usually takes less than 24 hours. However, if it takes too long, there might be an error somewhere. If so, please send a message to brokenjazz@sullo.co.
         </span>
       }
     } else {
       return <span>
-          <p>To claim this token, please connect your Metamask.</p>
+          <span>To claim this token, please connect your Metamask.</span>
         </span>
     }
     return null

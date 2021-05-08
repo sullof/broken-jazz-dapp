@@ -195,6 +195,10 @@ div.cardDiv div.title {
     /*font-size: 0.9rem;*/
 }
 
+div.cardDiv div.title a {
+    color: white;
+}
+
 .video-react .video-react-big-play-button {
     border: 0.06666em solid #326 !important;
     width: 2em !important;
@@ -349,4 +353,12 @@ a.cyan {
 span code {
     font-size: 0.9rem;
 }
+
+span.button {
+    border: 1px solid #007bff;
+    padding: 0 4px;
+    background: #332266;
+    border-radius: 4px;
+}
+
 

@@ -8,6 +8,8 @@ async function sleep(millis) {
   return new Promise(resolve => setTimeout(resolve, millis))
 }
 
+import {constants} from '../config'
+
 import Ab from './Ab'
 import Base from './Base'
 
@@ -45,9 +47,9 @@ class Items extends Base {
       return
     }
     loadingTokens = true
-    // while (!this.Store.signedInAddress) {
-    //   await sleep(1000)
-    // }
+    while (!this.Store.signedInAddress) {
+      await sleep(1000)
+    }
     const {pathname} = this.props
     const filter = pathname.split('/')[2]
 
@@ -116,10 +118,10 @@ class Items extends Base {
   renderItems() {
     const {filter, id} = this.getFilterIdFromPathname()
 
-    const w = id ? 520 : 320
+    const w = 320
     const filteredTokens = _.filter(this.Store.tokens, e => id ? e.id === id : e[filter])
 
-    const wh = (id ? 480 : 280) - 32
+    const wh = 280 - 32
     const cw = w - 32
 
     let allCols = []
@@ -131,8 +133,8 @@ class Items extends Base {
           token={token}
           Store={this.Store}
           setStore={this.props.setStore}
-          wh={wh}
-          cw={cw}
+          wh={wh + (id ? 400 : 0)}
+          cw={cw + (id ? 400 : 0)}
         />)
     }
     if (id) {
@@ -147,8 +149,8 @@ class Items extends Base {
         token={token}
         Store={this.Store}
         setStore={this.props.setStore}
-        wh={wh}
-        cw={cw}
+        wh={wh + (id ? 200 : 0)}
+        cw={cw + (id ? 200 : 0)}
         getTokens={this.getTokens}
       />)
     }
@@ -168,7 +170,7 @@ class Items extends Base {
               : filter === 'minted' ? 'No token has been minted, yet :-/'
                 : filter === 'yours' ? (
                   this.Store.signedInAddress
-                    ? 'You do not own any token, yet :-('
+                    ? 'You do not own any minted token, yet :-('
                     : 'Connect your Metamask to see if you own any token'
                   )
                   : 'Uhm, what are you looking for?'
@@ -194,7 +196,7 @@ class Items extends Base {
               {
                 this.Store.chainId ?
                   <span>You can take a look at the Broken Jazz smart contract on <Ab
-                    link={`https://${this.Store.chainId === 5 ? 'goerli.' : ''}etherscan.io/address/${this.Store.contract.address}#code`}
+                    link={`https://${this.Store.chainId === constants.GOERLI ? 'goerli.' : ''}etherscan.io/address/${this.Store.contract.address}#code`}
                     label="Etherscan"/>.</span>
                   : null
               }
@@ -205,7 +207,7 @@ class Items extends Base {
           break
         case 'unclaimed':
           intro =
-        <div><b>Unclaimed NFTs are tokens looking for an owner. If you own a Broken Jazz CD, use the
+        <div><b>If you own a Broken Jazz CD, use the
               6-chars serial to claim yours. If not, you can buy a CD on <Ab link="https://amazon.com/dp/B08YCV1QL7"
                                                                              label="Amazon"/>.</b></div>
           break
@@ -224,7 +226,7 @@ class Items extends Base {
         <div className={'noTokens m0Auto'}>
           <p>Please connect Metamask<br/>to the Goerli Testnet.</p>
           <p style={{fontSize: '1rem'}}>If you don't have any Goerli ETH, get some <Ab
-            link="https://goerli-faucet.slock.it/" label="here"/> for free.</p>
+            link="https://goerli-faucet.slock.it/" label="from the Goerli faucet"/> for free.</p>
         </div>
       </Container>
     }

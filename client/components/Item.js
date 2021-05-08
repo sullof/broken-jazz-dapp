@@ -29,7 +29,7 @@ class Item extends Base {
 
   renderUnminted(token) {
     return <div>
-      <img src="/images/cover480.jpg" style={{height: this.props.wh, width: this.props.wh}}/>
+      <Link to={`/items/${token.id}`}><img src="/images/cover480.jpg" style={{height: this.props.wh, width: this.props.wh}}/></Link>
     </div>
   }
 

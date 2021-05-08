@@ -65,7 +65,7 @@ export default class Home extends Base {
         <Ab link={'https://francesco-sullo-co.s3.amazonaws.com/StudioN9Untitled.jpg'}
             label={<img src="/images/studio9.jpg" className={'oil'}/>}/>
       </p>
-      <p>I am a serial entrepreneur and software engineer living in San Francisco, California. I  studied Physics and have a solid background and a remarkable experience with cryptography, being the creator of Passpack — one of the first Host-proof Hosting web apps.
+      <p>I am a serial entrepreneur and software engineer living in San Francisco, California. I  studied Physics and have a solid background and remarkable experience with cryptography, being the creator of Passpack — one of the first Host-proof Hosting web apps.
       </p>
       <p>I also have a parallel life where I am primarily a painter, a writer, a musician, and a video maker. You can see some of my works at <Ab
           link={'https://francesco.sullo.co'} label={'https://francesco.sullo.co'}/>.</p>

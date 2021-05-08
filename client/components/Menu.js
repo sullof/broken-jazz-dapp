@@ -83,9 +83,9 @@ export default class Menu extends Base {
       // connectedTo = '
     }
 
-    const getTitle = what => {
+    const getTitle = (what, title) => {
       let {which} = this.state
-      let title = what.substring(0, 1).toUpperCase() + what.substring(1)
+      title = title || what.substring(0, 1).toUpperCase() + what.substring(1)
       if (which === what) {
         return <b>{title}</b>
       } else {
@@ -108,7 +108,7 @@ export default class Menu extends Base {
 
         <Link to="/items/minted"><i className="fas fa-bowling-ball"/> {getTitle('minted')}</Link>
 
-        <Link to="/items/unclaimed"><i className="fas fa-baby-carriage"/> {getTitle('unclaimed')}</Link>
+        <Link to="/items/unclaimed"><i className="fas fa-baby-carriage"/> {getTitle('unclaimed', 'Available')}</Link>
 
         <Link to="/items/yours"><i className="fas fa-cannabis"/> {getTitle('yours')}</Link>
       </Navbar.Collapse>

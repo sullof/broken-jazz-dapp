@@ -1,6 +1,9 @@
 // eslint-disable-next-line no-undef
 const {Container, Row, Col} = ReactBootstrap
 
+// eslint-disable-next-line no-undef
+const {Link} = ReactRouterDOM
+
 import Base from './Base'
 import Ab from './Ab'
 
@@ -14,8 +17,48 @@ export default class Home extends Base {
       <h4><i>A collection of short tunes written late at night</i></h4>
     </div>
 
+    const instruction = <div className={'textBlock'}>
+      <h4 style={{marginTop: 12}}>How it works</h4>
+
+      <p>Francesco printed only 50 copies of his Broken Jazz record, numbered from 1 to 50, plus four printing
+        tests numbered as A, B, C, and F. First owners of a physical CD can claim their NFT.</p>
+
+      <h5>Steps to get your NFT</h5>
+      <ul>
+        <li>Go to <Link to="/unclaimed">Available</Link></li>
+        <li>Find your numbered edition and click on it.</li>
+        <li>Have your CD cover with you because, at some moment, you need to take a picture using your computer
+          webcam.
+        </li>
+        <li>Press the button <span className={'button'}>Claim this token</span>. It will ask you to access the webcam. Say yes and take a picture of
+          yourself with the cover showing the serial number on the CD.
+        </li>
+        <li>Fill in the form and chose the song you want as the soundtrack of the NFT.</li>
+        <li>You will be asked to sign your claim using Metamask. You are not sending any money, just signing a
+          request.
+        </li>
+      </ul>
+
+      <p>Francesco will receive your claim, verify that it is valid, and create the video for your NFT. It usually takes
+        less than 24 hours.<br/>
+        If you come back here later, look at <Link to="/claimed">Claimed</Link>. You should find your NFT. Then</p>
+      <ul>
+        <li>Click on the name and go on the details page.</li>
+        <li>Press the button <span className={'button'}>Mint your token</span>. At that point, you must spend the gas required to mint the token in the
+          blockchain. There is no way to avoid it.
+        </li>
+        <li>Accept the transaction with Metamask and wait that it is included in a block. When done, in Yours, you will
+          find your BKJZ token.
+        </li>
+
+      </ul>
+
+
+    </div>
+
+
     const text = <div className={'textBlock'}>
-      <h4 style={{marginTop: 12}}>Intro</h4>
+      <h4 style={{marginTop: 12}}>The project</h4>
       <p>As a musician, I have focused on songs with vocals and lyrics all my life. So, when I sit down to the piano and
         improvise something instrumental, I don't usually record it. Since
         I have a terrible memory, I ended up composing thousands of fragments that get lost.</p>
@@ -38,11 +81,12 @@ export default class Home extends Base {
         link="https://music.amazon.com/albums/B08WZ2DB2N" label="Amazon Music"/>, and other online services, I
         added the physical CD distribution on <Ab link="https://cdbaby.com" label="CDBaby"/>.</p>
       <p>When Amazon sold the first CDs, I started working on the smart contracts and this dapp.</p>
-      <p>Only 54 BKJZ tokens will exist on the Ethereum main network when all the tokens are minted. Any of them has a unique video. Maybe not soon, but they will have some value, sooner or
+      <p>Only 54 BKJZ tokens will exist on the Ethereum main network when all the tokens are minted. Any of them has a
+        unique video. Maybe not soon, but they will have some value, sooner or
         later.
-        </p>
+      </p>
       <p>So jump on <Ab
-          link="https://amazon.com/dp/B08YCV1QL7" label="Amazon"/> and buy one CD before it is too late 🤩 It is only
+        link="https://amazon.com/dp/B08YCV1QL7" label="Amazon"/> and buy one CD before it is too late 🤩 It is only
         ~$15 😎</p>
     </div>
 
@@ -53,6 +97,7 @@ export default class Home extends Base {
       : <Row><Col>
         <div className={'spacer'}/>
         {title}
+        {instruction}
       </Col>
         <Col>{text}</Col>
       </Row>
@@ -63,13 +108,18 @@ export default class Home extends Base {
         {text}
       </Col></Row>
 
+    const row3 = this.Store.width > 900
+      ? null
+      : <Row><Col>>
+        {instruction}
+      </Col></Row>
+
 
     return (
       <Container style={{marginTop: 100}}>
-        <Row>
-          {row1}
-          {row2}
-        </Row>
+        {row1}
+        {row2}
+        {row3}
       </Container>
     )
   }

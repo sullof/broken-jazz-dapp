@@ -115,41 +115,36 @@ router.get('/tracks', async (req, res) => {
 })
 
 let cachedOwners = {}
-let lastCachedAt = 0
-let contract
+let lastCachedAt = {}
 
 router.get('/tokens', async (req, res) => {
-  let {forceReload} = req.query
-  if (forceReload || Date.now() - lastCachedAt > 300000) {
-    cachedOwners = {}
-  }
-  // if (!chainId || chainId === '1337') {
-  //   chainId = 5
-  // }
-  if (!contract) {
-    contract = getContract(5)
+  let {forceReload, chainId} = req.query
+  chainId = parseInt(chainId)
+  if (!cachedOwners[chainId] || forceReload || Date.now() - lastCachedAt[chainId] > 300000) {
+    cachedOwners[chainId] = {}
   }
   let tokens = db.get('claimed') || {}
-  for (let id in tokens) {
-    let token = tokens[id]
-    if (cachedOwners[id]) {
-      token.owner = cachedOwners[id]
-    } else {
-      try {
-        let owner = await contract.ownerOf(id)
-        cachedOwners[id] = token.owner = owner
-        lastCachedAt = Date.now()
-      } catch (e) {
-        // console.error(e.message)
+  const contract = getContract(chainId)
+  if (contract) {
+    for (let id in tokens) {
+      let token = tokens[id]
+      if (cachedOwners[chainId][id]) {
+        token.owner = cachedOwners[chainId][id]
+      } else {
+        try {
+          let owner = await contract.ownerOf(id)
+          cachedOwners[chainId][id] = token.owner = owner
+          lastCachedAt[chainId] = Date.now()
+        } catch (e) {
+          // console.error(e.message)
+        }
       }
     }
   }
-
   res.json({
     success: true,
     tokens
   })
-
 })
 
 
@@ -223,7 +218,6 @@ router.post('/admin', async (req, res) => {
     })
   }
 })
-
 
 
 module.exports = router
