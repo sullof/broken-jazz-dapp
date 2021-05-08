@@ -94,7 +94,7 @@ body {
 .navbar-light .navbar-text a,
 .navbar-collapse .span2 {
     font-weight: 400;
-    padding: .5rem 0.7rem !important;
+    padding: .3rem 0.3rem !important;
     font-size: 0.85rem;
 }
 
@@ -249,7 +249,7 @@ div.cardDiv.largevideo {
 
 .splitter {
     display: block;
-    height: 16px;
+    height: 12px;
 }
 
 .splitter2 {
