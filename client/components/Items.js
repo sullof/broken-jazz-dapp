@@ -173,7 +173,11 @@ class Items extends Base {
             : <div className={'noTokens m0Auto'}>{
               filter === 'unclaimed' ? 'All the tokens have been claimed :-)'
                 : filter === 'claimed' ? 'All the claimed tokens have been minted :-)'
-                : filter === 'minted' ? 'No token has been minted, yet :-/'
+                : filter === 'minted' ? (
+                    this.Store.signedInAddress
+                      ? 'No token has been minted, yet :-/'
+                      : 'Connect your Metamask to see the minted tokens'
+                  )
                   : filter === 'yours' ? (
                       this.Store.signedInAddress
                         ? 'You do not own any minted token, yet :-('
@@ -197,7 +201,8 @@ class Items extends Base {
       let intro
       switch (filter) {
         case 'minted':
-          intro = <div><b className={'noMobile'}>Minted NFTs are standard ERC-721 tokens on the blockchain. They can be transferred,
+          intro = <div><b className={'noMobile'}>Minted NFTs are standard ERC-721 tokens on the blockchain. They can be
+            transferred,
             farmed on DeFi apps, or sold on NFT marketplaces.
             {
               this.Store.chainId ?
@@ -218,8 +223,9 @@ class Items extends Base {
                                                                              label="Amazon"/>.</b></div>
           break
         default:
-          intro = <div><b className={'noMobile'}>To get a BKJZ NFTs, first buy a CD on <Ab link="https://amazon.com/dp/B08YCV1QL7"
-                                                                    label="Amazon"/>.</b></div>
+          intro = <div><b className={'noMobile'}>To get a BKJZ NFTs, first buy a CD on <Ab
+            link="https://amazon.com/dp/B08YCV1QL7"
+            label="Amazon"/>.</b></div>
       }
       return <div className={'subtitle'}>{intro}</div>
     }
