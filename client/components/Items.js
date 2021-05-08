@@ -53,8 +53,8 @@ class Items extends Base {
     loadingTokens = true
     let sec = 0
     while (!this.Store.signedInAddress) {
-      await sleep(1000)
-      if (sec === 5) {
+      await sleep(100)
+      if (sec === 50) {
         this.setState({
           loadingMessage: 'You seem disconnected, loading server side...'
         })
@@ -131,11 +131,7 @@ class Items extends Base {
   renderItems() {
     const {filter, id} = this.getFilterIdFromPathname()
 
-    const w = 320
     const filteredTokens = _.filter(this.Store.tokens, e => id ? e.id === id : e[filter])
-
-    const wh = 280 - 32
-    const cw = w - 32
 
     let allCols = []
     for (let token of filteredTokens) {
@@ -146,8 +142,7 @@ class Items extends Base {
           token={token}
           Store={this.Store}
           setStore={this.props.setStore}
-          wh={wh + (id ? 400 : 0)}
-          cw={cw + (id ? 400 : 0)}
+          klass={id ? 'largevideo' : 'smallvideo'}
         />)
     }
     if (id) {
@@ -162,8 +157,6 @@ class Items extends Base {
         token={token}
         Store={this.Store}
         setStore={this.props.setStore}
-        wh={wh + (id ? 200 : 0)}
-        cw={cw + (id ? 200 : 0)}
         getTokens={this.getTokens}
       />)
     }

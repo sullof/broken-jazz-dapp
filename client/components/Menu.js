@@ -102,7 +102,7 @@ export default class Menu extends Base {
         <Link to="/intro" className={'cyan'}><i className="fas fa-book-open"/> Intro</Link>
         <Link to="/credits" className={'cyan'}><i className="fas fa-copyright"/> Credits</Link>
 
-        {/*<span className={'span2'}>NFTs:</span>*/}
+        <div className={'splitter'} ><br/></div>
 
         <Link to="/items/claimed"><i className="fas fa-chart-pie"/> {getTitle('claimed')}</Link>
 
@@ -111,6 +111,9 @@ export default class Menu extends Base {
         <Link to="/items/unclaimed"><i className="fas fa-baby-carriage"/> {getTitle('unclaimed', 'Available')}</Link>
 
         <Link to="/items/yours"><i className="fas fa-cannabis"/> {getTitle('yours')}</Link>
+
+        <div className={'splitter2'} ><br/></div>
+
       </Navbar.Collapse>
 
       <Navbar.Collapse className="justify-content-end">

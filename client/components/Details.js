@@ -1,4 +1,7 @@
 // eslint-disable-next-line no-undef
+const {Link} = ReactRouterDOM
+
+// eslint-disable-next-line no-undef
 const {Button, Form, ProgressBar} = ReactBootstrap
 const ls = require('local-storage')
 
@@ -69,12 +72,9 @@ class Details extends Base {
         }
         return <div >
           <Button onClick={this.claimToken}>Claim this token</Button>
-          <div className={'claiming'}>To claim a token you need to take a picture of yourself with the inside of the CD cover, showing the serial code. So, please, allow this website to use your camera when requested.</div>
+          <div className={'claiming'}>To claim a token you need to take a picture of yourself with the inside of the CD cover, showing the serial code. So, please, allow this website to use your camera when requested. More info in <Link to={'/intro'}>intro</Link>.</div>
         </div>
       } else if (token.claimer.toLowerCase() === this.Store.signedInAddress.toLowerCase()) {
-
-        console.log(config.supportedId)
-
         if (config.supportedId[this.Store.chainId]) {
           return <Button onClick={this.mintToken}>Mint your token</Button>
         } else {

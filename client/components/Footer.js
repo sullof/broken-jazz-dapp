@@ -8,7 +8,7 @@ class Footer extends Base {
       <div className="footer">
         <div className={'centered'}>
           <small>
-            <b>This website does not use any cookie.</b> &nbsp; &nbsp;
+            <b className={'noMobile'}>This website does not use any cookie. &nbsp; &nbsp;</b>
             (c) 2021 Francesco Sullo &nbsp; &nbsp;
             <a className="item" target="_blank" href="https://twitter.com/sullof" rel="noreferrer">
               <i className="fab fa-twitter"></i> <span className="roboto300">Twitter</span>

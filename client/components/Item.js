@@ -22,14 +22,14 @@ class Item extends Base {
   }
 
   renderVideo(token) {
-    return <div style={{height: this.props.wh, width: this.props.wh}}>
+    return <div style={{width: '100%'}}>
       <VideoPlayer src={token.imageURI.replace(/ipfs:\/\//, 'https://ipfs.io/ipfs/')}/>
     </div>
   }
 
   renderUnminted(token) {
     return <div>
-      <Link to={`/items/${token.id}`}><img src="/images/cover480.jpg" style={{height: this.props.wh, width: this.props.wh}}/></Link>
+      <Link to={`/items/${token.id}`}><img src="/images/cover480.jpg" style={{width: '100%'}}/></Link>
     </div>
   }
 
@@ -44,7 +44,7 @@ class Item extends Base {
     const {token} = this.props
 
     return (
-      <div className={`cardDiv ${this.props.large ? 'single' : ''}`}  style={{width: this.props.cw}}>
+      <div className={`cardDiv ${this.props.klass}`}  >
         <div className="cardBody">{
           token && token.imageURI
           ? this.renderVideo(token)
