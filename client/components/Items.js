@@ -197,7 +197,7 @@ class Items extends Base {
       let intro
       switch (filter) {
         case 'minted':
-          intro = <div><b>Minted NFTs are standard ERC-721 tokens on the blockchain. They can be transferred,
+          intro = <div><b className={'noMobile'}>Minted NFTs are standard ERC-721 tokens on the blockchain. They can be transferred,
             farmed on DeFi apps, or sold on NFT marketplaces.
             {
               this.Store.chainId ?
@@ -209,16 +209,16 @@ class Items extends Base {
           </b></div>
           break
         case 'claimed':
-          intro = <div><b>Clalmed NFTs are new tokens ready to be minted.</b></div>
+          intro = <div><b className={'noMobile'}>Clalmed NFTs are new tokens ready to be minted.</b></div>
           break
         case 'unclaimed':
           intro =
-            <div><b>If you own a Broken Jazz CD, use the
+            <div><b className={'noMobile'}>If you own a Broken Jazz CD, use the
               6-chars serial to claim yours. If not, you can buy a CD on <Ab link="https://amazon.com/dp/B08YCV1QL7"
                                                                              label="Amazon"/>.</b></div>
           break
         default:
-          intro = <div><b>To get a BKJZ NFTs, first buy a CD on <Ab link="https://amazon.com/dp/B08YCV1QL7"
+          intro = <div><b className={'noMobile'}>To get a BKJZ NFTs, first buy a CD on <Ab link="https://amazon.com/dp/B08YCV1QL7"
                                                                     label="Amazon"/>.</b></div>
       }
       return <div className={'subtitle'}>{intro}</div>

@@ -390,7 +390,7 @@ div.subtitle {
     color: white;
     width: 100%;
     text-align: center;
-    padding-top: 64px;
+    padding-top: 44px;
     margin-bottom: 24px;
 }
 
@@ -401,6 +401,13 @@ div.subtitle.transparent {
 div.subtitle div {
     font-size: 0.9rem;
     padding-bottom: 6px;
+}
+
+@media (min-width: 1400px) {
+
+    div.subtitle {
+        padding-top: 64px;
+    }
 }
 
 img.cover {
