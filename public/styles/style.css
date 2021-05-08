@@ -26,10 +26,17 @@ body {
     color: #ffffff;
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
-    background-image: url(../images/keyboard-low.jpg);
+    background-image: url(../images/keyboard-low-mobile.jpg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: bottom;
+}
+
+@media (min-width: 1400px) {
+
+    body {
+        background-image: url(../images/keyboard-low.jpg);
+    }
 }
 
 .imageLogo {
