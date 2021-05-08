@@ -29,6 +29,10 @@ class Items extends Base {
   constructor(props) {
     super(props)
 
+    this.state = {
+      loadingMessage: false
+    }
+
     this.bindMany([
       'getTokens',
       'renderItems',
@@ -47,8 +51,17 @@ class Items extends Base {
       return
     }
     loadingTokens = true
+    let sec = 0
     while (!this.Store.signedInAddress) {
       await sleep(1000)
+      if (sec === 5) {
+        this.setState({
+          loadingMessage: 'You seem disconnected, loading server side...'
+        })
+        await sleep(3000)
+        break
+      }
+      sec++
     }
     const {pathname} = this.props
     const filter = pathname.split('/')[2]
@@ -73,7 +86,7 @@ class Items extends Base {
         if (!token.unclaimed) {
           if (token.owner) {
             token.minted = true
-            if (Address.equal(token.owner,this.Store.signedInAddress)) {
+            if (Address.equal(token.owner, this.Store.signedInAddress)) {
               token.yours = true
             }
           } else {
@@ -158,27 +171,27 @@ class Items extends Base {
     return <div>
       {this.intros()}
       <Container>
-      {
-        allCols.length
-          ? <div>
-            <div //style={{width: w * cols}}
-              className={'m0Auto'}>{allCols}</div>
-          </div>
-          : <div className={'noTokens m0Auto'}>{
-            filter === 'unclaimed' ? 'All the tokens have been claimed :-)'
-              : filter === 'claimed' ? 'All the claimed tokens have been minted :-)'
-              : filter === 'minted' ? 'No token has been minted, yet :-/'
-                : filter === 'yours' ? (
-                  this.Store.signedInAddress
-                    ? 'You do not own any minted token, yet :-('
-                    : 'Connect your Metamask to see if you own any token'
-                  )
-                  : 'Uhm, what are you looking for?'
-          }
-          </div>
-      }
+        {
+          allCols.length
+            ? <div>
+              <div //style={{width: w * cols}}
+                className={'m0Auto'}>{allCols}</div>
+            </div>
+            : <div className={'noTokens m0Auto'}>{
+              filter === 'unclaimed' ? 'All the tokens have been claimed :-)'
+                : filter === 'claimed' ? 'All the claimed tokens have been minted :-)'
+                : filter === 'minted' ? 'No token has been minted, yet :-/'
+                  : filter === 'yours' ? (
+                      this.Store.signedInAddress
+                        ? 'You do not own any minted token, yet :-('
+                        : 'Connect your Metamask to see if you own any token'
+                    )
+                    : 'Uhm, what are you looking for?'
+            }
+            </div>
+        }
 
-    </Container>
+      </Container>
       <div style={{height: 60, clear: 'both'}}/>
     </div>
   }
@@ -192,28 +205,28 @@ class Items extends Base {
       switch (filter) {
         case 'minted':
           intro = <div><b>Minted NFTs are standard ERC-721 tokens on the blockchain. They can be transferred,
-              farmed on DeFi apps, or sold on NFT marketplaces.
-              {
-                this.Store.chainId ?
-                  <span>You can take a look at the Broken Jazz smart contract on <Ab
-                    link={`https://${this.Store.chainId === constants.GOERLI ? 'goerli.' : ''}etherscan.io/address/${this.Store.contract.address}#code`}
-                    label="Etherscan"/>.</span>
-                  : null
-              }
-              </b></div>
+            farmed on DeFi apps, or sold on NFT marketplaces.
+            {
+              this.Store.chainId ?
+                <span>You can take a look at the Broken Jazz smart contract on <Ab
+                  link={`https://${this.Store.chainId === constants.GOERLI ? 'goerli.' : ''}etherscan.io/address/${this.Store.contract.address}#code`}
+                  label="Etherscan"/>.</span>
+                : null
+            }
+          </b></div>
           break
         case 'claimed':
           intro = <div><b>Clalmed NFTs are new tokens ready to be minted.</b></div>
           break
         case 'unclaimed':
           intro =
-        <div><b>If you own a Broken Jazz CD, use the
+            <div><b>If you own a Broken Jazz CD, use the
               6-chars serial to claim yours. If not, you can buy a CD on <Ab link="https://amazon.com/dp/B08YCV1QL7"
                                                                              label="Amazon"/>.</b></div>
           break
         default:
           intro = <div><b>To get a BKJZ NFTs, first buy a CD on <Ab link="https://amazon.com/dp/B08YCV1QL7"
-                                                                           label="Amazon"/>.</b></div>
+                                                                    label="Amazon"/>.</b></div>
       }
       return <div className={'subtitle'}>{intro}</div>
     }
@@ -237,7 +250,7 @@ class Items extends Base {
         ? this.renderItems()
         : <LoadingApp
           className="Lato"
-          message="Loading the data from the blockchain..."
+          message={this.state.loadingMessage || 'Loading the data from the blockchain...'}
         />
     )
 
