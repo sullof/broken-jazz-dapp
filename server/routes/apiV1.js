@@ -3,7 +3,6 @@ const router = express.Router()
 const sigUtil = require('eth-sig-util')
 const db = require('../lib/Db')
 const Address = require('../../client/utils/Address')
-const serials = require('../../db/serials')
 const path = require('path')
 const fs = require('fs-extra')
 const {getContract} = require('../lib/utils')
@@ -40,20 +39,23 @@ router.post('/claim/:tokenId', async (req, res) => {
         success: false,
         error: 'Expired signature'
       })
-    } else if (data.serial !== serials[tokenId]) {
-      res.json({
-        success: false,
-        error: 'Wrong serial'
-      })
     } else {
-      await savePicture(picture, data.serial, address)
-      data.claimer = address
-      let preClaimed = db.get('preClaimed') || {}
-      preClaimed[[address, tokenId].join('_')] = data
-      db.set('preClaimed', preClaimed)
-      res.json({
-        success: true
-      })
+      const serials = db.get('serials')
+      if (data.serial !== serials[tokenId]) {
+        res.json({
+          success: false,
+          error: 'Wrong serial'
+        })
+      } else {
+        await savePicture(picture, data.serial, address)
+        data.claimer = address
+        let preClaimed = db.get('preClaimed') || {}
+        preClaimed[[address, tokenId].join('_')] = data
+        db.set('preClaimed', preClaimed)
+        res.json({
+          success: true
+        })
+      }
     }
   } else {
     res.json({

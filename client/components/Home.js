@@ -2,8 +2,6 @@
 const {Container, Row, Col} = ReactBootstrap
 
 import Base from './Base'
-import Ab from './Ab'
-import Footer from './Footer'
 
 export default class Home extends Base {
 
