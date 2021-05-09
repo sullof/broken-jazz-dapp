@@ -104,11 +104,12 @@ export default class Menu extends Base {
 
         <div className={'splitter'} ><br/></div>
 
+        <Link to="/items/unclaimed"><i className="fas fa-baby-carriage"/> {getTitle('unclaimed', 'Available')}</Link>
+
         <Link to="/items/claimed"><i className="fas fa-chart-pie"/> {getTitle('claimed')}</Link>
 
         <Link to="/items/minted"><i className="fas fa-bowling-ball"/> {getTitle('minted')}</Link>
 
-        <Link to="/items/unclaimed"><i className="fas fa-baby-carriage"/> {getTitle('unclaimed', 'Available')}</Link>
 
         <Link to="/items/yours"><i className="fas fa-cannabis"/> {getTitle('yours')}</Link>
 
