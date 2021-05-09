@@ -269,6 +269,12 @@ div.cardDiv.largevideo {
     border-bottom: 1px dashed #309 !important;
 }
 
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1400px !important;
+    }
+}
+
 @media (min-width: 1200px) {
 
     .bg-dark {
