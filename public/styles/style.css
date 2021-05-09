@@ -32,7 +32,7 @@ body {
     background-position: bottom;
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1200px) {
 
     body {
         background-image: url(../images/keyboard-low.jpg);
@@ -110,7 +110,7 @@ body {
     display: none !important;
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1200px) {
 
     .navbar-collapse a,
     .navbar-light .navbar-text a,
@@ -133,7 +133,7 @@ body {
     }
 
     .container, .container-lg, .container-md, .container-sm, .container-xl {
-        max-width: 1400px !important;
+        max-width: 1200px !important;
     }
 
     .big {
@@ -269,7 +269,7 @@ div.cardDiv.largevideo {
     border-bottom: 1px dashed #309 !important;
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1200px) {
 
     .bg-dark {
         /*background-color: #000 !important;*/
@@ -403,7 +403,7 @@ div.subtitle div {
     padding-bottom: 6px;
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1200px) {
 
     div.subtitle {
         padding-top: 64px;
