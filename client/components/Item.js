@@ -28,7 +28,7 @@ class Item extends Base {
   }
 
   renderUnminted(token) {
-    return <div>
+    return <div>b
       <Link to={`/items/${token.id}`}><img src="/images/cover480.jpg" style={{width: '100%'}}/></Link>
     </div>
   }
@@ -50,7 +50,10 @@ class Item extends Base {
           ? this.renderVideo(token)
           : this.renderUnminted(token)
         }
-        <div>{this.tokenData(token)}</div>
+          {
+            this.props.klass === 'largevideo' ? null :
+              <div>{this.tokenData(token)}</div>
+          }
         </div>
       </div>
     )
