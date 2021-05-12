@@ -308,7 +308,7 @@ class Details extends Base {
     return (
       <div className={'cardDiv single'} style={{width: this.props.cw}}>
         <div className="cardBody">
-          <p className={'tworem'}><b>{token.label}</b></p>
+          <p className={'tworem'}><b>{token.labelLong}</b></p>
           <p style={{fontSize: '0.9rem'}}>{this.ownedBy(token)}</p>
           {
             this.state.claimNow

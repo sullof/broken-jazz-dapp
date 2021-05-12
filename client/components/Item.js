@@ -28,7 +28,7 @@ class Item extends Base {
   }
 
   renderUnminted(token) {
-    return <div>b
+    return <div>
       <Link to={`/items/${token.id}`}><img src="/images/cover480.jpg" style={{width: '100%'}}/></Link>
     </div>
   }

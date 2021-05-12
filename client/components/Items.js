@@ -94,6 +94,7 @@ class Items extends Base {
           }
         }
         token.label = this.tokenData(token)
+        token.labelLong = this.tokenData(token, true)
         tokens.push(token)
       }
       this.store({
@@ -105,13 +106,13 @@ class Items extends Base {
     loadingTokens = false
   }
 
-  tokenData(token = {id: 0}) {
+  tokenData(token = {id: 0}, long) {
     let {id} = token
     return `Broken Jazz ${id < 51
-      ? 'NE ' + id + '/50'
+      ? `${long? 'Numbered Edition' : 'NE'} ` + id + '/50'
       : id === 54
-        ? 'AC 1/1'
-        : 'AP ' + (id - 50) + '/3'}`
+        ? `${long? 'Artist\'s Copy' : 'AC'} 1/1`
+        : (long ? 'Artist\'s Proof' : 'AP') + (id - 50) + '/3'}`
   }
 
 
