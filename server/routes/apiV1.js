@@ -138,6 +138,7 @@ router.get('/tokens', async (req, res) => {
           cachedOwners[chainId][id] = token.owner = owner
           lastCachedAt[chainId] = Date.now()
         } catch (e) {
+          delete token.owner
           // console.error(e.message)
         }
       }

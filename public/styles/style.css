@@ -193,8 +193,9 @@ div.textBlock a {
 
 .noTokens {
     font-size: 2rem;
-    width: 500px;
+    width: 50%;
     padding-top: 100px;
+    text-align: center;
 }
 
 .container {
@@ -465,3 +466,6 @@ span.button {
     background-image: url('../images/menu.png') !important;
 }
 
+.notConnected {
+    color: orangered;
+}

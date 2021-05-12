@@ -78,7 +78,7 @@ class Details extends Base {
         if (config.supportedId[this.Store.chainId]) {
           return <Button onClick={this.mintToken}>Mint your token</Button>
         } else {
-          return <div className={'claiming'}>Connect to Goerli Testnet to mint your token</div>
+          return <div className={'claiming'}>Connect to Ethereum Mainnet to mint your token</div>
         }
       }
     } else {
@@ -155,35 +155,44 @@ class Details extends Base {
 
     const {id} = this.props.token
 
-    const {msgParams, signature} = await auth.getSignedAuthToken(
-      this.Store.chainId,
-      this.Store.signedInAddress,
-      {
-        id,
-        trackNumber,
-        chosenTrack,
-        serial
-      }
-    )
+    try {
 
-    const res = await this.request(`claim/${id}`, 'post', {
-      address: this.Store.signedInAddress,
-      msgParams,
-      signature,
-      picture: this.state.picture
-    })
-    if (res.success) {
-      ls('claimed' + id, this.Store.signedInAddress)
+      const {msgParams, signature} = await auth.getSignedAuthToken(
+        this.Store.chainId,
+        this.Store.signedInAddress,
+        {
+          id,
+          trackNumber,
+          chosenTrack,
+          serial
+        }
+      )
+      const res = await this.request(`claim/${id}`, 'post', {
+        address: this.Store.signedInAddress,
+        msgParams,
+        signature,
+        picture: this.state.picture
+      })
+      if (res.success) {
+        ls('claimed' + id, this.Store.signedInAddress)
+        this.setState({
+          claimed: true,
+          claimNow: false,
+          picture: null
+        })
+      } else {
+        this.setState({
+          error: res.error
+        })
+      }
+    } catch(e) {
       this.setState({
-        claimed: true,
         claimNow: false,
         picture: null
       })
-    } else {
-      this.setState({
-        error: res.error
-      })
     }
+
+
   }
 
   webcamCallback(picture) {
@@ -256,29 +265,35 @@ class Details extends Base {
     this.setState({
       minting: token.id
     })
-    await this.Store.contract.connect(this.Store.signer).claimToken(token.id, token.metadataURI, token.signature)
+    try {
+      await this.Store.contract.connect(this.Store.signer).claimToken(token.id, token.metadataURI, token.signature)
 
-    let c = 0
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      c++
-      if (c === 5) {
-        try {
-          await this.Store.contract.ownerOf(token.id)
-          break
-        } catch (e) {
+      let c = 0
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        c++
+        if (c === 5) {
+          try {
+            await this.Store.contract.ownerOf(token.id)
+            break
+          } catch (e) {
+          }
+          c = 0
         }
-        c = 0
+        this.setState({
+          steps: (this.state.steps || 1) + 1
+        })
+        await sleep(1000)
       }
       this.setState({
-        steps: (this.state.steps || 1) + 1
+        minting: null
       })
-      await sleep(1000)
+      this.props.getTokens(true)
+    } catch(e) {
+      this.setState({
+        minting: null
+      })
     }
-    this.setState({
-      minting: null
-    })
-    this.props.getTokens(true)
   }
 
   render() {

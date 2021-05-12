@@ -70,7 +70,7 @@ export default class Menu extends Base {
 
     let connectedTo = <span className={'connected'}>{
       this.Store.signedInAddress
-        ? 'Connected to an unsupported network'
+        ? <span className={'notConnected'}>Connected to an unsupported network</span>
         : null
     }
     </span>
