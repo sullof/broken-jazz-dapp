@@ -126,24 +126,24 @@ router.get('/tokens', async (req, res) => {
     cachedOwners[chainId] = {}
   }
   let tokens = db.get('claimed') || {}
-  const contract = getContract(chainId)
-  if (contract) {
-    for (let id in tokens) {
-      let token = tokens[id]
-      if (cachedOwners[chainId][id]) {
-        token.owner = cachedOwners[chainId][id]
-      } else {
-        try {
-          let owner = await contract.ownerOf(id)
-          cachedOwners[chainId][id] = token.owner = owner
-          lastCachedAt[chainId] = Date.now()
-        } catch (e) {
-          delete token.owner
-          // console.error(e.message)
-        }
-      }
-    }
-  }
+  // const contract = getContract(chainId)
+  // if (contract) {
+  //   for (let id in tokens) {
+  //     let token = tokens[id]
+  //     if (cachedOwners[chainId][id]) {
+  //       token.owner = cachedOwners[chainId][id]
+  //     } else {
+  //       try {
+  //         let owner = await contract.ownerOf(id)
+  //         cachedOwners[chainId][id] = token.owner = owner
+  //         lastCachedAt[chainId] = Date.now()
+  //       } catch (e) {
+  //         delete token.owner
+  //         // console.error(e.message)
+  //       }
+  //     }
+  //   }
+  // }
   res.json({
     success: true,
     tokens

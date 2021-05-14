@@ -81,7 +81,7 @@ export default class Home extends Base {
         link="https://music.amazon.com/albums/B08WZ2DB2N" label="Amazon Music"/>, and other online services, I
         added the physical CD distribution on <Ab link="https://cdbaby.com" label="CDBaby"/>.</p>
       <p>When Amazon sold the first CDs, I started working on the smart contracts and this dapp.</p>
-      <p>Only 54 BKJZ tokens will exist on the Ethereum main network when all the tokens are minted. Any of them has a
+      <p>Only 54 BKJZ tokens will exist on the Polygon (ex-MATIC) network when all the tokens are minted. Any of them has a
         unique video. Maybe not soon, but they will have some value, sooner or
         later.
       </p>

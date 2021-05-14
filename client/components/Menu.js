@@ -78,7 +78,8 @@ export default class Menu extends Base {
 
     if (connectedNetwork) {
       connectedTo =
-        <span><i className="fa fa-plug" style={{color: '#40cc90', marginRight: 10}} /> Connected to {connectedNetwork}</span>
+        <span><i className="fa fa-plug"
+                 style={{color: '#40cc90', marginRight: 10}}/> Connected to {connectedNetwork}</span>
     } else {
       // connectedTo = '
     }
@@ -102,7 +103,7 @@ export default class Menu extends Base {
         <Link to="/intro" className={'cyan'}><i className="fas fa-book-open"/> Intro</Link>
         <Link to="/credits" className={'cyan'}><i className="fas fa-copyright"/> Credits</Link>
 
-        <div className={'splitter'} ><br/></div>
+        <div className={'splitter'}><br/></div>
 
         <Link to="/items/unclaimed"><i className="fas fa-baby-carriage"/> {getTitle('unclaimed', 'Available')}</Link>
 
@@ -113,7 +114,7 @@ export default class Menu extends Base {
 
         <Link to="/items/yours"><i className="fas fa-cannabis"/> {getTitle('yours')}</Link>
 
-        <div className={'splitter2'} ><br/></div>
+        <div className={'splitter2'}><br/></div>
 
       </Navbar.Collapse>
 

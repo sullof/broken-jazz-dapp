@@ -66,6 +66,7 @@ class Details extends Base {
       return null
     }
     if (this.Store.signedInAddress) {
+
       if (token.unclaimed) {
         if (ls('claimed' + this.props.token.id) === this.Store.signedInAddress) {
           return null
@@ -76,10 +77,9 @@ class Details extends Base {
         </div>
       } else if (token.claimer.toLowerCase() === this.Store.signedInAddress.toLowerCase()) {
         if (config.supportedId[this.Store.chainId]) {
-          return <span className={'notConnected'}>Mint temporarily suspended :-(</span>
-          // <Button onClick={this.mintToken}>Mint your token</Button>
+          return <Button onClick={this.mintToken}>Mint your token</Button>
         } else {
-          return <div className={'claiming'}>Connect to Ethereum Mainnet to mint your token</div>
+          return <div className={'claiming'}>Connect to Polygon (ex-MATIC) Mainnet to mint your token</div>
         }
       }
     } else {

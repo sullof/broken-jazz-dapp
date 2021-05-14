@@ -84,12 +84,15 @@ class Items extends Base {
           token.id = i
         }
         if (!token.unclaimed) {
-          if (token.owner) {
+          token.id = i
+          try {
+            let owner = await this.Store.contract.ownerOf(i)
+            token.owner = owner
             token.minted = true
             if (Address.equal(token.owner, this.Store.signedInAddress)) {
               token.yours = true
             }
-          } else {
+          } catch (e) {
             token.claimed = true
           }
         }
@@ -237,7 +240,7 @@ class Items extends Base {
     if (this.Store.networkNotSupported) {
       return <Container style={{marginTop: 100}}>
         <div className={'noTokens m0Auto'}>
-          <p>Please, connect Metamask to the Ethereum Mainnet :-)</p>
+          <p>Please, connect Metamask to the Polygon (ex-MATIC) Network :-)</p>
           {/*<p style={{fontSize: '1rem'}}>If you don't have any Goerli ETH,<br/>get some <Ab*/}
           {/*  link="https://goerli-faucet.slock.it/" label="from the Goerli faucet"/> for free.</p>*/}
         </div>
