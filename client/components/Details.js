@@ -11,6 +11,7 @@ import WebcamCapture from './WebcamCapture'
 
 import auth from '../utils/Auth'
 import config from '../config'
+import Address from '../utils/Address'
 
 async function sleep(millis) {
   // eslint-disable-next-line no-undef
@@ -75,7 +76,7 @@ class Details extends Base {
           <Button onClick={this.claimToken}>Claim this token</Button>
           <div className={'claiming'}>To claim a token you need to take a picture of yourself with the inside of the CD cover, showing the serial code. So, please, allow this website to use your camera when requested. More info in <Link to={'/intro'}>intro</Link>.</div>
         </div>
-      } else if (token.claimer.toLowerCase() === this.Store.signedInAddress.toLowerCase()) {
+      } else if (Address.equal(token.claimer, this.Store.signedInAddress)) {
         if (config.supportedId[this.Store.chainId]) {
           return <Button onClick={this.mintToken}>Mint your token</Button>
         } else {
@@ -90,13 +91,13 @@ class Details extends Base {
   ownedBy(token) {
     if (this.Store.signedInAddress) {
       if (token.owner) {
-        if (token.owner.toLowerCase() === this.Store.signedInAddress.toLowerCase()) {
+        if (Address.equal(token.owner, this.Store.signedInAddress)) {
           return 'Owned by you'
         } else {
           return <span>Owned by<br/><code className={'white'}><small>{token.owner}</small></code></span>
         }
       } else if (token.claimer) {
-        if (token.claimer.toLowerCase() === this.Store.signedInAddress.toLowerCase()) {
+        if (Address.equal(token.claimer, this.Store.signedInAddress)) {
           return 'Claimed by you'
         } else {
           return <span>Claimed by<br/><code className={'white'}><small>{token.claimer}</small></code></span>

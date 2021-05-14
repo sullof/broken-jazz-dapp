@@ -3,6 +3,7 @@ const {Link} = ReactRouterDOM
 
 import Base from './Base'
 import VideoPlayer from './VideoPlayer'
+import Address from '../utils/Address'
 
 class Item extends Base {
 
@@ -42,9 +43,14 @@ class Item extends Base {
   render() {
 
     const {token} = this.props
-
     return (
       <div className={`cardDiv ${this.props.klass}`}  >
+        {
+          this.Store.signedInAddress && (
+          Address.equal(token.claimer, this.Store.signedInAddress)
+          || Address.equal(token.owner, this.Store.signedInAddress)
+          ) ? <div className={'isMine'}>YOURS</div> : null
+        }
         <div className="cardBody">{
           token && token.imageURI
           ? this.renderVideo(token)

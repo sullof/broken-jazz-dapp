@@ -8,8 +8,6 @@ async function sleep(millis) {
   return new Promise(resolve => setTimeout(resolve, millis))
 }
 
-import {constants} from '../config'
-
 import Ab from './Ab'
 import Base from './Base'
 
@@ -218,7 +216,8 @@ class Items extends Base {
           </b></div>
           break
         case 'claimed':
-          intro = <div><b className={'noMobile'}>Clalmed NFTs are new tokens ready to be minted.</b></div>
+          intro = <div><b className={'noMobile'}>Claimed items are just videos on IPFS; if you claimed some, mint your NFT now.
+          </b></div>
           break
         case 'unclaimed':
           intro =
