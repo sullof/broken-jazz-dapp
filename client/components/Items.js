@@ -208,13 +208,13 @@ class Items extends Base {
           intro = <div><b className={'noMobile'}>Minted NFTs are standard ERC-721 tokens on the blockchain. They can be
             transferred,
             farmed on DeFi apps, or sold on NFT marketplaces.
-            {
-              this.Store.chainId ?
-                <span>You can take a look at the Broken Jazz smart contract on <Ab
-                  link={`https://etherscan.io/address/${this.Store.contract.address}#code`}
-                  label="Etherscan"/>.</span>
-                : null
-            }
+            {/*{*/}
+            {/*  this.Store.chainId ?*/}
+            {/*    <span>You can take a look at the Broken Jazz smart contract on <Ab*/}
+            {/*      link={`https://etherscan.io/address/${this.Store.contract.address}#code`}*/}
+            {/*      label="Etherscan"/>.</span>*/}
+            {/*    : null*/}
+            {/*}*/}
           </b></div>
           break
         case 'claimed':
