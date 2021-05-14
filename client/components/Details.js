@@ -76,7 +76,8 @@ class Details extends Base {
         </div>
       } else if (token.claimer.toLowerCase() === this.Store.signedInAddress.toLowerCase()) {
         if (config.supportedId[this.Store.chainId]) {
-          return <Button onClick={this.mintToken}>Mint your token</Button>
+          return <span className={'notConnected'}>Mint temporarily suspended :-(</span>
+          // <Button onClick={this.mintToken}>Mint your token</Button>
         } else {
           return <div className={'claiming'}>Connect to Ethereum Mainnet to mint your token</div>
         }
