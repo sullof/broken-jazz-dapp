@@ -175,9 +175,9 @@ div.cardContainer {
 /*}*/
 
 div.textBlock {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.85);
     border-radius: 20px;
-    margin: 6px;
+    border: 1px dashed #039;
     padding: 16px;
 }
 

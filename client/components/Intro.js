@@ -20,8 +20,8 @@ export default class Home extends Base {
     const instruction = <div className={'textBlock'}>
       <h4 style={{marginTop: 12}}>How it works</h4>
 
-      <p>Francesco printed only 50 copies of his Broken Jazz record, numbered from 1 to 50, plus four printing
-        tests numbered as A, B, C, and F. First owners of a physical CD can claim their NFT.</p>
+      <p>I printed only 50 copies of my Broken Jazz record, numbered from 1 to 50, plus four printing
+        tests numbered on the cover as A, B, C, and F. First owners of a physical CD can claim their NFT.</p>
 
       <h5>Steps to get your NFT</h5>
       <ul>
@@ -39,19 +39,18 @@ export default class Home extends Base {
         </li>
       </ul>
 
-      <p>Francesco will receive your claim, verify that it is valid, and create the video for your NFT. It usually takes
+      <p>When I receive your claim, I verify that it is valid, and create the video for your NFT. It usually takes me
         less than 24 hours.<br/>
         If you come back here later, look at <Link to="/claimed">Claimed</Link>. You should find your NFT. Then</p>
       <ul>
         <li>Click on the name and go on the details page.</li>
-        <li>Press the button <span className={'button'}>Mint your token</span>. At that point, you must spend the gas required to mint the token in the
-          blockchain. There is no way to avoid it.
+        <li>To mint your token you must connect to the Matic network. If you never did, you can follow the instructions <Ab link={'https://docs.matic.network/docs/develop/metamask/config-matic/'} label={'here'}/> and let me know at francesco@brokenjazz.cc; I will send you 0.1 MATIC, that is 100x what you will need to mint the token.
         </li>
+        <li>Press the button <span className={'button'}>Mint your token</span>.</li>
         <li>Accept the transaction with Metamask and wait that it is included in a block. When done, in Yours, you will
           find your BKJZ token.
         </li>
-        <li>To mint your token you must connect to the Matic network. If you never did, you can follow the instructions at <Ab link={'https://docs.matic.network/docs/develop/metamask/config-matic/'} label={'here'}/> and let me know at francesco@brokenjazz.cc; I will send you 0.1 MATIC, that is 100x what you will need to mint the token.
-        </li>
+
 
       </ul>
 
@@ -60,7 +59,6 @@ export default class Home extends Base {
 
 
     const text = <div className={'textBlock'}>
-      <h4 style={{marginTop: 12}}>The project</h4>
       <p>As a musician, I have focused on songs with vocals and lyrics all my life. So, when I sit down to the piano and
         improvise something instrumental, I don't usually record it. Since
         I have a terrible memory, I ended up composing thousands of fragments that get lost.</p>
@@ -99,9 +97,9 @@ export default class Home extends Base {
       : <Row><Col>
         <div className={'spacer'}/>
         {title}
-        {instruction}
+        {text}
       </Col>
-        <Col>{text}</Col>
+        <Col>{instruction}</Col>
       </Row>
 
     const row2 = this.Store.width > 900
