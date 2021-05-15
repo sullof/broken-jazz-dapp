@@ -113,7 +113,7 @@ class Items extends Base {
       ? `${long? 'Numbered Edition' : 'NE'} ` + id + '/50'
       : id === 54
         ? `${long? 'Artist\'s Copy' : 'AC'} 1/1`
-        : (long ? 'Artist\'s Proof' : 'AP') + (id - 50) + '/3'}`
+        : (long ? 'Artist\'s Proof ' : 'AP ') + (id - 50) + '/3'}`
   }
 
 
