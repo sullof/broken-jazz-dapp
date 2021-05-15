@@ -16,7 +16,7 @@ class Footer extends Base {
             <a className="item" target="_blank" href="https://github.com/sullof" rel="noreferrer">
               <i className="fab fa-github"></i> <span className="roboto300">Github</span>
             </a>
-            <a className="item" href="mailto:francesco@sullo.co">
+            <a className="item" href="mailto:francesco@brokenjazz.cc">
               <i className="fas fa-envelope-open-text"></i> <span className="roboto300">Email</span>
             </a>
           </small>

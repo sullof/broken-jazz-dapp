@@ -35,7 +35,7 @@ export default class Home extends Base {
         </li>
         <li>Fill in the form and chose the song you want as the soundtrack of the NFT.</li>
         <li>You will be asked to sign your claim using Metamask. You are not sending any money, just signing a
-          request.
+          request. If you do not have a Metamask wallet installed in your browser, follow the instruction <Ab link={'https://blog.wetrust.io/how-to-install-and-use-metamask-7210720ca047'} label={'here'}/>.
         </li>
       </ul>
 
@@ -49,6 +49,8 @@ export default class Home extends Base {
         </li>
         <li>Accept the transaction with Metamask and wait that it is included in a block. When done, in Yours, you will
           find your BKJZ token.
+        </li>
+        <li>To mint your token you must connect to the Matic network. If you never did, you can follow the instructions at <Ab link={'https://docs.matic.network/docs/develop/metamask/config-matic/'} label={'here'}/> and let me know at francesco@brokenjazz.cc; I will send you 0.1 MATIC, that is 100x what you will need to mint the token.
         </li>
 
       </ul>
