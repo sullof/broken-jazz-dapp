@@ -40,17 +40,28 @@ class Item extends Base {
     return <div>{rows}</div>
   }
 
+
   render() {
 
     const {token} = this.props
+    const all = /all$/.test(window.location.pathname)
+
+    let yours = this.Store.signedInAddress && (
+      Address.equal(token.claimer, this.Store.signedInAddress)
+      || Address.equal(token.owner, this.Store.signedInAddress)
+    ) ? <div className={'isMine'}>YOURS</div> : null
+
+    if (!yours && all) {
+      if (token.owner) {
+        yours = <div className={'isMine ttype'}>MINTED</div>
+      } else if (token.claimer) {
+        yours = <div className={'isMine ttype'}>CLAIMED</div>
+      }
+    }
+
     return (
       <div className={`cardDiv ${this.props.klass}`}  >
-        {
-          this.Store.signedInAddress && (
-          Address.equal(token.claimer, this.Store.signedInAddress)
-          || Address.equal(token.owner, this.Store.signedInAddress)
-          ) ? <div className={'isMine'}>YOURS</div> : null
-        }
+        {yours}
         <div className="cardBody">{
           token && token.imageURI
           ? this.renderVideo(token)

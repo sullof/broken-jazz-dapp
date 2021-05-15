@@ -317,9 +317,18 @@ div.cardDiv.largevideo {
         border-radius: 20px;
     }
 
+    div.cardDiv.smallvideo {
+        height: 271px;
+    }
+
     div.cardDiv.single {
         width: 420px;
     }
+
+    div.cardDiv.smallvideo img {
+        margin-bottom: 5px;
+    }
+
 
     div.cardDiv.largevideo {
         width: 758px;
@@ -484,4 +493,10 @@ span.button {
     padding: 0 4px;
     margin: -11px;
     background: #220;
+}
+
+.ttype {
+    border-color: #64c;
+    background: #014;
+    color: #def;
 }

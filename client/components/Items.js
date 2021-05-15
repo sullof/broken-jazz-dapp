@@ -133,7 +133,7 @@ class Items extends Base {
   renderItems() {
     const {filter, id} = this.getFilterIdFromPathname()
 
-    const filteredTokens = _.filter(this.Store.tokens, e => id ? e.id === id : e[filter])
+    const filteredTokens = _.filter(this.Store.tokens, e => id ? e.id === id : filter === 'all' ? true : e[filter])
 
     let allCols = []
     for (let token of filteredTokens) {
@@ -144,7 +144,7 @@ class Items extends Base {
           token={token}
           Store={this.Store}
           setStore={this.props.setStore}
-          klass={id ? 'largevideo' : 'smallvideo'}
+          klass={(id ? 'largevideo' : 'smallvideo') + (token.unclaimed ? ' unclaimed' : '')}
         />)
     }
     if (id) {
@@ -185,7 +185,7 @@ class Items extends Base {
                         ? 'You do not own any minted token, yet :-('
                         : 'Connect your Metamask to see if you own any token'
                     )
-                    : 'Uhm, what are you looking for?'
+                    : filter === 'all' ? null : 'Uhm, what are you looking for?'
             }
             </div>
         }
