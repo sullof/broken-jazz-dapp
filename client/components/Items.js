@@ -203,9 +203,7 @@ class Items extends Base {
       let intro
       switch (filter) {
         case 'minted':
-          intro = <div><b className={'noMobile'}>Minted NFTs are standard ERC-721 tokens on the blockchain. They can be
-            transferred,
-            farmed on DeFi apps, or sold on NFT marketplaces.
+          intro = <div><b className={'noMobile'}>Minted NFTs are standard ERC-721 tokens on the blockchain. Sell/buy them on <Ab link={'https://opensea.io/collection/brokenjazz'} label={'OpenSea'}/>.
             {/*{*/}
             {/*  this.Store.chainId ?*/}
             {/*    <span>You can take a look at the Broken Jazz smart contract on <Ab*/}
