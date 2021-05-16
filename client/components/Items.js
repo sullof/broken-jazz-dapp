@@ -177,7 +177,7 @@ class Items extends Base {
                 : filter === 'claimed' ? 'All the claimed tokens have been minted :-)'
                 : filter === 'minted' ? (
                     this.Store.signedInAddress
-                      ? 'No token has been minted, yet :-/'
+                      ? 'Connect to the Polygon (ex-Matic) Network to see the minted tokens'
                       : 'Connect your Metamask to see the minted tokens'
                   )
                   : filter === 'yours' ? (
