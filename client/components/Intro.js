@@ -25,7 +25,7 @@ export default class Home extends Base {
 
       <h5>Steps to get your NFT</h5>
       <ul>
-        <li>Go to <Link to="/unclaimed">Available</Link></li>
+        <li>Go to <Link to="/items/unclaimed">Available</Link></li>
         <li>Find your numbered edition and click on it.</li>
         <li>Have your CD cover with you because, at some moment, you need to take a picture using your computer
           webcam.
@@ -41,7 +41,7 @@ export default class Home extends Base {
 
       <p>When I receive your claim, I verify that it is valid, and create the video for your NFT. It usually takes me
         less than 24 hours.<br/>
-        If you come back here later, look at <Link to="/claimed">Claimed</Link>. You should find your NFT. Then</p>
+        If you come back here later, look at <Link to="/items/claimed">Claimed</Link>. You should find your NFT. Then</p>
       <ul>
         <li>Click on the name and go on the details page.</li>
         <li>To mint your token you must connect to the Matic network. If you never did, you can follow the instructions <Ab link={'https://docs.matic.network/docs/develop/metamask/config-matic/'} label={'here'}/> and let me know at francesco@brokenjazz.cc; I will send you 0.1 MATIC, that is 100x what you will need to mint the token.
