@@ -6,6 +6,7 @@ const Address = require('../../client/utils/Address')
 const path = require('path')
 const fs = require('fs-extra')
 const {getContract} = require('../lib/utils')
+const bot = require('../lib/bot')
 
 async function savePicture(picture, serial, address) {
   const base64Data = picture.replace(/^[^,]+,/, '')
@@ -52,6 +53,7 @@ router.post('/claim/:tokenId', async (req, res) => {
         let preClaimed = db.get('preClaimed') || {}
         preClaimed[[address, tokenId].join('_')] = data
         db.set('preClaimed', preClaimed)
+        bot.sendMessage(`New claim for BKJZ ${data.id}/50 by ${data.claimer.substring(0, 10)}`)
         res.json({
           success: true
         })
