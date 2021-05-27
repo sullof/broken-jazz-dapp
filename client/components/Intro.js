@@ -35,7 +35,7 @@ export default class Home extends Base {
         </li>
         <li>Fill in the form and chose the song you want as the soundtrack of the NFT.</li>
         <li>You will be asked to sign your claim using Metamask. You are not sending any money, just signing a
-          request. If you do not have a Metamask wallet installed in your browser, follow the instruction <Ab link={'https://blog.wetrust.io/how-to-install-and-use-metamask-7210720ca047'} label={'here'}/>. Alternatively, you can use Coinbase Wallet or other compatible browser extensions.
+          request. If you do not have a Metamask wallet installed in your browser, follow the instruction <Ab link={'https://blog.wetrust.io/how-to-install-and-use-metamask-7210720ca047'} label={'here'}/>. Alternatively, you can use <Ab link={'https://chrome.google.com/webstore/detail/coinbase-wallet-extension/hnfanknocfeofbddgcijnmhnfnkdnaad'} label={'Coinbase Wallet'}/> or other compatible browser extensions.
         </li>
       </ul>
 
