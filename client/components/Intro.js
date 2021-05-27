@@ -30,21 +30,29 @@ export default class Home extends Base {
         <li>Have your CD cover with you because, at some moment, you need to take a picture using your computer
           webcam.
         </li>
-        <li>Press the button <span className={'button'}>Claim this token</span>. It will ask you to access the webcam. Say yes and take a picture of
+        <li>Press the button <span className={'button'}>Claim this token</span>. It will ask you to access the webcam.
+          Say yes and take a picture of
           yourself with the cover showing the serial number on the CD.
         </li>
         <li>Fill in the form and chose the song you want as the soundtrack of the NFT.</li>
-        <li>You will be asked to sign your claim using Metamask. You are not sending any money, just signing a
-          request. If you do not have a Metamask wallet installed in your browser, follow the instruction <Ab link={'https://blog.wetrust.io/how-to-install-and-use-metamask-7210720ca047'} label={'here'}/>. Alternatively, you can use <Ab link={'https://chrome.google.com/webstore/detail/coinbase-wallet-extension/hnfanknocfeofbddgcijnmhnfnkdnaad'} label={'Coinbase Wallet'}/> or other compatible browser extensions.
+        <li>You will be asked to sign your claim using a browser wallet like <Ab link={'https://metamask.io/'}
+                                                                                 label={'Metamask'}/>. You are not
+          sending any money, just signing a
+          request. If you do not have a Metamask wallet installed in your browser, follow the instruction <Ab
+            link={'https://blog.wetrust.io/how-to-install-and-use-metamask-7210720ca047'} label={'here'}/>.
+          Alternatively, you can use <Ab link={'https://wallet.coinbase.com/'} label={'Coinbase Wallet'}/> or other
+          compatible browser extensions.
         </li>
       </ul>
 
-      <p>When I receive your claim, I verify that it is valid, and create the video for your NFT. It usually takes me less than 24 hours. I will also send you some Matic ETH if you don't have any.<br/>
+      <p>When I receive your claim, I verify that it is valid, and create the video for your NFT. It usually takes me
+        less than 24 hours. I will also send you some Matic ETH if you don't have any.<br/>
         Later, in <Link to="/items/claimed">Claimed</Link>, you should find your NFT.</p>
       <p>To mint you token:</p>
       <ul>
         <li>Click on the name and go on the details page.</li>
-        <li>To mint your token you must connect to the Matic network. If you never did, you can follow the instructions <Ab link={'https://docs.matic.network/docs/develop/metamask/config-matic/'} label={'here'}/>
+        <li>To mint your token you must connect to the Matic network. If you never did, you can follow the
+          instructions <Ab link={'https://docs.matic.network/docs/develop/metamask/config-matic/'} label={'here'}/>
         </li>
         <li>Press the button <span className={'button'}>Mint your token</span>.</li>
         <li>Accept the transaction with Metamask and wait that it is included in a block. When done, in Yours, you will
@@ -81,7 +89,8 @@ export default class Home extends Base {
         link="https://music.amazon.com/albums/B08WZ2DB2N" label="Amazon Music"/>, and other online services, I
         added the physical CD distribution on <Ab link="https://cdbaby.com" label="CDBaby"/>.</p>
       <p>When Amazon sold the first CDs, I started working on the smart contracts and this dapp.</p>
-      <p>Only 54 BKJZ tokens will exist on the Polygon (ex-MATIC) network when all the tokens are minted. Any of them has a
+      <p>Only 54 BKJZ tokens will exist on the Polygon (ex-MATIC) network when all the tokens are minted. Any of them
+        has a
         unique video. Maybe not soon, but they will have some value, sooner or
         later.
       </p>
