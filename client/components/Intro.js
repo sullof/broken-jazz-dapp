@@ -35,16 +35,16 @@ export default class Home extends Base {
         </li>
         <li>Fill in the form and chose the song you want as the soundtrack of the NFT.</li>
         <li>You will be asked to sign your claim using Metamask. You are not sending any money, just signing a
-          request. If you do not have a Metamask wallet installed in your browser, follow the instruction <Ab link={'https://blog.wetrust.io/how-to-install-and-use-metamask-7210720ca047'} label={'here'}/>.
+          request. If you do not have a Metamask wallet installed in your browser, follow the instruction <Ab link={'https://blog.wetrust.io/how-to-install-and-use-metamask-7210720ca047'} label={'here'}/>. Alternatively, you can use Coinbase Wallet or other compatible browser extensions.
         </li>
       </ul>
 
-      <p>When I receive your claim, I verify that it is valid, and create the video for your NFT. It usually takes me
-        less than 24 hours.<br/>
-        If you come back here later, look at <Link to="/items/claimed">Claimed</Link>. You should find your NFT. Then</p>
+      <p>When I receive your claim, I verify that it is valid, and create the video for your NFT. It usually takes me less than 24 hours. I will also send you some Matic ETH if you don't have any.<br/>
+        Later, in <Link to="/items/claimed">Claimed</Link>, you should find your NFT.</p>
+      <p>To mint you token:</p>
       <ul>
         <li>Click on the name and go on the details page.</li>
-        <li>To mint your token you must connect to the Matic network. If you never did, you can follow the instructions <Ab link={'https://docs.matic.network/docs/develop/metamask/config-matic/'} label={'here'}/> and let me know at francesco@brokenjazz.cc; I will send you 0.1 MATIC, that is 100x what you will need to mint the token.
+        <li>To mint your token you must connect to the Matic network. If you never did, you can follow the instructions <Ab link={'https://docs.matic.network/docs/develop/metamask/config-matic/'} label={'here'}/>
         </li>
         <li>Press the button <span className={'button'}>Mint your token</span>.</li>
         <li>Accept the transaction with Metamask and wait that it is included in a block. When done, in Yours, you will

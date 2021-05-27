@@ -178,12 +178,12 @@ class Items extends Base {
                 : filter === 'minted' ? (
                     this.Store.signedInAddress
                       ? 'Connect to the Matic Network to see the minted tokens'
-                      : 'Connect your Metamask to see the minted tokens'
+                      : 'Connect your wallet to see the minted tokens'
                   )
                   : filter === 'yours' ? (
                       this.Store.signedInAddress
                         ? 'You do not own any minted token, yet :-('
-                        : 'Connect your Metamask to see if you own any token'
+                        : 'Connect your wallet to see if you own any token'
                     )
                     : filter === 'all' ? null : 'Uhm, what are you looking for?'
             }
