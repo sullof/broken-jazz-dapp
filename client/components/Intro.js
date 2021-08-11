@@ -25,7 +25,14 @@ export default class Home extends Base {
 
       <h5>Steps to get your NFT</h5>
       <ul>
-        <li>Go to <Link to="/items/unclaimed">Available</Link></li>
+        <li>First off, you must connect your wallet. If you do not have any installed in your browser, visit <Ab link={'https://metamask.io/'} label={'Metamask'}/>, install it and create your wallet (look at <Ab
+          link={'https://blog.wetrust.io/how-to-install-and-use-metamask-7210720ca047'} label={'here'}/> for instructions).<br/>
+          Alternatively, you can use <Ab link={'https://wallet.coinbase.com/'} label={'Coinbase Wallet'}/> or other
+          compatible browser extensions.
+        </li>
+        <li>Second, BrokenJazz has been deployed on the Matic network. If you never configured it, visit <Ab link={'https://chainlist.org/'} label={'Chainlist'}/>, search for Matic (chainId 137) and press the button to add the network settings to your Metamask.
+        </li>
+        <li>When ready, clink on <Link to="/items/unclaimed">Available</Link> in the top menu.</li>
         <li>Find your numbered edition and click on it.</li>
         <li>Have your CD cover with you because, at some moment, you need to take a picture using your computer
           webcam.
@@ -35,13 +42,9 @@ export default class Home extends Base {
           yourself with the cover showing the serial number on the CD.
         </li>
         <li>Fill in the form and chose the song you want as the soundtrack of the NFT.</li>
-        <li>You will be asked to sign your claim using a browser wallet like <Ab link={'https://metamask.io/'}
-                                                                                 label={'Metamask'}/>. You are not
+        <li>You will be asked to sign your claim using your wallet. You are not
           sending any money, just signing a
-          request. If you do not have a Metamask wallet installed in your browser, follow the instruction <Ab
-            link={'https://blog.wetrust.io/how-to-install-and-use-metamask-7210720ca047'} label={'here'}/>.
-          Alternatively, you can use <Ab link={'https://wallet.coinbase.com/'} label={'Coinbase Wallet'}/> or other
-          compatible browser extensions.
+          request.
         </li>
       </ul>
 
@@ -51,18 +54,13 @@ export default class Home extends Base {
       <p>To mint you token:</p>
       <ul>
         <li>Click on the name and go on the details page.</li>
-        <li>To mint your token you must connect to the Matic network. If you never did, you can follow the
-          instructions <Ab link={'https://docs.matic.network/docs/develop/metamask/config-matic/'} label={'here'}/>
+        <li>To mint your token you must connect to the Matic network.
         </li>
         <li>Press the button <span className={'button'}>Mint your token</span>.</li>
-        <li>Accept the transaction with Metamask and wait that it is included in a block. When done, in Yours, you will
+        <li>Accept the transaction with Metamask and wait that it is included in a block. When done, in <Link to="/items/yours">Yours</Link>, you will
           find your BKJZ token.
         </li>
-
-
       </ul>
-
-
     </div>
 
 
@@ -129,6 +127,8 @@ export default class Home extends Base {
         {row1}
         {row2}
         {row3}
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
       </Container>
     )
   }
