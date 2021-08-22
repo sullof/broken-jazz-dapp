@@ -1,11 +1,13 @@
 import Base from './Base'
 
-
 class Ab extends Base {
 
   render() {
-    return <a href={this.props.link} target="_blank">{this.props.label}</a>
-
+    const {link, label, onClick} = this.props
+    if (link)
+      return <a href={link} target="_blank">{label}</a>
+    else
+      return <span className="command" onClick={onClick}>{label}</span>
   }
 }
 

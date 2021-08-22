@@ -181,7 +181,7 @@ div.textBlock {
     padding: 16px;
 }
 
-div.textBlock a {
+div.textBlock a, div.textBlock .command {
     color: gold;
 }
 

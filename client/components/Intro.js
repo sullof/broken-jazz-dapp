@@ -7,7 +7,41 @@ const {Link} = ReactRouterDOM
 import Base from './Base'
 import Ab from './Ab'
 
-export default class Home extends Base {
+export default class Intro extends Base {
+
+  constructor(props) {
+    super(props)
+
+    this.bindMany([
+      'addMaticToMetamask'
+    ])
+
+  }
+
+  async addMaticToMetamask() {
+
+    console.log(1)
+    if (this.Store.signedInAddress) {
+      console.log(2)
+      const params = {
+        chainId: '0x89',
+        chainName: 'Matic(Polygon) Mainnet',
+        nativeCurrency: {name: 'Matic', symbol: 'MATIC', decimals: 18},
+        rpcUrls: [
+          'https://rpc-mainnet.matic.network',
+          'wss://ws-mainnet.matic.network',
+          'https://rpc-mainnet.matic.quiknode.pro',
+          'https://matic-mainnet.chainstacklabs.com'
+        ],
+        blockExplorerUrls: ['https://polygonscan.com']
+      }
+
+      await window.ethereum.request({
+        method: 'wallet_addEthereumChain',
+        params: [params, this.Store.signedInAddress],
+      })
+    }
+  }
 
   render() {
 
@@ -51,20 +85,17 @@ export default class Home extends Base {
       <p>To mint you token:</p>
       <ul>
         <li>Click on the name and go on the details page.</li>
-        <li>To mint your token you must connect to the Matic network. If you never did, you can follow the
-          instructions <Ab link={'https://docs.matic.network/docs/develop/metamask/config-matic/'} label={'here'}/>
+        <li>BrokenJazz tokens live on the Matic network. If you never set your Metamask to use it,
+          click <Ab onClick={this.addMaticToMetamask} label={'here'}/> to add Matic
+          configuration.
         </li>
         <li>Press the button <span className={'button'}>Mint your token</span>.</li>
         <li>Accept the transaction with Metamask and wait that it is included in a block. When done, in Yours, you will
           find your BKJZ token.
         </li>
 
-
       </ul>
-
-
     </div>
-
 
     const text = <div className={'textBlock'}>
       <p>As a musician, I have focused on songs with vocals and lyrics all my life. So, when I sit down to the piano and
