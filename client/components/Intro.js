@@ -20,9 +20,7 @@ export default class Intro extends Base {
 
   async addMaticToMetamask() {
 
-    console.log(1)
     if (this.Store.signedInAddress) {
-      console.log(2)
       const params = {
         chainId: '0x89',
         chainName: 'Matic(Polygon) Mainnet',
