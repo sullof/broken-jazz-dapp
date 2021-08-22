@@ -54,9 +54,9 @@ export default class Intro extends Base {
 
       <p>I printed only 50 copies of my Broken Jazz record, numbered from 1 to 50, plus three printing tests and an Artist's copy.
         </p>
-      <p>
+      <div className={'roundedIn'}>
         First owners of a physical CD can claim their NFT as long as they claim the NFT before September 26th. After then, all the unclaimed tokens will be put on the market with a converse mechanism: whoever buys the NFT will receive the relative CD copy.
-      </p>
+      </div>
 
       <h5>Steps to get your NFT</h5>
       <ul>

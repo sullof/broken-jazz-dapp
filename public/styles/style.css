@@ -500,3 +500,11 @@ span.button {
     background: #014;
     color: #def;
 }
+
+.roundedIn {
+    border: 1px solid #007bff;
+    background: #332266;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 18px;
+}
