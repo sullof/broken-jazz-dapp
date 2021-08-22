@@ -62,7 +62,10 @@ export default class Intro extends Base {
           Alternatively, you can use <Ab link={'https://wallet.coinbase.com/'} label={'Coinbase Wallet'}/> or other
           compatible browser extensions.
         </li>
-        <li>Second, BrokenJazz has been deployed on the Matic network. If you never configured it, visit <Ab link={'https://chainlist.org/'} label={'Chainlist'}/>, search for Matic (chainId 137) and press the button to add the network settings to your Metamask.
+        <li>Second, BrokenJazz tokens live on the Matic network.
+          If you never set your Metamask to use it,
+          click <Ab onClick={this.addMaticToMetamask} label={'here'}/> to add Matic
+          configuration, or to switch to it.
         </li>
         <li>When ready, clink on <Link to="/items/unclaimed">Available</Link> in the top menu.</li>
         <li>Find your numbered edition and click on it.</li>
@@ -86,10 +89,6 @@ export default class Intro extends Base {
       <p>To mint you token:</p>
       <ul>
         <li>Click on the name and go on the details page.</li>
-        <li>BrokenJazz tokens live on the Matic network. If you never set your Metamask to use it,
-          click <Ab onClick={this.addMaticToMetamask} label={'here'}/> to add Matic
-          configuration, or to switch to it.
-        </li>
         <li>Press the button <span className={'button'}>Mint your token</span>.</li>
         <li>Accept the transaction with Metamask and wait that it is included in a block. When done, in <Link to="/items/yours">Yours</Link>, you will
           find your BKJZ token.
