@@ -69,6 +69,7 @@ export default class Intro extends Base {
         </li>
         <li>When ready, clink on <Link to="/items/unclaimed">Available</Link> in the top menu.</li>
         <li>Find your numbered edition and click on it.</li>
+        <li>Be sure to be connected to the Matic network.</li>
         <li>Have your CD cover with you because, at some moment, you need to take a picture using your computer
           webcam.
         </li>
