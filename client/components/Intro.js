@@ -49,7 +49,7 @@ export default class Intro extends Base {
       <h4><i>A collection of short tunes written late at night</i></h4>
     </div>
 
-    const instruction = <div className={'textBlock'}>
+    const instruction = <div className={'textBlock instructionSteps'}>
       <h4 style={{marginTop: 12}}>How it works</h4>
 
       <p>I printed only 50 copies of my Broken Jazz record, numbered from 1 to 50, plus three printing tests and an Artist's copy.
@@ -59,7 +59,7 @@ export default class Intro extends Base {
       </div>
 
       <h5>Steps to get your NFT</h5>
-      <ul>
+      <ul >
         <li>First off, you must connect your wallet. If you do not have any installed in your browser, visit <Ab link={'https://metamask.io/'} label={'Metamask'}/>, install it and create your wallet (look at <Ab
           link={'https://blog.wetrust.io/how-to-install-and-use-metamask-7210720ca047'} label={'here'}/> for instructions).<br/>
           Alternatively, you can use <Ab link={'https://wallet.coinbase.com/'} label={'Coinbase Wallet'}/> or other
