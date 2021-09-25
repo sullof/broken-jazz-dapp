@@ -8,6 +8,7 @@ const ls = require('local-storage')
 import ReactMarkdown from 'react-markdown'
 import Base from './Base'
 import WebcamCapture from './WebcamCapture'
+import Ab from './Ab'
 
 import auth from '../utils/Auth'
 import config from '../config'
@@ -298,6 +299,14 @@ class Details extends Base {
     }
   }
 
+  wantToByThis(token = {}) {
+    if (token.minted && !Address.equal(token.owner, this.Store.signedInAddress)) {
+      return <div className={'roundedIn'}>
+        Do you like to buy this token? Make an offer <Ab link={'https://opensea.io/assets/matic/0x9f0f2fc519f3169c51081d54d9f8e484bdec36f7/'+ token.id} label={'here'}/>
+      </div>
+    }
+  }
+
   render() {
 
     const {token} = this.props
@@ -327,6 +336,7 @@ class Details extends Base {
                       <p>&nbsp;</p>
                       <p>Original comments about the track:</p>
                       <i><ReactMarkdown children={token.comments}/></i>
+                      {this.wantToByThis(token)}
                     </div>
                     : null
                 }
