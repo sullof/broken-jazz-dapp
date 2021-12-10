@@ -92,7 +92,9 @@ class Admin extends Base {
     let rows = []
     let i = 0
 
-    if (Object.keys(this.state.preClaims.length).length === 0 && this.state.preClaimsLoaded) {
+    if (this.state.preClaims &&
+      Object.keys(this.state.preClaims).length === 0 &&
+      this.state.preClaimsLoaded) {
       return <div>No new claim</div>
     }
 
