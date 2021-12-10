@@ -46,6 +46,7 @@ app.use('/:anything', function (req, res, next) {
     case 'manifest.json':
     case 'styles':
     case 'images':
+    case 'nft':
       next()
       break
     default:

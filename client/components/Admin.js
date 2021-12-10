@@ -51,7 +51,8 @@ class Admin extends Base {
     })
     if (res.success) {
       this.setState({
-        preClaims: res.preClaims
+        preClaims: res.preClaims,
+        preClaimsLoaded: true
       })
     } else {
       this.setState({
@@ -90,6 +91,11 @@ class Admin extends Base {
     }
     let rows = []
     let i = 0
+
+    if (this.state.preClaims.length === 0 && this.state.preClaimsLoaded) {
+      return <div>No new claim</div>
+    }
+
     for (let key in this.state.preClaims) {
       let c = this.state.preClaims[key]
       rows.push(

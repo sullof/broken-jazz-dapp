@@ -53,9 +53,9 @@ router.post('/claim/:tokenId', async (req, res) => {
         let preClaimed = db.get('preClaimed') || {}
         preClaimed[[address, tokenId].join('_')] = data
         db.set('preClaimed', preClaimed)
-        if (process.env.NODE_ENV !== 'production') {
+        // if (process.env.NODE_ENV !== 'production') {
           bot.sendMessage(`New claim for BKJZ ${data.id}/50 by ${data.claimer.substring(0, 10)}`)
-        }
+        // }
         res.json({
           success: true
         })
@@ -120,6 +120,8 @@ router.get('/tracks', async (req, res) => {
 
 })
 
+    let dodo = false
+
 let cachedOwners = {}
 let lastCachedAt = {}
 
@@ -167,6 +169,7 @@ router.post('/admin', async (req, res) => {
   if (Address.isAdmin(recovered)) {
     const data = JSON.parse(msgParams.message.data)
     if (Date.now() - data.timestamp > 30000) {
+      res.status(400)
       res.json({
         success: false,
         error: 'Expired signature'
@@ -219,6 +222,7 @@ router.post('/admin', async (req, res) => {
       }
     }
   } else {
+    res.status(403)
     res.json({
       success: false,
       error: 'Forbidden'

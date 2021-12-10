@@ -87,7 +87,7 @@ class App extends Common {
 
   async componentDidMount() {
     window.addEventListener('resize', this.updateDimensions.bind(this))
-    await this.connect(true)
+    // await this.connect(true)
   }
 
   async setWallet() {
