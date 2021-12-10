@@ -54,7 +54,9 @@ class App extends Common {
       'setStore',
       'getContract',
       'updateDimensions',
-      'showModal'
+      'showModal',
+      'setWallet',
+      'connect'
     ])
   }
 
@@ -118,15 +120,12 @@ class App extends Common {
   }
 
   async connect(dontShowError) {
-
-    if (typeof window.ethereum !== 'undefined') {
-
+   if (typeof window.ethereum !== 'undefined') {
       if (await window.ethereum.request({method: 'eth_requestAccounts'})) {
-
-        window.ethereum.on('accountsChanged', () => this.setWallet())
-        window.ethereum.on('chainChanged', () => window.location.reload())
-        window.ethereum.on('disconnect', () => window.location.reload())
-
+        const func = window.location.reload
+        window.ethereum.on('accountsChanged', func)
+        window.ethereum.on('chainChanged', func)
+        window.ethereum.on('disconnect', func)
         this.setWallet()
       }
 
