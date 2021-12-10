@@ -26,6 +26,7 @@ export default class Intro extends Base {
         chainName: 'Matic(Polygon) Mainnet',
         nativeCurrency: {name: 'Matic', symbol: 'MATIC', decimals: 18},
         rpcUrls: [
+          'https://rpc-mainnet.maticvigil.com',
           'https://rpc-mainnet.matic.network',
           'wss://ws-mainnet.matic.network',
           'https://rpc-mainnet.matic.quiknode.pro',
