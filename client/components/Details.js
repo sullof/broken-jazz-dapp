@@ -78,9 +78,9 @@ class Details extends Base {
         }
         return (
           <div>
-            <Button disable={true}>Claim this token</Button>
+            {/*<Button disabled={true}>Claim this token</Button>*/}
             <div className={"claiming"}>
-              Unfortunately the deadline is passed.
+              The tokens are no more claimable. The deadline has passed.
             </div>
           </div>
         );

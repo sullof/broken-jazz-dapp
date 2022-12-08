@@ -62,7 +62,7 @@ export default class Intro extends Base {
         </p>
         <div className={"roundedIn"}>
           The first owners of a physical CD can claim their NFT as long as they
-          claim it before September 26th. After that, all unclaimed tokens will
+          claim it before September 26th, 2021. After that, all unclaimed tokens will
           be put on the market using a reverse mechanism: whoever buys the NFT
           will receive the corresponding CD copy.
         </div>
