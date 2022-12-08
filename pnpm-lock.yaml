@@ -30,6 +30,7 @@ specifiers:
   lodash: ^4.17.21
   mocha: ^8.2.1
   prettier: ^2.8.1
+  prop-types: ^15.8.1
   react: ^16.14.0
   react-dom: ^16.14.0
   react-markdown: ^6.0.1
@@ -60,6 +61,7 @@ dependencies:
   knex: 0.21.19
   local-storage: 1.4.2
   lodash: 4.17.21
+  prop-types: 15.8.1
   react: 16.14.0
   react-dom: 16.14.0_react@16.14.0
   react-markdown: 6.0.1_react@16.14.0
@@ -4828,7 +4830,7 @@ packages:
     dev: true
 
   /object-assign/4.1.1:
-    resolution: {integrity: sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=}
+    resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
     engines: {node: '>=0.10.0'}
 
   /object-copy/0.1.0:
@@ -5249,8 +5251,8 @@ packages:
     engines: {node: '>= 0.6.0'}
     dev: true
 
-  /prop-types/15.7.2:
-    resolution: {integrity: sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==}
+  /prop-types/15.8.1:
+    resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
@@ -5384,7 +5386,7 @@ packages:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 16.14.0
       scheduler: 0.19.1
     dev: false
@@ -5410,7 +5412,7 @@ packages:
       '@types/hast': 2.3.1
       '@types/unist': 2.0.3
       comma-separated-tokens: 1.0.8
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       property-information: 5.6.0
       react: 16.14.0
       react-is: 17.0.2
@@ -5443,7 +5445,7 @@ packages:
       deepmerge: 4.2.2
       load-script: 1.0.0
       memoize-one: 5.2.1
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 16.14.0
       react-fast-compare: 3.2.0
     dev: false
@@ -5464,7 +5466,7 @@ packages:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
-      prop-types: 15.7.2
+      prop-types: 15.8.1
     dev: false
 
   /read-pkg-up/1.0.1:
@@ -6519,7 +6521,7 @@ packages:
       '@babel/runtime': 7.14.0
       classnames: 2.3.1
       lodash.throttle: 4.1.1
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 16.14.0
       react-dom: 16.14.0_react@16.14.0
       redux: 4.1.0
@@ -6563,7 +6565,7 @@ packages:
     resolution: {integrity: sha512-Z8mVHeTFa9eBNKvRipJfZDoJgeHBbh/WDLjzZZLgFmoBJgT81mc5blnh4mUjtButLCJAouV8iN4+2c5ebYvJFA==}
     dependencies:
       detect-browser: 5.2.0
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 16.14.0
       react-dom: 16.14.0_react@16.14.0
       styled-components: 5.2.3_wcqkhtmu7mswc6yz4uyexck3ty

@@ -28,6 +28,7 @@
     "knex": "^0.21.12",
     "local-storage": "^1.4.2",
     "lodash": "^4.17.21",
+    "prop-types": "^15.8.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-markdown": "^6.0.1",
