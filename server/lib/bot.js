@@ -1,16 +1,13 @@
-const Discord = require('discord.js')
-const bot = new Discord.Client()
+const Discord = require("discord.js");
+const bot = new Discord.Client();
 
-bot.login(require('../../env.json').token)
+bot.login(require("../../env.json").token);
 
-bot.on('ready', () => {
+bot.on("ready", () => {});
 
-})
-
-bot.on('message', msg => {
-
+bot.on("message", (msg) => {
   // executeCommand(msg)
-})
+});
 
 // async function executeCommand(msg) {
 //
@@ -35,8 +32,8 @@ bot.on('message', msg => {
 //   }
 // }
 
-bot.sendMessage = message => {
-  bot.channels.cache.get('825085825116930059').send(message)
-}
+bot.sendMessage = (message) => {
+  bot.channels.cache.get("825085825116930059").send(message);
+};
 
-module.exports = bot
+module.exports = bot;

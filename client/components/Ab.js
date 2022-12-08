@@ -1,14 +1,21 @@
-import Base from './Base'
+import Base from "./Base";
 
 class Ab extends Base {
-
   render() {
-    const {link, label, onClick} = this.props
+    const { link, label, onClick } = this.props;
     if (link)
-      return <a href={link} target="_blank">{label}</a>
+      return (
+        <a href={link} target="_blank">
+          {label}
+        </a>
+      );
     else
-      return <span className="command" onClick={onClick}>{label}</span>
+      return (
+        <span className="command" onClick={onClick}>
+          {label}
+        </span>
+      );
   }
 }
 
-module.exports = Ab
+module.exports = Ab;

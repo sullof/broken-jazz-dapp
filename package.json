@@ -50,18 +50,15 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
     "css-loader": "^3.6.0",
-    "eslint": "^6.8.0",
-    "eslint-plugin-react": "^6.10.3",
     "mocha": "^8.2.1",
+    "prettier": "^2.8.1",
     "webpack": "^2.7.0"
   },
   "scripts": {
     "start": "node .",
     "start:dev": "NODE_ENV=development node .",
     "build": "webpack",
-    "lint": "npm run lint:client && npm run lint:server",
-    "lint:client": "eslint client/**/*.js",
-    "lint:server": "eslint server/**/*.js"
+    "lint": "npx prettier --write ."
   },
   "eslintConfig": {
     "extends": "react-app"

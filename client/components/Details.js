@@ -1,91 +1,102 @@
 // eslint-disable-next-line no-undef
-const {Link} = ReactRouterDOM
+const { Link } = ReactRouterDOM;
 
 // eslint-disable-next-line no-undef
-const {Button, Form, ProgressBar} = ReactBootstrap
-const ls = require('local-storage')
+const { Button, Form, ProgressBar } = ReactBootstrap;
+const ls = require("local-storage");
 
-import ReactMarkdown from 'react-markdown'
-import Base from './Base'
-import WebcamCapture from './WebcamCapture'
-import Ab from './Ab'
+import ReactMarkdown from "react-markdown";
+import Base from "./Base";
+import WebcamCapture from "./WebcamCapture";
+import Ab from "./Ab";
 
-import auth from '../utils/Auth'
-import config from '../config'
-import Address from '../utils/Address'
+import auth from "../utils/Auth";
+import config from "../config";
+import Address from "../utils/Address";
 
 async function sleep(millis) {
   // eslint-disable-next-line no-undef
-  return new Promise(resolve => setTimeout(resolve, millis))
+  return new Promise((resolve) => setTimeout(resolve, millis));
 }
 
 class Details extends Base {
-
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
-      claimNow: false
-    }
+      claimNow: false,
+    };
 
     this.bindMany([
-      'showActions',
-      'claimToken',
-      'mintToken',
-      'getForm',
-      'handleChangeSerial',
-      'handleChangeTrack',
-      'submitClaim',
-      'validateSerial',
-      'webcamCallback'
-    ])
-
+      "showActions",
+      "claimToken",
+      "mintToken",
+      "getForm",
+      "handleChangeSerial",
+      "handleChangeTrack",
+      "submitClaim",
+      "validateSerial",
+      "webcamCallback",
+    ]);
   }
 
   handleChangeSerial(event) {
     this.setState({
       serial: event.target.value,
-      error: null
-    })
+      error: null,
+    });
   }
 
   handleChangeTrack(event) {
     this.setState({
-      track: event.target.value
-    })
+      track: event.target.value,
+    });
   }
 
   showActions(token) {
     if (this.state.minting === token.id) {
-      return <div>
-        <img src="/images/white-spinner.svg"/>
-        {
-          this.state.steps ? <div style={{marginTop: 12}}><ProgressBar animated now={this.state.steps}/></div> : null
-        }
-      </div>
+      return (
+        <div>
+          <img src="/images/white-spinner.svg" />
+          {this.state.steps ? (
+            <div style={{ marginTop: 12 }}>
+              <ProgressBar animated now={this.state.steps} />
+            </div>
+          ) : null}
+        </div>
+      );
     }
     if (token.minted) {
-      return null
+      return null;
     }
     if (this.Store.signedInAddress) {
-
       if (token.unclaimed) {
-        if (ls('claimed' + this.props.token.id) === this.Store.signedInAddress) {
-          return null
+        if (
+          ls("claimed" + this.props.token.id) === this.Store.signedInAddress
+        ) {
+          return null;
         }
-        return <div >
-          <Button onClick={this.claimToken}>Claim this token</Button>
-          <div className={'claiming'}>To claim a token you need to take a picture of yourself with the inside of the CD cover, showing the serial code. So, please, allow this website to use your camera when requested. More info in <Link to={'/intro'}>intro</Link>.</div>
-        </div>
+        return (
+          <div>
+            <Button disable={true}>Claim this token</Button>
+            <div className={"claiming"}>
+              Unfortunately the deadline is passed.
+            </div>
+          </div>
+        );
       } else if (Address.equal(token.claimer, this.Store.signedInAddress)) {
         if (config.supportedId[this.Store.chainId]) {
-          return <Button onClick={this.mintToken}>Mint your token</Button>
+          return <Button onClick={this.mintToken}>Mint your token</Button>;
         } else {
-          return <div className={'claiming'}>Connect to Polygon (ex-MATIC) Mainnet to mint your token</div>
+          return (
+            <div className={"claiming"}>
+              Connect to Polygon (ex-MATIC) Mainnet to mint your token
+            </div>
+          );
         }
       }
     } else {
-      return null
+      return null;
     }
   }
 
@@ -93,223 +104,269 @@ class Details extends Base {
     if (this.Store.signedInAddress) {
       if (token.owner) {
         if (Address.equal(token.owner, this.Store.signedInAddress)) {
-          return 'Owned by you'
+          return "Owned by you";
         } else {
-          return <span>Owned by<br/><code className={'white'}><small>{token.owner}</small></code></span>
+          return (
+            <span>
+              Owned by
+              <br />
+              <code className={"white"}>
+                <small>{token.owner}</small>
+              </code>
+            </span>
+          );
         }
       } else if (token.claimer) {
         if (Address.equal(token.claimer, this.Store.signedInAddress)) {
-          return 'Claimed by you'
+          return "Claimed by you";
         } else {
-          return <span>Claimed by<br/><code className={'white'}><small>{token.claimer}</small></code></span>
+          return (
+            <span>
+              Claimed by
+              <br />
+              <code className={"white"}>
+                <small>{token.claimer}</small>
+              </code>
+            </span>
+          );
         }
-      } else if (ls('claimed' + this.props.token.id) === this.Store.signedInAddress) {
-        return <span>
-          You have started a claim, and a new video with your favorite song is coming soon.<br/>
-          It usually takes less than 24 hours. However, if it takes too long, there might be an error somewhere. If so, please send a message to brokenjazz@sullo.co.
-        </span>
+      } else if (
+        ls("claimed" + this.props.token.id) === this.Store.signedInAddress
+      ) {
+        return (
+          <span>
+            You have started a claim, and a new video with your favorite song is
+            coming soon.
+            <br />
+            It usually takes less than 24 hours. However, if it takes too long,
+            there might be an error somewhere. If so, please send a message to
+            brokenjazz@sullo.co.
+          </span>
+        );
       }
     } else {
-      return <span>
+      return (
+        <span>
           <span>To claim this token, please connect your Metamask.</span>
         </span>
+      );
     }
-    return null
+    return null;
   }
 
   async claimToken() {
-    const res = await this.request('tracks', 'get')
-    this.tracks = res.tracks
+    const res = await this.request("tracks", "get");
+    this.tracks = res.tracks;
     this.setState({
-      claimNow: true
-    })
+      claimNow: true,
+    });
   }
 
   validateSerial(serial) {
     if (/[^0-9X-]/.test(serial) || serial.length !== 6) {
       this.setState({
-        error: 'Invalid serial'
-      })
-      return false
+        error: "Invalid serial",
+      });
+      return false;
     } else {
       this.setState({
-        error: null
-      })
-      return true
+        error: null,
+      });
+      return true;
     }
   }
 
   async submitClaim() {
-
-    const serial = this.state.serial.toUpperCase()
+    const serial = this.state.serial.toUpperCase();
     if (!this.validateSerial(serial)) {
-      return
+      return;
     }
 
-    let chosenTrack = this.state.track || 'Broken Jazz'
-    let trackNumber
+    let chosenTrack = this.state.track || "Broken Jazz";
+    let trackNumber;
 
     for (let track in this.tracks) {
       if (this.tracks[track] === chosenTrack) {
-        trackNumber = track
-        break
+        trackNumber = track;
+        break;
       }
     }
 
-    const {id} = this.props.token
+    const { id } = this.props.token;
 
     try {
-
-      const {msgParams, signature} = await auth.getSignedAuthToken(
+      const { msgParams, signature } = await auth.getSignedAuthToken(
         this.Store.chainId,
         this.Store.signedInAddress,
         {
           id,
           trackNumber,
           chosenTrack,
-          serial
+          serial,
         }
-      )
-      const res = await this.request(`claim/${id}`, 'post', {
+      );
+      const res = await this.request(`claim/${id}`, "post", {
         address: this.Store.signedInAddress,
         msgParams,
         signature,
-        picture: this.state.picture
-      })
+        picture: this.state.picture,
+      });
       if (res.success) {
-        ls('claimed' + id, this.Store.signedInAddress)
+        ls("claimed" + id, this.Store.signedInAddress);
         this.setState({
           claimed: true,
           claimNow: false,
-          picture: null
-        })
+          picture: null,
+        });
       } else {
         this.setState({
-          error: res.error
-        })
+          error: res.error,
+        });
       }
-    } catch(e) {
+    } catch (e) {
       this.setState({
         claimNow: false,
-        picture: null
-      })
+        picture: null,
+      });
     }
-
-
   }
 
   webcamCallback(picture) {
     this.setState({
-      picture
-    })
+      picture,
+    });
   }
 
   getForm() {
-    const options = []
+    const options = [];
     for (let track in this.tracks) {
-      options.push(
-        <option key={track}>{this.tracks[track]}</option>
-      )
+      options.push(<option key={track}>{this.tracks[track]}</option>);
     }
 
     if (this.state.picture) {
-
-      return <Form>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Your address</Form.Label>
-          <Form.Control type="text" value={this.Store.signedInAddress} disabled={true}/>
-        </Form.Group>
-        <div>&nbsp;</div>
-        <img src={this.state.picture} width="100%"/>
-        <div><span className={'command'} onClick={() => {
-          this.setState({
-            picture: null
-          })
-        }}>Retake the picture</span></div>
-        <div>&nbsp;</div>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Confirm serial code inside CD cover</Form.Label>
-          <Form.Control type="text"
-                        onChange={this.handleChangeSerial}
-                        placeholder="Serial"/>
-        </Form.Group>
-        {
-          this.state.error
-            ? <Form.Text className="text-muted error">
+      return (
+        <Form>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Your address</Form.Label>
+            <Form.Control
+              type="text"
+              value={this.Store.signedInAddress}
+              disabled={true}
+            />
+          </Form.Group>
+          <div>&nbsp;</div>
+          <img src={this.state.picture} width="100%" />
+          <div>
+            <span
+              className={"command"}
+              onClick={() => {
+                this.setState({
+                  picture: null,
+                });
+              }}
+            >
+              Retake the picture
+            </span>
+          </div>
+          <div>&nbsp;</div>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Confirm serial code inside CD cover</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={this.handleChangeSerial}
+              placeholder="Serial"
+            />
+          </Form.Group>
+          {this.state.error ? (
+            <Form.Text className="text-muted error">
               {this.state.error}
             </Form.Text>
-            : null
-        }
-        <div>&nbsp;</div>
-        <Form.Group controlId="exampleForm.ControlSelect1">
-          <Form.Label>Track you like to have on video</Form.Label>
-          <Form.Control as="select"
-                        onChange={this.handleChangeTrack}>
-            {options}
-          </Form.Control>
-        </Form.Group>
-        <div>&nbsp;</div>
-        <Button variant="primary" type="button" onClick={this.submitClaim}>
-          Claim
-        </Button>
-      </Form>
+          ) : null}
+          <div>&nbsp;</div>
+          <Form.Group controlId="exampleForm.ControlSelect1">
+            <Form.Label>Track you like to have on video</Form.Label>
+            <Form.Control as="select" onChange={this.handleChangeTrack}>
+              {options}
+            </Form.Control>
+          </Form.Group>
+          <div>&nbsp;</div>
+          <Button variant="primary" type="button" onClick={this.submitClaim}>
+            Claim
+          </Button>
+        </Form>
+      );
     } else {
-      return <div>
-        <p>Please, take a picture of yourself with the CD cover, so that the serial code is well visible.</p>
-        <WebcamCapture
-          callback={this.webcamCallback}
-        />
-      </div>
+      return (
+        <div>
+          <p>
+            Please, take a picture of yourself with the CD cover, so that the
+            serial code is well visible.
+          </p>
+          <WebcamCapture callback={this.webcamCallback} />
+        </div>
+      );
     }
   }
 
   async mintToken() {
-    const {token} = this.props
+    const { token } = this.props;
     this.setState({
-      minting: token.id
-    })
+      minting: token.id,
+    });
     try {
-      await this.Store.contract.connect(this.Store.signer).claimToken(token.id, token.metadataURI, token.signature)
+      await this.Store.contract
+        .connect(this.Store.signer)
+        .claimToken(token.id, token.metadataURI, token.signature);
 
-      let c = 0
+      let c = 0;
       // eslint-disable-next-line no-constant-condition
       while (true) {
-        c++
+        c++;
         if (c === 5) {
           try {
-            await this.Store.contract.ownerOf(token.id)
-            break
-          } catch (e) {
-          }
-          c = 0
+            await this.Store.contract.ownerOf(token.id);
+            break;
+          } catch (e) {}
+          c = 0;
         }
         this.setState({
-          steps: (this.state.steps || 1) + 1
-        })
-        await sleep(1000)
+          steps: (this.state.steps || 1) + 1,
+        });
+        await sleep(1000);
       }
       this.setState({
-        minting: null
-      })
-      this.props.getTokens(true)
-    } catch(e) {
+        minting: null,
+      });
+      this.props.getTokens(true);
+    } catch (e) {
       this.setState({
-        minting: null
-      })
+        minting: null,
+      });
     }
   }
 
   wantToByThis(token = {}) {
-    if (token.minted && !Address.equal(token.owner, this.Store.signedInAddress)) {
-      return <div className={'roundedIn'}>
-        Do you like to buy this token? Make an offer <Ab link={'https://opensea.io/assets/matic/0x9f0f2fc519f3169c51081d54d9f8e484bdec36f7/'+ token.id} label={'here'}/>
-      </div>
+    if (
+      token.minted &&
+      !Address.equal(token.owner, this.Store.signedInAddress)
+    ) {
+      return (
+        <div className={"roundedIn"}>
+          Do you like to buy this token? Make an offer{" "}
+          <Ab
+            link={
+              "https://opensea.io/assets/matic/0x9f0f2fc519f3169c51081d54d9f8e484bdec36f7/" +
+              token.id
+            }
+            label={"here"}
+          />
+        </div>
+      );
     }
   }
 
   render() {
-
-    const {token} = this.props
+    const { token } = this.props;
     // let rows = null
     // if (token.comments) {
     //   let i = 1
@@ -317,37 +374,38 @@ class Details extends Base {
     // }
 
     return (
-      <div className={'cardDiv single'} style={{width: this.props.cw}}>
+      <div className={"cardDiv single"} style={{ width: this.props.cw }}>
         <div className="cardBody">
-          <p className={'tworem'}><b>{token.labelLong}</b></p>
-          <p style={{fontSize: '0.9rem'}}>{this.ownedBy(token)}</p>
-          {
-            this.state.claimNow
-              ? this.getForm()
-              : <div>
-                {this.showActions(token)}
-                {
-                  token.comments
-                    ?
-                    <div>
-                      <p>&nbsp;</p>
-                      <p>Track #{parseInt(token.trackNumber)}</p>
-                      <p><b style={{fontSize: '1.1rem'}}>{token.trackTitle}</b></p>
-                      <p>&nbsp;</p>
-                      <p>Original comments about the track:</p>
-                      <i><ReactMarkdown children={token.comments}/></i>
-                      {this.wantToByThis(token)}
-                    </div>
-                    : null
-                }
-              </div>
-          }
+          <p className={"tworem"}>
+            <b>{token.labelLong}</b>
+          </p>
+          <p style={{ fontSize: "0.9rem" }}>{this.ownedBy(token)}</p>
+          {this.state.claimNow ? (
+            this.getForm()
+          ) : (
+            <div>
+              {this.showActions(token)}
+              {token.comments ? (
+                <div>
+                  <p>&nbsp;</p>
+                  <p>Track #{parseInt(token.trackNumber)}</p>
+                  <p>
+                    <b style={{ fontSize: "1.1rem" }}>{token.trackTitle}</b>
+                  </p>
+                  <p>&nbsp;</p>
+                  <p>Original comments about the track:</p>
+                  <i>
+                    <ReactMarkdown children={token.comments} />
+                  </i>
+                  {this.wantToByThis(token)}
+                </div>
+              ) : null}
+            </div>
+          )}
         </div>
       </div>
-    )
-
+    );
   }
 }
 
-
-module.exports = Details
+module.exports = Details;

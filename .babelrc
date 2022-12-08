@@ -1,8 +1,5 @@
 {
-  "presets": [
-    "env",
-    "react"
-  ],
+  "presets": ["env", "react"],
   "env": {
     "development": {
       "presets": []

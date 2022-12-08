@@ -1,0 +1,7 @@
+# Ignore artifacts:
+public/bundle.js
+_sullof
+db
+tmp
+pnpm-lock.yaml
+package-lock.json

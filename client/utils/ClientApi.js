@@ -1,21 +1,16 @@
-import superagent from 'superagent'
+import superagent from "superagent";
 
 class ClientApi {
-
-  async request(
-    api,
-    method = 'get',
-    params = {},
-    query = {}
-    ) {
-
-    const res = await superagent[method](`${window.location.origin}/api/v1/${api}`)
-      .set('Accept', 'application/json')
+  async request(api, method = "get", params = {}, query = {}) {
+    const res = await superagent[method](
+      `${window.location.origin}/api/v1/${api}`
+    )
+      .set("Accept", "application/json")
       .query(query)
-      .send(params)
+      .send(params);
 
-    return res.body
+    return res.body;
   }
 }
 
-export default new ClientApi()
+export default new ClientApi();

@@ -3,39 +3,38 @@
 // } = ReactRouterDOM
 
 // eslint-disable-next-line no-undef
-import Address from '../utils/Address'
+import Address from "../utils/Address";
 
 // eslint-disable-next-line no-undef
-const {BrowserRouter, Route, Switch, Redirect} = ReactRouterDOM
+const { BrowserRouter, Route, Switch, Redirect } = ReactRouterDOM;
 
 // eslint-disable-next-line no-undef
-const {Modal, Button} = ReactBootstrap
+const { Modal, Button } = ReactBootstrap;
 
-const ethers = require('ethers')
+const ethers = require("ethers");
 
 // import {Web3Provider} from '@ethersproject/providers'
 // import Web3Modal from 'web3modal'
 
-import {Contract} from '@ethersproject/contracts'
+import { Contract } from "@ethersproject/contracts";
 
-import config from '../config'
+import config from "../config";
 
-import ls from 'local-storage'
+import ls from "local-storage";
 
-import Common from './Common'
-import Menu from './Menu'
-import Home from './Home'
-import Items from './Items'
-import Admin from './Admin'
-import Error404 from './Error404'
-import Footer from './Footer'
-import Credits from './Credits'
-import Intro from './Intro'
+import Common from "./Common";
+import Menu from "./Menu";
+import Home from "./Home";
+import Items from "./Items";
+import Admin from "./Admin";
+import Error404 from "./Error404";
+import Footer from "./Footer";
+import Credits from "./Credits";
+import Intro from "./Intro";
 
 class App extends Common {
-
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       Store: {
@@ -44,20 +43,20 @@ class App extends Common {
         temp: {},
         menuVisibility: false,
         config,
-        width: this.getWidth()
-      }
-    }
+        width: this.getWidth(),
+      },
+    };
 
     this.bindMany([
-      'handleClose',
-      'handleShow',
-      'setStore',
-      'getContract',
-      'updateDimensions',
-      'showModal',
-      'setWallet',
-      'connect'
-    ])
+      "handleClose",
+      "handleShow",
+      "setStore",
+      "getContract",
+      "updateDimensions",
+      "showModal",
+      "setWallet",
+      "connect",
+    ]);
   }
 
   getWidth() {
@@ -65,45 +64,41 @@ class App extends Common {
     // if (window.innerWidth < 800) {
     //   width = window.innerWidth - 50
     // }
-    return window.innerWidth
+    return window.innerWidth;
   }
 
   updateDimensions() {
     this.setStore({
-      width: this.getWidth()
-    })
+      width: this.getWidth(),
+    });
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimensions.bind(this))
+    window.removeEventListener("resize", this.updateDimensions.bind(this));
   }
 
-
   handleClose() {
-    this.setState({show: false})
+    this.setState({ show: false });
   }
 
   handleShow() {
-    this.setState({show: true})
+    this.setState({ show: true });
   }
 
   async componentDidMount() {
-    window.addEventListener('resize', this.updateDimensions.bind(this))
+    window.addEventListener("resize", this.updateDimensions.bind(this));
     // await this.connect(true)
   }
 
   async setWallet() {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = provider.getSigner()
-      const chainId = (await provider.getNetwork()).chainId
-      const signedInAddress = await signer.getAddress()
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const chainId = (await provider.getNetwork()).chainId;
+      const signedInAddress = await signer.getAddress();
 
-      const {
-        contract,
-        connectedNetwork,
-        networkNotSupported
-      } = this.getContract(config, chainId, provider)
+      const { contract, connectedNetwork, networkNotSupported } =
+        this.getContract(config, chainId, provider);
 
       this.setStore({
         provider,
@@ -112,25 +107,23 @@ class App extends Common {
         chainId,
         contract,
         connectedNetwork,
-        networkNotSupported
-      })
+        networkNotSupported,
+      });
     } catch (e) {
-      window.location.reload()
+      window.location.reload();
     }
   }
 
   async connect(dontShowError) {
-   if (typeof window.ethereum !== 'undefined') {
-      if (await window.ethereum.request({method: 'eth_requestAccounts'})) {
-        const func = window.location.reload
-        window.ethereum.on('accountsChanged', func)
-        window.ethereum.on('chainChanged', func)
-        window.ethereum.on('disconnect', func)
-        this.setWallet()
+    if (typeof window.ethereum !== "undefined") {
+      if (await window.ethereum.request({ method: "eth_requestAccounts" })) {
+        const func = window.location.reload;
+        window.ethereum.on("accountsChanged", func);
+        window.ethereum.on("chainChanged", func);
+        window.ethereum.on("disconnect", func);
+        this.setWallet();
       }
-
     } else {
-
       // if (!dontShowError) {
       //   this.showModal(
       //     'No wallet extention found',
@@ -139,7 +132,6 @@ class App extends Common {
       //   )
       // }
     }
-
   }
 
   showModal(modalTitle, modalBody, modalClose, secondButton, modalAction) {
@@ -149,56 +141,58 @@ class App extends Common {
       modalClose,
       secondButton,
       modalAction,
-      showModal: true
-    })
+      showModal: true,
+    });
   }
 
-
   getContract(config, chainId, web3Provider) {
-    let contract
-    let networkNotSupported = false
-    let connectedNetwork = null
+    let contract;
+    let networkNotSupported = false;
+    let connectedNetwork = null;
 
     if (config.address[chainId]) {
-      contract = new Contract(config.address[chainId], config.abi, web3Provider)
+      contract = new Contract(
+        config.address[chainId],
+        config.abi,
+        web3Provider
+      );
       for (let name in config.supported) {
         if (config.supported[name] === chainId) {
-          connectedNetwork = name
+          connectedNetwork = name;
         }
       }
     } else {
-      networkNotSupported = true
+      networkNotSupported = true;
     }
     return {
       contract,
       connectedNetwork,
-      networkNotSupported
-    }
+      networkNotSupported,
+    };
   }
 
   setStore(newProps, localStorage) {
-    let store = this.state.Store
+    let store = this.state.Store;
     for (let i in newProps) {
       if (newProps[i] === null) {
         if (localStorage) {
-          ls.remove(i)
+          ls.remove(i);
         }
-        delete store[i]
+        delete store[i];
       } else {
         if (localStorage) {
-          ls(i, newProps[i])
+          ls(i, newProps[i]);
         }
-        store[i] = newProps[i]
+        store[i] = newProps[i];
       }
     }
     this.setState({
-      Store: store
-    })
+      Store: store,
+    });
   }
 
   render() {
-
-    const Store = this.state.Store
+    const Store = this.state.Store;
 
     const items = (params) => {
       return (
@@ -207,84 +201,72 @@ class App extends Common {
           setStore={this.setStore}
           pathname={params.match.url}
         />
-      )
-    }
+      );
+    };
 
-    return <BrowserRouter>
-      <Menu
-        Store={Store}
-        setStore={this.setStore}
-        connect={this.connect}
-      />
-      <main>
-        <Switch>
-          <Route exact path="/">
-            <Home
-              Store={Store}
-              setStore={this.setStore}
-            />
-          </Route>
-          <Route exact path="/items/:param" component={items}/>
-          <Route exact path="/admin">
-            {
-              Store.signedInAddress
-                ? (
-                  Address.isAdmin(Store.signedInAddress)
-                    ? <Admin
-                      Store={Store}
-                      setStore={this.setStore}
-                    />
-                    : <Redirect to={'/404'}/>
+    return (
+      <BrowserRouter>
+        <Menu Store={Store} setStore={this.setStore} connect={this.connect} />
+        <main>
+          <Switch>
+            <Route exact path="/">
+              <Home Store={Store} setStore={this.setStore} />
+            </Route>
+            <Route exact path="/items/:param" component={items} />
+            <Route exact path="/admin">
+              {Store.signedInAddress ? (
+                Address.isAdmin(Store.signedInAddress) ? (
+                  <Admin Store={Store} setStore={this.setStore} />
+                ) : (
+                  <Redirect to={"/404"} />
                 )
-                : null
-            }
-          </Route>
-          <Route exact path="/intro">
-            <Intro
-              Store={Store}
-              setStore={this.setStore}
-            />
-          </Route>
-          <Route exact path="/credits">
-            <Credits
-              Store={Store}
-              setStore={this.setStore}
-            />
-          </Route>
-          <Route exact path="*">
-            <Error404
-              Store={Store}
-              setStore={this.setStore}
-            />
-          </Route>
-        </Switch>
-        <Footer/>
-      </main>
-      {Store.showModal
-        ? <Modal.Dialog>
-          <Modal.Header>
-            <Modal.Title>{Store.modalTitle}</Modal.Title>
-          </Modal.Header>
+              ) : null}
+            </Route>
+            <Route exact path="/intro">
+              <Intro Store={Store} setStore={this.setStore} />
+            </Route>
+            <Route exact path="/credits">
+              <Credits Store={Store} setStore={this.setStore} />
+            </Route>
+            <Route exact path="*">
+              <Error404 Store={Store} setStore={this.setStore} />
+            </Route>
+          </Switch>
+          <Footer />
+        </main>
+        {Store.showModal ? (
+          <Modal.Dialog>
+            <Modal.Header>
+              <Modal.Title>{Store.modalTitle}</Modal.Title>
+            </Modal.Header>
 
-          <Modal.Body>{Store.modalBody}</Modal.Body>
+            <Modal.Body>{Store.modalBody}</Modal.Body>
 
-          <Modal.Footer>
-            <Button onClick={() => {
-              this.setStore({showModal: false})
-            }}>{Store.modalClose || 'Close'}</Button>
-            {
-              this.state.secondButton
-                ? <Button onClick={() => {
-                  Store.modalAction()
-                  this.setStore({showModal: false})
-                }} bsStyle="primary">{Store.secondButton}</Button>
-                : null
-            }
-          </Modal.Footer>
-        </Modal.Dialog>
-        : null}
-    </BrowserRouter>
+            <Modal.Footer>
+              <Button
+                onClick={() => {
+                  this.setStore({ showModal: false });
+                }}
+              >
+                {Store.modalClose || "Close"}
+              </Button>
+              {this.state.secondButton ? (
+                <Button
+                  onClick={() => {
+                    Store.modalAction();
+                    this.setStore({ showModal: false });
+                  }}
+                  bsStyle="primary"
+                >
+                  {Store.secondButton}
+                </Button>
+              ) : null}
+            </Modal.Footer>
+          </Modal.Dialog>
+        ) : null}
+      </BrowserRouter>
+    );
   }
 }
 
-module.exports = App
+module.exports = App;
