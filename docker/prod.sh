@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-docker rm -f brokenjazz-cc-dev
+docker rm -f brokenjazz-cc
 
 docker run \
-  --name brokenjazz-cc-dev \
+  --name brokenjazz-cc \
   --restart unless-stopped \
-  -e NODE_ENV=development \
-  -e VIRTUAL_HOST=brokenjazz.cc.local \
+  -e NODE_ENV=production \
+  -e VIRTUAL_HOST=brokenjazz.cc \
   -v $PWD/dist:/usr/share/nginx/html:ro -d nginx
 
 
