@@ -6,7 +6,9 @@ docker run \
   --name brokenjazz-cc \
   --restart unless-stopped \
   -e NODE_ENV=production \
-  -e VIRTUAL_HOST=brokenjazz.cc \
+  -e VIRTUAL_HOST=brokenjazz.cc,www.brokenjazz.cc \
+  -e LETSENCRYPT_HOST=brokenjazz.cc,www.brokenjazz.cc \
+  -e LETSENCRYPT_EMAIL=brokenjazz@sullo.co \
   -v $PWD/dist:/usr/share/nginx/html:ro -d nginx
 
 
